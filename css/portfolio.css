@@ -258,26 +258,26 @@ body.unhinged .navbar {
     font-family: var(--font-primary);
     font-size: 13px;
     font-weight: 600;
-    color: var(--text-secondary);
-    transition: color var(--transition-speed) ease;
+    transition: color var(--transition-speed) ease, opacity var(--transition-speed) ease;
     user-select: none;
 }
 
 .toggle-label-linkedin {
-    color: var(--accent);
+    color: #0077B5;
+    opacity: 1;
 }
 
 .toggle-label-unhinged {
-    display: none;
+    color: #FF4500;
+    opacity: 0.4;
 }
 
 body.unhinged .toggle-label-linkedin {
-    display: none;
+    opacity: 0.4;
 }
 
 body.unhinged .toggle-label-unhinged {
-    display: inline;
-    color: #FF4500;
+    opacity: 1;
 }
 
 .mode-toggle {
