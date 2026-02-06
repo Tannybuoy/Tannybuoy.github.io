@@ -244,71 +244,27 @@ body.unhinged .navbar {
 }
 
 /* ============================================
-   MODE TOGGLE
+   MODE TOGGLE (iOS-style)
    ============================================ */
 .mode-toggle-wrapper {
     flex-shrink: 0;
-}
-
-.mode-toggle {
     display: flex;
     align-items: center;
-    gap: 8px;
-    background: var(--bg-secondary);
-    border: 1px solid var(--border);
-    border-radius: 50px;
-    padding: 6px 14px 6px 10px;
-    cursor: pointer;
+    gap: 10px;
+}
+
+.toggle-label-linkedin,
+.toggle-label-unhinged {
     font-family: var(--font-primary);
     font-size: 13px;
     font-weight: 600;
-    color: var(--text-primary);
-    transition: all var(--transition-speed) ease;
-    position: relative;
-    white-space: nowrap;
+    color: var(--text-secondary);
+    transition: color var(--transition-speed) ease;
+    user-select: none;
 }
 
-.mode-toggle:hover {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px var(--accent-light);
-}
-
-.mode-toggle:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-}
-
-.toggle-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    transition: all var(--transition-speed) ease;
-}
-
-.toggle-icon-linkedin {
-    background: #0077B5;
-    color: white;
-}
-
-.toggle-icon-unhinged {
-    display: none;
-    font-size: 16px;
-    background: #FF4500;
-    color: white;
-}
-
-body.unhinged .toggle-icon-linkedin {
-    display: none;
-}
-body.unhinged .toggle-icon-unhinged {
-    display: flex;
-}
-
-.toggle-slider {
-    display: none;
+.toggle-label-linkedin {
+    color: var(--accent);
 }
 
 .toggle-label-unhinged {
@@ -318,9 +274,71 @@ body.unhinged .toggle-icon-unhinged {
 body.unhinged .toggle-label-linkedin {
     display: none;
 }
+
 body.unhinged .toggle-label-unhinged {
     display: inline;
     color: #FF4500;
+}
+
+.mode-toggle {
+    position: relative;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mode-toggle:focus-visible .toggle-track {
+    box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.toggle-track {
+    display: block;
+    width: 51px;
+    height: 31px;
+    background: #e9e9ea;
+    border-radius: 15.5px;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 27px;
+    height: 27px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 1px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s cubic-bezier(0.45, 0.05, 0.55, 0.95),
+                width 0.2s ease;
+}
+
+/* ON state (unhinged) */
+body.unhinged .toggle-track {
+    background: #FF4500;
+}
+
+body.unhinged .toggle-thumb {
+    transform: translateX(20px);
+}
+
+/* Hover effect */
+.mode-toggle:hover .toggle-track {
+    opacity: 0.85;
+}
+
+/* Active press — shrink the thumb like iOS */
+.mode-toggle:active .toggle-thumb {
+    width: 31px;
+}
+
+body.unhinged .mode-toggle:active .toggle-thumb {
+    width: 31px;
+    transform: translateX(16px);
 }
 
 /* ============================================
@@ -994,23 +1012,28 @@ body.unhinged .reveal.visible .project-card:nth-child(2) { transform: rotate(0.3
         padding: 12px 24px;
     }
 
-    .mode-toggle {
-        padding: 4px 10px 4px 6px;
-        font-size: 11px;
+    .toggle-track {
+        width: 44px;
+        height: 26px;
+        border-radius: 13px;
     }
 
-    .toggle-icon {
-        width: 20px;
-        height: 20px;
+    .toggle-thumb {
+        width: 22px;
+        height: 22px;
     }
 
-    .toggle-icon-linkedin svg {
-        width: 12px;
-        height: 12px;
+    body.unhinged .toggle-thumb {
+        transform: translateX(18px);
     }
 
-    .toggle-icon-unhinged {
-        font-size: 13px;
+    .mode-toggle:active .toggle-thumb {
+        width: 26px;
+    }
+
+    body.unhinged .mode-toggle:active .toggle-thumb {
+        width: 26px;
+        transform: translateX(14px);
     }
 
     .about-grid {
@@ -1116,7 +1139,8 @@ body.unhinged .reveal.visible .project-card:nth-child(2) { transform: rotate(0.3
     }
 
     .toggle-label-linkedin,
-    .toggle-label-unhinged {
+    .toggle-label-unhinged,
+    body.unhinged .toggle-label-unhinged {
         display: none;
     }
 }
