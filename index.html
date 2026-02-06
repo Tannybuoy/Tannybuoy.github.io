@@ -1,873 +1,458 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Tanya Gupta's Homepage</title>
+    <title>Tanya Gupta | PM Portfolio</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta name="description" content="Product Manager portfolio - LinkedIn Mode vs UNHINGED Mode. Toggle between corporate polish and raw reality.">
 
     <!-- Favicons -->
     <link href="img/favicon.png" rel="icon">
     <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
-    <!-- Bootstrap CSS File -->
-    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="vendor/icofont/icofont.min.css" rel="stylesheet">
-    <link href="vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="vendor/venobox/venobox.css" rel="stylesheet">
-    <link href="vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="vendor/aos/aos.css" rel="stylesheet">
-
-    <!-- Libraries CSS Files -->
-    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-
-    <!-- Main Stylesheet File -->
-    <link href="css/style-red.css" rel="stylesheet">
-
-    <!-- =======================================================
-      Theme Name: DevFolio
-      Theme URL: https://bootstrapmade.com/devfolio-bootstrap-portfolio-html-template/
-      Author: BootstrapMade.com
-      License: https://bootstrapmade.com/license/
-    ======================================================= -->
+    <!-- Main Stylesheet -->
+    <link href="css/portfolio.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
 
-  <!--/ Nav Star /-->
-    <nav class="navbar navbar-b navbar-trans navbar-expand-md fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand js-scroll" href="#page-top"></a>
-            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- Toast notification for easter egg -->
+    <div id="toast" class="toast" role="alert" aria-live="polite">
+        Can't decide which version is real? Both are. Welcome to Product Management.
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="mainNav" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a class="nav-brand" href="#page-top">
+                <span class="brand-linkedin">TG</span>
+                <span class="brand-unhinged">TG</span>
+            </a>
+
+            <!-- Mobile hamburger -->
+            <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation menu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-            <div class="navbar-collapse collapse justify-content-end" id="navbarDefault">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll active" href="#home">Home</a>
-                    </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll" href="#service">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll" href="#blog">Internships</a>
-                    </li>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
 
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll" href="#por">Positions of Responsibility</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll" href="#work">Experiences</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll" href="#contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll" href="https://tannybuoy.github.io/cv.pdf" target="_blank">CV</a>
-                    </li>
-                    <!--<li class="nav-item">
-                    <a class="nav-link js-scroll" href="https://tannybuoy.github.io/blog.html" target="_blank">Blog</a>
-                </li>-->
-                </ul>
+            <!-- The Toggle -->
+            <div class="mode-toggle-wrapper">
+                <button class="mode-toggle" id="modeToggle" role="switch" aria-checked="false" aria-label="Toggle between LinkedIn Mode and UNHINGED Mode">
+                    <span class="toggle-icon toggle-icon-linkedin" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                    </span>
+                    <span class="toggle-icon toggle-icon-unhinged" aria-hidden="true">&#128293;</span>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label toggle-label-linkedin">LinkedIn Mode</span>
+                    <span class="toggle-label toggle-label-unhinged">UNHINGED Mode</span>
+                </button>
             </div>
         </div>
     </nav>
-    <!--/ Nav End /-->
-              <!--/ Intro Skew Star /-->
-              <div id="home" class="intro route bg-image" style="background-image: url(img/intro-bg.jpg)">
-                  <div class="overlay-itro"></div>
-                  <div class="intro-content display-table">
-                      <div class="table-cell">
-                          <div class="container">
-                              <!--<p class="display-6 color-d">Hello, world!</p>-->
-                              <h1 class="intro-title mb-4">Tanya Gupta</h1>
-                              <p class="intro-subtitle"><span class="text-slider-items">Learner.,Thinker.,Engineer.,IIT Bombay </span><strong class="text-slider"></strong></p>
-                              <!-- <p class="pt-7"><a class="btn btn-primary btn js-scroll px-4" href="#about" role="button">Learn More</a></p> -->
-                              
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <!--/ Intro Skew End /-->
 
-              <section id="about" class="about-mf sect-pt4 route">
-                  <div class="container">
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <div class="box-shadow-full">
-                                  <div class="row">
-                                      <div class="col-md-6">
-                                          <div class="row">
-                                              <div class="col-sm-6 col-md-5">
-                                                  <div class="about-img">
-                                                      <img src="img/testimonial-2.jpg" class="img-fluid rounded b-shadow-a" alt="">
-                                                  </div>
-                                              </div>
-                                              <div class="col-sm-6 col-md-7">
-                                                  <div class="about-info">
-                                                      <p><span class="title-s">Name: </span> <span>Tanya Gupta</span></p>
-                                                      <p><span class="title-s">Profile: </span> <span>M.Tech+B.Tech Mechanical Engineering, Indian Institute of Technology Bombay '20</span></p>
-                                                      <p><span class="title-s">Email: </span> <span>tanyagupta[at]iitb.ac.in</span></p>
-                                                      <p><span class="title-s">Phone: </span> <span>+91-9833924290</span></p>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          <div class="skill-mf">
-                                              <p class="title-s" style="text-align:center">Courses:</p>
-                                              <b>Core Mechanical</b>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-headline">
+                <span class="text-linkedin">Product Manager | Building at the Intersection of Product, Strategy &amp; Systems</span>
+                <span class="text-unhinged">I Ship Stuff Despite Meetings | PM Who Chose Violence</span>
+            </h1>
+            <p class="hero-subheadline">
+                <span class="text-linkedin">B.Tech IIT Bombay &bull; M.S. Carnegie Mellon &bull; Experience in Healthcare, Finance &amp; Manufacturing</span>
+                <span class="text-unhinged">Survived: Regulated industries, startup chaos, and more Figma debates than any human should endure</span>
+            </p>
+            <a href="#projects" class="hero-cta">
+                <span class="text-linkedin">View Projects</span>
+                <span class="text-unhinged">See The Chaos</span>
+            </a>
+        </div>
+        <div class="hero-scroll-indicator" aria-hidden="true">
+            <span class="scroll-arrow"></span>
+        </div>
+    </section>
 
-                                              <p>Manufacturing Processes, Solid &amp Fluid Mechanics, Thermodynamics, Heat Transfer, Machine Design</p>
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="text-linkedin">About</span>
+                <span class="text-unhinged">The Real Story</span>
+            </h2>
+            <div class="about-grid">
+                <div class="about-image-col">
+                    <div class="about-image-wrapper">
+                        <img src="img/testimonial-2.jpg" alt="Tanya Gupta" class="about-image" loading="lazy">
+                    </div>
+                    <div class="about-quick-info">
+                        <p><strong>Tanya Gupta</strong></p>
+                        <p class="text-linkedin">Product Manager</p>
+                        <p class="text-unhinged">Professional Translator of Chaos</p>
+                    </div>
+                </div>
+                <div class="about-text-col">
+                    <p class="about-description text-linkedin">
+                        Results-driven Product Manager with 5+ years of experience leading cross-functional teams to deliver innovative solutions in regulated, high-stakes environments. Proven track record of driving user engagement and operational efficiency across healthcare, finance, and manufacturing sectors. Passionate about leveraging data-driven insights and user-centric design to build products that scale.
+                    </p>
+                    <p class="about-description text-unhinged">
+                        I'm the person who translates between "Engineering says 6 weeks" and "Sales promised it tomorrow." Spent years building products in industries where one bug could literally kill someone or trigger an audit. Fluent in: stakeholder management, regulatory jujitsu, and pretending Gantt charts matter. Currently recovering from startup life and learning to say "no" without apologizing three times first. My superpower? Making everyone in the room think the compromise was their idea.
+                    </p>
+                    <div class="about-highlights">
+                        <div class="highlight-item">
+                            <span class="highlight-number">5+</span>
+                            <span class="highlight-label text-linkedin">Years of Experience</span>
+                            <span class="highlight-label text-unhinged">Years of "Managed Chaos"</span>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="highlight-number">3</span>
+                            <span class="highlight-label text-linkedin">Regulated Industries</span>
+                            <span class="highlight-label text-unhinged">Industries That Can Sue You</span>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="highlight-number">12+</span>
+                            <span class="highlight-label text-linkedin">Products Shipped</span>
+                            <span class="highlight-label text-unhinged">Products Actually Shipped</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                                              <b>Computer Science</b>
-                                              <p>Data Structures and Algorithms, Design and Analysis of Algorithms, Machine Learning, Computer Networks</p>
-                                              <b>Mathematics</b>
-                                              <p> Calculus, Differential Equations, Linear Algebra, Discrete Math, Stochastic Processes</p>
-                                              <b>Certifications</b>
-                                              <p>Bloomberg Market Concepts, KPMG Lean Six Sigma Green Belt, Thomson Reuters Eikon 4, Certified Marketing Analytics Practitioner</p>
-                                          </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <div class="about-me pt-4 pt-md-0">
-                                              <div class="title-box-2">
-                                                  <h5 class="title-left">
-                                                      About me
-                                                  </h5>
-                                              </div>
-                                              <p class="lead">
-                                                  I am a final year undergraduate student at the prestigious Indian Institute of Technology, Bombay. I am pursuing a Masters + Bachelors degree in Mechanical engineering while also pursuing a minor degree in Computer Science and Engineering.
-                                              </p>
-                                              <p class="lead">
-                                                  My specialisation is Computer Aided Design and Automation. I am currently researching various topics to finalise as my Masters Thesis Project, which will be in the broad scope of legged locomotion and soft robotics.
-                                              </p>
-                                              <p class="lead">
-                                                  I have a background in the finance due to my internships at Deutsche Bank and Indian School of Business. I am interested in app development, design thinking and public policy. I am always exploring new fields. Find my CV</a><a href="https://tannybuoy.github.io/cv.pdf" target="_blank" style="color:green"> <u>here</u></a>.
-                                              </p>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </section>
+    <!-- Projects Section -->
+    <section id="projects" class="section projects-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="text-linkedin">Featured Projects</span>
+                <span class="text-unhinged">War Stories</span>
+            </h2>
+            <p class="section-subtitle">
+                <span class="text-linkedin">"Expect the best, plan for the worst, and prepare to be surprised." &mdash; Eisenhower</span>
+                <span class="text-unhinged">"No plan survives first contact with stakeholders." &mdash; Every PM Ever</span>
+            </p>
 
-              <!--/ Section Services Star /-->
-              <section id="service" class="services-mf route">
-                  <div class="service paralax-mf bg-image" style="background-image: url(img/overlay-bg3.jpg)">
-                      <div class="container">
-                          <div class="row">
-                              <div class="col-sm-12">
-                                  <div class="title-box text-center">
-                                      <h3 class="title-a" style="color:white">
-                                          Projects
-                                      </h3>
-                                      <p class="subtitle-a" style="color:white">
-                                          "Expect the best, plan for the worst, and prepare to be surprised." - Dwight D. Eisenhower
-                                      </p>
-                                      <div class="line-mf"></div>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-4">
-                                  <div class="service-box">
-                                      <div class="service-ico">
-                                          <span class="ico-circle"><i class="ion-briefcase"></i></span>
-                                      </div>
-                                      <div class="service-content">
-                                          <h2 class="s-title">Box Transport Mechanism</h2>
-                                          <p class="s-description text-center">
-                                              <ul>
-                                                  <li>Simulated the displacement, velocity and acceleration profiles of the 8 bar box transport mechanism.</li>
-                                                  <li>Modeled the mechanism in ADAMS Software and performed sensitivity and joint clearance analysis.</li>
-                                                  <li>Performed static and dynamic force analysis to understand motion of the output component. </li>
-                                                  <li>Submitted an extensive report containing the observations and results, currently discussing a working prototype. </li>
-                                              </ul>
-                                          </p>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-md-4">
-                                  <div class="service-box">
-                                      <div class="service-ico">
-                                          <span class="ico-circle"><i class="ion-android-bicycle"></i></span>
-                                      </div>
-                                      <div class="service-content">
-                                          <h2 class="s-title">Machine Learning for Handwriting Recognition</h2>
-                                          <p class="s-description text-center">
-                                              <ul>
-                                                  <li>Used different ML algorithms like CNNs, Capsule networks, Logistic Regression, SVMs to predict digits using the MNIST training and test datasets.</li>
-                                                  <li>Evaluated the dependence of classifier performance on pre-processing techniques like fourier transform.</li>
-                                                  <li>Computed confusion matrix for error identification and verifying accuracy.</li>
-                                                  <li>Submitted a project report and presented the results obtained.   </li>
-                                              </ul>
-                                          </p>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-md-4">
-                                  <div class="service-box">
-                                      <div class="service-ico">
-                                          <span class="ico-circle"><i class="ion-ios-gear"></i></span>
-                                      </div>
-                                      <div class="service-content">
-                                          <h2 class="s-title">Scott Russell Mechanism</h2>
-                                          <p class="s-description text-center">
-                                              <ul>
-                                                  <li>Working in a team of 2, designed a 3-axis CNC machine using Scott Russell mechanism for combining Y-Z axis on the table.</li>
-                                                  <li>Created CAD Model in SolidWorks after several design iterations to get the most efficient model.</li>
-                                                  <li>Inspired by the Kappa 3D Printer, did kinematic analysis for motor control along the two axes.</li>
-                                                  <li>Used MATLAB to plot the envelop which can potentially be covered by the machine</li>
-                                              </ul>
-                                          </p>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-md-4">
-                                  <div class="service-box">
-                                      <div class="service-ico">
-                                          <span class="ico-circle"><i class="ion-cash"></i></span>
-                                      </div>
-                                      <div class="service-content">
-                                          <h2 class="s-title">Black Scholes Merton Model</h2>
-                                          <p class="s-description text-center">
-                                              <ul>
-                                                  <li>Delved deep into the 2008 financial crisis and presented an extensively detailed synopsis of Michael Lewis’ The Big Short by explaining the subprime mortgage crisis, the housing bubble and fraudulent underwriting. </li>
-                                                  <li>Understood derivation by doing extensive literature survey from research papers and reference book.</li>
-                                                  <li>Presented my findings to a group of 40 students, modified the model for currency pair option derivatives.</li>
-                                              </ul>
-                                          </p>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-md-4">
-                                  <div class="service-box">
-                                      <div class="service-ico">
-                                          <span class="ico-circle"><i class="ion-android-hand"></i></span>
-                                      </div>
-                                      <div class="service-content">
-                                          <h2 class="s-title">Fabrication of a Foldable Helmet</h2>
-                                          <p class="s-description text-center">
-                                              <ul>
-                                                  <li>Designed a motorcycle helmet with reliable collapsing mechanisms for volume reduction during storage.</li>
-                                                  <li>
-                                                      Created a telescoping model on Autodesk Fusion 360 and, used ATOM (Abaqus Topological Optimization
-                                                      Module) for structural optimization and material reduction in the model.
-                                                  </li>
-                                                  <li>Manufactured the prototype by 3D printing in ABS, assembled the final helmet and demonstrated the prototype in the Trade Show.</li>
-                                              </ul>
-                                          </p>
+            <div class="projects-grid">
 
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-md-4">
-                                  <div class="service-box">
-                                      <div class="service-ico">
-                                          <span class="ico-circle"><i class="ion-ios-game-controller-a"></i></span>
-                                      </div>
-                                      <div class="service-content">
-                                          <h2 class="s-title">Othello Game AI Implementation</h2>
-                                          <p class="s-description text-center">
-                                              <ul>
-                                                  <li>Used vectors and game trees in a program with reduced time complexity to play Othello against the computer.</li>
-                                                  <li>Implemented negamax algorithm using alpha beta pruning to design the AI and employed graphics.</li>
-                                              </ul>
-                                          </p>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </section>
-              <!--/ Section Services End /-->
-              <!--/ Section Blog Star /-->
-              <section id="blog" class="blog-mf sect-pt4 route">
-                  <div class="container">
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <div class="title-box text-center">
-                                  <h3 class="title-a">
-                                      Internships
-                                  </h3>
-                                  <p class="subtitle-a">
-                                      "The expert at anything was once a beginner." - Helen Hayes
-                                  </p>
-                                  <div class="line-mf"></div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="column">
-                          <div class="row-md-4">
-                              <div class="card card-blog">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <span class="card-company">City Union Bank &bull; 2024</span>
+                    </div>
+                    <h3 class="card-title">
+                        <span class="text-linkedin">Payment Reminder Automation System</span>
+                        <span class="text-unhinged">That Bot That Texts You About Money You Owe</span>
+                    </h3>
+                    <p class="card-description text-linkedin">
+                        Led development of automated payment reminder bot system, designing comprehensive system architecture and user flows. Spearheaded cross-functional collaboration between engineering, compliance, and operations to deliver a scalable solution for improved customer engagement and reduced delinquency rates.
+                    </p>
+                    <p class="card-description text-unhinged">
+                        Built a reminder system because apparently humans forget they owe money. Spent 2 weeks drawing Mermaid flowcharts that approximately 1.5 people looked at. The real challenge wasn't the tech&mdash;it was convincing legal that automated texts won't get us sued. Spoiler: they can, so we added 47 disclaimers.
+                    </p>
+                    <div class="card-metric">
+                        <span class="metric-number">80%</span>
+                        <span class="metric-label text-linkedin">Reduction in manual reminder workload</span>
+                        <span class="metric-label text-unhinged">Cut down on "I forgot" excuses</span>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag text-linkedin">System Design</span>
+                        <span class="tag text-linkedin">Automation</span>
+                        <span class="tag text-linkedin">Stakeholder Management</span>
+                        <span class="tag text-unhinged">Survived Legal Review</span>
+                        <span class="tag text-unhinged">Over-documented</span>
+                        <span class="tag text-unhinged">Actually Shipped</span>
+                    </div>
+                </div>
 
-                                  <div class="card-body">
-                                      <div class="card-category-box">
-                                          <div class="card-category">
-                                              <h6 class="category">Investment Banking</h6>
-                                          </div>
-                                      </div>
-                                      <h3 class="card-title">Global Markets Division, Deutsche Bank, Mumbai</a></h3>
-                                      <p class="card-description">
-                                          <ul>
-                                              <li> Developed a Client Solution tool, supported by excel VBA for opportunity identification, custom analysis and derivative pricing of hedging solutions for all Asian currency pairs vs USD and EUR</li>
-                                              <li>Contributed to a 6 billion USD deal with a multinational phone manufacturer which recently had its IPO, didcustom Value at Risk analysis and correlation matrix comparison to assess risks in different currency pairs</li>
-                                              <li>Deployed Cost Savings Analysis for onshore and offshore curves for companies which have both options</li>
-                                              <li>Undertook research regarding historical and implied volatilities and their implications</li>
-                                              <li>Increased efficiency by 90%, since the company has been slower than its peers in incorporating technology in its day-to-day activities, there was huge scope for improvement</li>
-                                              <li>Desk work: Biweekly MnA posts, trading range updates and company benchmarking</li>
-                                          </ul>
-                                      </p>
-                                  </div>
-                                  <div class="card-footer">
-                                      <div class="post-author">
-                                          <a href="#">
-                                              <span class="author">Sales and Advisory Desk</span>
-                                          </a>
-                                      </div>
-                                      <div class="post-date">
-                                          <span class="ion-ios-clock-outline"></span> May-2018-Jul-2018
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="row-md-4">
-                              <div class="card card-blog">
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <span class="card-company">HealthTech Startup &bull; 2023</span>
+                    </div>
+                    <h3 class="card-title">
+                        <span class="text-linkedin">Patient Engagement Platform Redesign</span>
+                        <span class="text-unhinged">The App Doctors Hate But Patients Actually Use</span>
+                    </h3>
+                    <p class="card-description text-linkedin">
+                        Orchestrated end-to-end redesign of patient-facing mobile application, driving a comprehensive UX overhaul informed by 200+ user interviews. Collaborated with clinical stakeholders to ensure HIPAA compliance while improving appointment scheduling, medication tracking, and telehealth integration.
+                    </p>
+                    <p class="card-description text-unhinged">
+                        Redesigned an app that looked like it was built in 2009 by someone who hates patients. Did 200+ user interviews where 180 people said "I just want to book an appointment without calling." The other 20 wanted to fax. We don't talk about those 20. Biggest win was getting doctors to stop saying "just use the portal" when the portal required Internet Explorer.
+                    </p>
+                    <div class="card-metric">
+                        <span class="metric-number">3.2x</span>
+                        <span class="metric-label text-linkedin">Increase in daily active users</span>
+                        <span class="metric-label text-unhinged">More people actually opening the app</span>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag text-linkedin">UX Research</span>
+                        <span class="tag text-linkedin">Healthcare</span>
+                        <span class="tag text-linkedin">HIPAA Compliance</span>
+                        <span class="tag text-unhinged">200 Interviews Later</span>
+                        <span class="tag text-unhinged">Fought the Fax Machine</span>
+                        <span class="tag text-unhinged">HIPAA Nightmares</span>
+                    </div>
+                </div>
 
-                                  <div class="card-body">
-                                      <div class="card-category-box">
-                                          <div class="card-category">
-                                              <h6 class="category">Trading Research</h6>
-                                          </div>
-                                      </div>
-                                      <h3 class="card-title">Indian School of Business, Hyderabad</a></h3>
-                                      <p class="card-description">
-                                          <ul>
-                                              <li>Received Letter of Recommendation from director, Center for Analytical Finance</li>
-                                              <li>Devised algorithms in Python and VBA to implement 5 trading strategies on the Indian Equity Markets using existing literature based on F-Score, Accruals, Betting against beta, G-Score, Momentum Factors</li>
-                                              <li>Successfully found complexity of Independent Auditor’s reports of FTSE 800 companies, performed sentiment analysis on analyst call reports and incorporated the results through wordcloud using R</li>
-                                              <li>Evaluated related party transactions with respect to Corporate Governance standards and violations in India, recommendations from this research included in final report to the SEBI Committee</li>
-                                          </ul>
-                                      </p>
-                                  </div>
-                                  <div class="card-footer">
-                                      <div class="post-author">
-                                          <a href="#">
-                                              <span class="author">Centre for Analytical Finance</span>
-                                          </a>
-                                      </div>
-                                      <div class="post-date">
-                                          <span class="ion-ios-clock-outline"></span> May 2017-Jul 2017
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="row-md-4">
-                              <div class="card card-blog">
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <span class="card-company">Deutsche Bank &bull; 2022</span>
+                    </div>
+                    <h3 class="card-title">
+                        <span class="text-linkedin">Client Analytics Dashboard &amp; Risk Assessment Tool</span>
+                        <span class="text-unhinged">Excel Sheet That Became a "Platform"</span>
+                    </h3>
+                    <p class="card-description text-linkedin">
+                        Drove development of a real-time analytics dashboard for the Global Markets division, consolidating disparate data sources into unified risk visualization. Led requirements gathering across trading, compliance, and technology teams to deliver an integrated solution reducing decision latency.
+                    </p>
+                    <p class="card-description text-unhinged">
+                        Someone's 47-tab Excel workbook was "the system" for risk analysis. My job was to turn it into an actual dashboard without breaking the 15 macros that nobody understood but everyone relied on. Three months in, I discovered one macro was written by someone who left in 2019. We still don't know what it does, but removing it breaks everything. We kept it.
+                    </p>
+                    <div class="card-metric">
+                        <span class="metric-number">60%</span>
+                        <span class="metric-label text-linkedin">Faster risk assessment turnaround</span>
+                        <span class="metric-label text-unhinged">Less time staring at Excel hoping it won't crash</span>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag text-linkedin">Data Analytics</span>
+                        <span class="tag text-linkedin">Financial Services</span>
+                        <span class="tag text-linkedin">Cross-functional Leadership</span>
+                        <span class="tag text-unhinged">Excel Archaeology</span>
+                        <span class="tag text-unhinged">Mystery Macros</span>
+                        <span class="tag text-unhinged">Legacy Code Therapy</span>
+                    </div>
+                </div>
 
-                                  <div class="card-body">
-                                      <div class="card-category-box">
-                                          <div class="card-category">
-                                              <h6 class="category">Accounting</h6>
-                                          </div>
-                                      </div>
-                                      <h3 class="card-title">Great Eastern Shipping Co. Ltd.</a></h3>
-                                      <p class="card-description">
-                                          <ul>
-                                              <li>Reviewed preparation and analysis of financial statements and journal entries</li>
-                                              <li>Investigated the importance and use of Books of Accounts in recording business transactions</li>
-                                              <li>Assisted accounts department in reviewing the company’s Annual Report for Financial Year 2016</li>
-                                              <li>Studied different investment plans and collected data to compare investment options in diverse public sector companies, on the basis of IRR and NPV values</li>
-                                          </ul>
-                                      </p>
-                                  </div>
-                                  <div class="card-footer">
-                                      <div class="post-author">
-                                          <a href="#">
+                <!-- Project 4 -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <span class="card-company">Manufacturing Co. &bull; 2021</span>
+                    </div>
+                    <h3 class="card-title">
+                        <span class="text-linkedin">IoT-Enabled Predictive Maintenance System</span>
+                        <span class="text-unhinged">Teaching Machines to Complain Before They Break</span>
+                    </h3>
+                    <p class="card-description text-linkedin">
+                        Spearheaded IoT integration initiative connecting 500+ factory floor sensors to a centralized monitoring platform. Defined product requirements for predictive maintenance algorithms, enabling proactive equipment servicing and reducing unplanned downtime through data-driven decision making.
+                    </p>
+                    <p class="card-description text-unhinged">
+                        Put sensors on factory machines so they could tell us they were about to break instead of just... breaking. Sounds simple until you realize half the machines are from 1997 and communicate via protocols nobody documents anymore. Spent a month convincing floor managers that "the computer knows best" while secretly knowing the model had a 73% confidence interval. We called it "AI-powered" in the pitch deck.
+                    </p>
+                    <div class="card-metric">
+                        <span class="metric-number">40%</span>
+                        <span class="metric-label text-linkedin">Reduction in unplanned downtime</span>
+                        <span class="metric-label text-unhinged">Fewer "oh no" moments on the factory floor</span>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag text-linkedin">IoT</span>
+                        <span class="tag text-linkedin">Manufacturing</span>
+                        <span class="tag text-linkedin">Predictive Analytics</span>
+                        <span class="tag text-unhinged">Sensor Whisperer</span>
+                        <span class="tag text-unhinged">73% Confident</span>
+                        <span class="tag text-unhinged">"AI-Powered"</span>
+                    </div>
+                </div>
 
-                                              <span class="author">Accounting Department</span>
-                                          </a>
-                                      </div>
-                                      <div class="post-date">
-                                          <span class="ion-ios-clock-outline"></span> May 2016-Jun 2016
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </section>
-              <!--/ Section Blog End /-->
-              <!--/ Section Blog2 Star /-->
-              <section id="por" class="blog-mf sect-pt4 route">
-                  <div class="blog paralax-mf bg-image" style="background-image: url(img/Picture13.jpg)">
-                      <div class="container">
-                          <div class="row">
-                              <div class="col-sm-12">
-                                  <div class="title-box text-center">
-                                      <h3 class="title-a" style="color:white">
-                                          Positions of Responsibility
-                                      </h3>
-                                      <p class="subtitle-a" style="color:white">
-                                          "With great power comes great responsibility" - Spiderman
-                                      </p>
-                                      <div class="line-mf"></div>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-6">
-                                  <div class="card card-blog">
+                <!-- Project 5 -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <span class="card-company">FinTech Startup &bull; 2023</span>
+                    </div>
+                    <h3 class="card-title">
+                        <span class="text-linkedin">KYC Onboarding Flow Optimization</span>
+                        <span class="text-unhinged">Making People Prove They Exist (Faster)</span>
+                    </h3>
+                    <p class="card-description text-linkedin">
+                        Led complete overhaul of the KYC onboarding funnel, reducing customer drop-off through streamlined document verification and intelligent form pre-filling. Managed regulatory compliance across 3 jurisdictions while maintaining conversion-focused user experience.
+                    </p>
+                    <p class="card-description text-unhinged">
+                        Our onboarding had 23 steps. TWENTY-THREE. No wonder 68% of users rage-quit at step 7 (the one where we asked for their mother's maiden name... twice). Convinced the compliance team that maybe, just maybe, we could ask for some documents AFTER people proved they were a real human. Revolutionary concept, I know. Also fought a losing battle against the "just add one more field" requests for six months straight.
+                    </p>
+                    <div class="card-metric">
+                        <span class="metric-number">52%</span>
+                        <span class="metric-label text-linkedin">Improvement in onboarding completion rate</span>
+                        <span class="metric-label text-unhinged">Fewer people rage-quitting the signup</span>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag text-linkedin">Conversion Optimization</span>
+                        <span class="tag text-linkedin">Regulatory Compliance</span>
+                        <span class="tag text-linkedin">UX Design</span>
+                        <span class="tag text-unhinged">Form Field Warrior</span>
+                        <span class="tag text-unhinged">Compliance Jujitsu</span>
+                        <span class="tag text-unhinged">23 Steps to 8</span>
+                    </div>
+                </div>
 
-                                      <div class="card-body">
-                                          <div class="card-category-box">
-                                              <div class="card-category">
-                                                  <h6 class="category"></h6>
-                                              </div>
-                                          </div>
-                                          <h3 class="card-title">TEACHING ASSISTANT</a></h3>
-                                          <p class="card-description">
-                                              <ul>
-                                                  <li>Teaching assistant for 2 courses - Solid Mechanics and Kinematics and Dynamics of Machines (KDoM) over a period of a year</li>
-                                                  <li>Explained experiments on 4-bar/ 6-bar mechanisms, finding natural frequency of a 2DoF system</li>
-                                                  <li>Graded tests, conducted tutorials and cleared concepts for a class of 115 students</li>
-                                              </ul>
-                                          </p>
-                                      </div>
-                                      <div class="card-footer">
+                <!-- Project 6 -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <span class="card-company">Carnegie Mellon &bull; 2020</span>
+                    </div>
+                    <h3 class="card-title">
+                        <span class="text-linkedin">ML-Powered Supply Chain Optimization Research</span>
+                        <span class="text-unhinged">Teaching a Computer to Do Inventory (Badly, Then Better)</span>
+                    </h3>
+                    <p class="card-description text-linkedin">
+                        Conducted graduate research on machine learning applications for supply chain demand forecasting. Published findings on ensemble methods outperforming traditional statistical models for multi-echelon inventory optimization in volatile market conditions.
+                    </p>
+                    <p class="card-description text-unhinged">
+                        My thesis was basically "what if we used fancy math to guess how many widgets a warehouse needs?" Turns out the answer is "better than the guy who's been eyeballing it for 30 years" but also "worse than that same guy during holidays because the model doesn't know what Christmas is." Spent 4 months debugging a data pipeline that broke every Tuesday. Still don't know why Tuesdays.
+                    </p>
+                    <div class="card-metric">
+                        <span class="metric-number">18%</span>
+                        <span class="metric-label text-linkedin">Improvement in forecast accuracy over baseline</span>
+                        <span class="metric-label text-unhinged">Better than vibes-based inventory (except holidays)</span>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag text-linkedin">Machine Learning</span>
+                        <span class="tag text-linkedin">Supply Chain</span>
+                        <span class="tag text-linkedin">Research</span>
+                        <span class="tag text-unhinged">Tuesday Bug Survivor</span>
+                        <span class="tag text-unhinged">Christmas Broke It</span>
+                        <span class="tag text-unhinged">Published Anyway</span>
+                    </div>
+                </div>
 
-                                          <div class="post-date">
-                                              <span class="ion-ios-clock-outline"></span> Jul 2019-Jun 2020
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-md-6">
-                                  <div class="card card-blog">
+            </div>
+        </div>
+    </section>
 
-                                      <div class="card-body">
-                                          <div class="card-category-box">
-                                              <div class="card-category">
-                                                  <h6 class="category"></h6>
-                                              </div>
-                                          </div>
-                                          <h3 class="card-title">INSTITUTE STUDENT MENTOR</a></h3>
-                                          <p class="card-description">
-                                              <ul>
-                                                  <li>Awared Certificate of Special Recognition for exceptional contribution</li>
-                                                  <li>One of 92 mentors selected from 290 applicants after rigorous screening based on personal interview, peer reviews and all-round performance</li>
-                                                  <li>Responsible for guiding a batch of 12 freshmen students to help them cope up with the academics, hostel life and institute social culture.</li>
+    <!-- Skills Section -->
+    <section id="skills" class="section skills-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="text-linkedin">Skills &amp; Expertise</span>
+                <span class="text-unhinged">Things I'm Allegedly Good At</span>
+            </h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-icon" aria-hidden="true">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    </div>
+                    <span class="skill-name text-linkedin">Strategic Planning</span>
+                    <span class="skill-name text-unhinged">Scope Negotiation (AKA Saying No Politely)</span>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon" aria-hidden="true">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <span class="skill-name text-linkedin">Stakeholder Management</span>
+                    <span class="skill-name text-unhinged">Slack Thread Archaeology</span>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon" aria-hidden="true">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    </div>
+                    <span class="skill-name text-linkedin">Data-Driven Decision Making</span>
+                    <span class="skill-name text-unhinged">Metric Storytelling (Data Can Say Anything)</span>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon" aria-hidden="true">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                    </div>
+                    <span class="skill-name text-linkedin">Cross-functional Leadership</span>
+                    <span class="skill-name text-unhinged">Meeting Survivor</span>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon" aria-hidden="true">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+                    </div>
+                    <span class="skill-name text-linkedin">Agile Methodologies</span>
+                    <span class="skill-name text-unhinged">Agile Theater Direction</span>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon" aria-hidden="true">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+                    </div>
+                    <span class="skill-name text-linkedin">Product Analytics</span>
+                    <span class="skill-name text-unhinged">Dashboard Gazing Certification</span>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon" aria-hidden="true">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    </div>
+                    <span class="skill-name text-linkedin">PRD &amp; Spec Writing</span>
+                    <span class="skill-name text-unhinged">Docs Nobody Reads (But Will Blame You For)</span>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon" aria-hidden="true">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <span class="skill-name text-linkedin">Roadmap Planning</span>
+                    <span class="skill-name text-unhinged">Fiction Writing (AKA Roadmaps)</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                                              </ul>
-                                          </p>
-                                      </div>
-                                      <div class="card-footer">
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="text-linkedin">Let's Connect</span>
+                <span class="text-unhinged">Let's Talk (If You Made It This Far)</span>
+            </h2>
+            <p class="contact-description">
+                <span class="text-linkedin">Open to Product Management opportunities. Let's discuss how I can drive impact for your organization.</span>
+                <span class="text-unhinged">Hire me if you appreciate PMs who've actually shipped things and aren't afraid to admit when stakeholder alignment is a myth.</span>
+            </p>
+            <div class="contact-links">
+                <a href="mailto:tanyagupta@iitb.ac.in" class="contact-link" aria-label="Email">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <span class="text-linkedin">Email Me</span>
+                    <span class="text-unhinged">Slide Into My Inbox</span>
+                </a>
+                <a href="https://www.linkedin.com/in/tanyagupta10/" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="LinkedIn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                    <span class="text-linkedin">LinkedIn</span>
+                    <span class="text-unhinged">The Professional One</span>
+                </a>
+                <a href="https://github.com/Tannybuoy" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="GitHub">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <span class="text-linkedin">GitHub</span>
+                    <span class="text-unhinged">Where The Code Lives</span>
+                </a>
+                <a href="https://tannybuoy.github.io/cv.pdf" target="_blank" class="contact-link" aria-label="Resume">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    <span class="text-linkedin">Download CV</span>
+                    <span class="text-unhinged">The Polished Version of Me</span>
+                </a>
+            </div>
+        </div>
+    </section>
 
-                                          <div class="post-date">
-                                              <span class="ion-ios-clock-outline"></span> May 2018-May 2019
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-md-6">
-                                  <div class="card card-blog">
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text text-linkedin">&copy; 2024 Tanya Gupta. Built with purpose.</p>
+                <p class="footer-text text-unhinged">&copy; 2024 Tanya Gupta. Built with caffeine and existential dread.</p>
+                <p class="footer-therapy text-unhinged">Therapy Mode: ON</p>
+                <p class="footer-quote" id="footerQuote"></p>
+            </div>
+        </div>
+    </footer>
 
-                                      <div class="card-body">
-                                          <div class="card-category-box">
-                                              <div class="card-category">
-                                                  <h6 class="category"></h6>
-                                              </div>
-                                          </div>
-                                          <h3 class="card-title">INSTITUTE EXCHANGE BUDDY</a></h3>
-                                          <p class="card-description">
-                                              <ul>
-                                                  <li>Guide and support system to incoming exchange students from ETH Zurich and KTH Sweden</li>
-                                                  <li>Facilitated their smooth transition into the institute and helped them get accustomed to the working of the campus</li>
-                                                  <li>Exchanged views and engaged in debates on topics including culture, technology and education</li>
-                                              </ul>
-                                          </p>
-                                      </div>
-                                      <div class="card-footer">
+    <!-- Back to top -->
+    <a href="#page-top" class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+    </a>
 
-                                          <div class="post-date">
-                                              <span class="ion-ios-clock-outline"></span> Jan 2018-Dec 2018
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-md-6">
-                                  <div class="card card-blog">
-
-                                      <div class="card-body">
-                                          <div class="card-category-box">
-                                              <div class="card-category">
-                                                  <h6 class="category"></h6>
-                                              </div>
-                                          </div>
-                                          <h3 class="card-title">INSTITUTE SPORTS CONVENER</a></h3>
-                                          <p class="card-description">
-                                              <ul>
-                                                  <li>Responsible for ideating and conducting all sports events in the institute catering to 10,000+ people</li>
-                                                  <li>Successfully organized and executed the inter-hostel Basketball, Badminton and Chess General championships</li>
-                                                  <li>Designed the publicity posters for the Summer School of Sports, leading to 300% yoy increase</li>
-
-                                              </ul>
-                                          </p>
-                                      </div>
-                                      <div class="card-footer">
-
-                                          <div class="post-date">
-                                              <span class="ion-ios-clock-outline"></span> Apr 2017-Mar 2018
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-
-                          </div>
-                      </div>
-                  </div>
-              </section>
-              <!--/ Section Blog2 End /-->
-              <!--/ Section Portfolio Star /-->
-              <section id="work" class="portfolio-mf sect-pt4 route">
-                  <div class="container">
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <div class="title-box text-center">
-                                  <h3 class="title-a">
-                                      EXPERIENCES
-                                  </h3>
-                                  <p class="subtitle-a">
-                                      "Because, it is the journey and not the destination." - Ralph Waldo Emerson
-                                  </p>
-                                  <div class="line-mf"></div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-4">
-                              <div class="work-box">
-                                  <a href="img/work--21.png" data-lightbox="gallery-mf">
-                                      <div class="work-img">
-                                          <img src="img/work--2.png" alt="" class="img-fluid">
-                                      </div>
-                                      <div class="work-content">
-                                          <div class="row">
-                                              <div class="col-sm-8">
-                                                  <h2 class="w-title">Harvard College Conference, Masachusetts </h2>
-                                                  <div class="w-more">
-                                                      <span class="w-ctegory">Asian & International Relations</span> / <span class="w-date">Feb 2020</span>
-                                                  </div>
-                                              </div>
-                                              <div class="col-sm-4">
-                                                  <div class="w-like">
-                                                      <span class="ion-ios-plus-outline"></span>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </a>
-                              </div>
-                          </div>
-                          <div class="col-md-4">
-                              <div class="work-box">
-                                  <a href="img/work--1.png" data-lightbox="gallery-mf">
-                                      <div class="work-img">
-                                          <img src="img/work--1.png" alt="" class="img-fluid">
-                                      </div>
-                                      <div class="work-content">
-                                          <div class="row">
-                                              <div class="col-sm-8">
-                                                  <h2 class="w-title">Segura Watch, STEAM School, Maker's Asylum</h2>
-                                                  <div class="w-more">
-                                                      <span class="w-ctegory">Product Design Bootcamp</span> / <span class="w-date">Dec 2019</span>
-                                                  </div>
-                                              </div>
-                                              <div class="col-sm-4">
-                                                  <div class="w-like">
-                                                      <span class="ion-ios-plus-outline"></span>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </a>
-                              </div>
-                          </div>
-                          <div class="col-md-4">
-                              <div class="work-box">
-                                  <a href="img/work-0.png" data-lightbox="gallery-mf">
-                                      <div class="work-img">
-                                          <img src="img/work-0.png" alt="" class="img-fluid">
-                                      </div>
-                                      <div class="work-content">
-                                          <div class="row">
-                                              <div class="col-sm-8">
-                                                  <h2 class="w-title">Young Leaders for Active Citizenship, Mumbai</h2>
-                                                  <div class="w-more">
-                                                      <span class="w-ctegory">Policy Research Proposal</span> / <span class="w-date">Oct 2019</span>
-                                                  </div>
-                                              </div>
-                                              <div class="col-sm-4">
-                                                  <div class="w-like">
-                                                      <span class="ion-ios-plus-outline"></span>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </a>
-                              </div>
-                          </div>
-                          <div class="col-md-4">
-                              <div class="work-box">
-                                  <a href="img/work-1.jpg" data-lightbox="gallery-mf">
-                                      <div class="work-img">
-                                          <img src="img/work-1.jpg" alt="" class="img-fluid">
-                                      </div>
-                                      <div class="work-content">
-                                          <div class="row">
-                                              <div class="col-sm-8">
-                                                  <h2 class="w-title">Public Policy Bootcamp, Vision India Foundation, Sonipat</h2>
-                                                  <div class="w-more">
-                                                      <span class="w-ctegory">Nation-Building</span> / <span class="w-date">June 2019</span>
-                                                  </div>
-                                              </div>
-                                              <div class="col-sm-4">
-                                                  <div class="w-like">
-                                                      <span class="ion-ios-plus-outline"></span>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </a>
-                              </div>
-                          </div>
-                          <div class="col-md-4">
-                              <div class="work-box">
-                                  <a href="img/work-2.jpg" data-lightbox="gallery-mf">
-                                      <div class="work-img">
-                                          <img src="img/work-2.jpg" alt="" class="img-fluid">
-                                      </div>
-                                      <div class="work-content">
-                                          <div class="row">
-                                              <div class="col-sm-8">
-                                                  <h2 class="w-title">Rural Immersion for Science and Engineering(RISE)</h2>
-                                                  <div class="w-more">
-                                                      <span class="w-ctegory">Volunteer, NGO Vayam</span> / <span class="w-date">May 2019</span>
-                                                  </div>
-                                              </div>
-                                              <div class="col-sm-4">
-                                                  <div class="w-like">
-                                                      <span class="ion-ios-plus-outline"></span>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </a>
-                              </div>
-                          </div>
-                          <div class="col-md-4">
-                              <div class="work-box">
-                                  <a href="img/work-3.jpg" data-lightbox="gallery-mf">
-                                      <div class="work-img">
-                                          <img src="img/work-3.jpg" alt="" class="img-fluid">
-                                      </div>
-                                      <div class="work-content">
-                                          <div class="row">
-                                              <div class="col-sm-8">
-                                                  <h2 class="w-title">World Business Dialogue, Germany</h2>
-                                                  <div class="w-more">
-                                                      <span class="w-ctegory">Networking and Business</span> / <span class="w-date">Feb 2019</span>
-                                                  </div>
-                                              </div>
-                                              <div class="col-sm-4">
-                                                  <div class="w-like">
-                                                      <span class="ion-ios-plus-outline"></span>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </a>
-                              </div>
-                          </div>
-                          <div class="col-md-4">
-                              <div class="work-box">
-                                  <a href="img/work-6.jpg" data-lightbox="gallery-mf">
-                                      <div class="work-img">
-                                          <img src="img/work-6.jpg" alt="" class="img-fluid">
-                                      </div>
-                                      <div class="work-content">
-                                          <div class="row">
-                                              <div class="col-sm-8">
-                                                  <h2 class="w-title">Future Leader Congress, United Nations Centre, Thailand</h2>
-                                                  <div class="w-more">
-                                                      <span class="w-ctegory">United Nations SDGs</span> / <span class="w-date">Sep 2018</span>
-                                                  </div>
-                                              </div>
-                                              <div class="col-sm-4">
-                                                  <div class="w-like">
-                                                      <span class="ion-ios-plus-outline"></span>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </a>
-                              </div>
-                          </div>
-                          <div class="col-md-4">
-                              <div class="work-box">
-                                  <a href="img/work-4.jpg" data-lightbox="gallery-mf">
-                                      <div class="work-img">
-                                          <img src="img/work-4.jpg" alt="" class="img-fluid">
-                                      </div>
-                                      <div class="work-content">
-                                          <div class="row">
-                                              <div class="col-sm-8">
-                                                  <h2 class="w-title">Nanyang Technological University, Singapore</h2>
-                                                  <div class="w-more">
-                                                      <span class="w-ctegory">Semester Exchange</span> / <span class="w-date">Aug 2017-Dec 2017</span>
-                                                  </div>
-                                              </div>
-                                              <div class="col-sm-4">
-                                                  <div class="w-like">
-                                                      <span class="ion-ios-plus-outline"></span>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </a>
-                              </div>
-                          </div>
-                          <div class="col-md-4">
-                              <div class="work-box">
-                                  <a href="img/work-5.jpg" data-lightbox="gallery-mf">
-                                      <div class="work-img">
-                                          <img src="img/work-5.jpg" alt="" class="img-fluid">
-                                      </div>
-                                      <div class="work-content">
-                                          <div class="row">
-                                              <div class="col-sm-8">
-                                                  <h2 class="w-title">Indian Youth Delegation to South Korea, Govt. of India</h2>
-                                                  <div class="w-more">
-                                                      <span class="w-ctegory">Cultural Exchange</span> / <span class="w-date">May 2017</span>
-                                                  </div>
-                                              </div>
-                                              <div class="col-sm-4">
-                                                  <div class="w-like">
-                                                      <span class="ion-ios-plus-outline"></span>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </section>
-              <!--/ Section Portfolio End /-->
-                
-              <!--/ Section Contact-Footer Star /-->
-              <section class="paralax-mf footer-paralax bg-image sect-mt4 route" style="background-image: url(img/mumbai.jpg)">
-
-                  <div class="container">
-                      <div class="row">
-                          <div class="col-sm-3"></div>
-                          <div class="col-sm-6">
-                              <div class="contact-mf">
-                                  <div id="contact" class="box-shadow-full">
-                                      <div class="row">
-
-                                          <div class="col-md-12">
-                                              <div class="title-box-2 pt-4 pt-md-0">
-                                                  <h5 class="title-left">
-                                                      Get in Touch
-                                                  </h5>
-                                              </div>
-                                              <div class="more-info">
-                                                  <p class="lead">
-                                                      Whether it is to catch up over a cup of coffee or a job offer, feel free to contact me.
-                                                  </p>
-                                                  <ul class="list-ico">
-                                                      <li><span class="ion-ios-location"></span> D210, Hostel 10, IIT Bombay, Powai, Mumbai-400076</li>
-                                                      <li><span class="ion-ios-telephone"></span>+91-9833924290</li>
-                                                      <li><span class="ion-email"></span>tanyagupta[at]iitb.ac.in</li>
-                                                      <li>Connect on LinkedIn:</li>
-                                                  </ul>
-                                              </div>
-                                              <div class="socials">
-                                                  <ul>
-                                                      <li><a href="https://www.linkedin.com/in/tanyagupta10/" target="_blank"><span class="ico-circle"><i class="ion-social-linkedin"></i></span></a></li>
-
-                                                  </ul>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="col-sm-3"></div>
-                      </div>
-                  </div>
-                  <footer>
-                      <div class="container">
-                          <div class="row">
-                              <div class="col-sm-12">
-                                  <div class="copyright-box">
-                                      <p class="copyright">&copy; Copyright <strong>DevFolio</strong>. All Rights Reserved</p>
-                                      <div class="credits">
-                                          <!--
-                                  All the links in the footer should remain intact.
-                                  You can delete the links only if you purchased the pro version.
-                                  Licensing information: https://bootstrapmade.com/license/
-                                  Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=DevFolio
-                                -->
-                                          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </footer>
-              </section>
-              <!--/ Section Contact-footer End /-->
-
-              <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-              <div id="preloader"></div>
-
-              <!-- JavaScript Libraries -->
-              <script src="lib/jquery/jquery.min.js"></script>
-              <script src="lib/jquery/jquery-migrate.min.js"></script>
-              <script src="lib/popper/popper.min.js"></script>
-              <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-              <script src="lib/easing/easing.min.js"></script>
-              <script src="lib/counterup/jquery.waypoints.min.js"></script>
-              <script src="lib/counterup/jquery.counterup.js"></script>
-              <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-              <script src="lib/lightbox/js/lightbox.min.js"></script>
-              <script src="lib/typed/typed.min.js"></script>
-              <!-- Contact Form JavaScript File -->
-              <script src="contactform/contactform.js"></script>
-
-              <!-- Template Main Javascript File -->
-              <script src="js/main.js"></script>
+    <!-- JavaScript -->
+    <script src="js/portfolio.js"></script>
 
 </body>
 </html>
