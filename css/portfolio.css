@@ -564,6 +564,7 @@ body.unhinged .highlight-item:nth-child(3) { --card-rotate: -0.5deg; }
 }
 
 .project-card {
+    display: block;
     background: var(--bg-card);
     border: var(--card-border);
     border-radius: var(--radius-md);
@@ -572,6 +573,7 @@ body.unhinged .highlight-item:nth-child(3) { --card-rotate: -0.5deg; }
     transition: all var(--transition-speed) ease;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .project-card::before {
