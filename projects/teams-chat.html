@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Microsoft Teams Chat | Tanya Gupta</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="Designed a meeting chat feature for private conversations within Microsoft Teams video calls. Product management, UI design, and UX research.">
+
+    <!-- Favicons -->
+    <link href="../img/favicon.png" rel="icon">
+    <link href="../img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link href="../css/project.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="project-nav" role="navigation" aria-label="Project navigation">
+        <div class="nav-inner">
+            <a href="../index.html#projects" class="back-link">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                Portfolio
+            </a>
+            <ul class="nav-projects">
+                <li><a href="danfoss.html">Danfoss</a></li>
+                <li><a href="teams-chat.html" class="active">Teams Chat</a></li>
+                <li><a href="harley-davidson.html">Harley-Davidson</a></li>
+                <li><a href="vapotherm.html">Vapotherm</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="project-hero">
+        <div class="container">
+            <div class="project-meta">
+                <span class="meta-tag">Product Design</span>
+                <span class="meta-tag">UX Research</span>
+            </div>
+            <h1>Microsoft Teams Chat</h1>
+            <p class="subtitle">Facilitate private conversations with another participant through the Meeting Chat tab during video calls.</p>
+            <div class="project-roles">
+                <span class="role-chip">Product Management</span>
+                <span class="role-chip">UI Design</span>
+                <span class="role-chip">User Experience Design</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Brief -->
+    <section class="project-section">
+        <div class="container">
+            <h2 class="section-heading">Brief</h2>
+            <p class="section-intro">There are multiple ways to send someone a message on Microsoft Teams, both in private or in a group setting. The project explored how we might quickly contact someone during a Microsoft Teams video call.</p>
+            <div class="project-image">
+                <img src="../notion/hmw2.png" alt="How Might We statement: How might we enable private conversations during a Microsoft Teams video call" loading="lazy">
+            </div>
+            <p class="section-intro">This project was done for the course <strong>Designing Smart Systems</strong>, which focused on the design of systems that learn and adapt as they gather more information over time.</p>
+        </div>
+    </section>
+
+    <!-- Approach -->
+    <section class="project-section">
+        <div class="container">
+            <h2 class="section-heading">Approach</h2>
+            <p class="section-intro">My approach involved a mixture of primary research and secondary research, followed by designing iterations and testing them with users to get feedback, balanced with a cost savings analysis.</p>
+            <div class="project-image">
+                <img src="../notion/process3.png" alt="Design process overview showing research, design, and testing phases" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Research -->
+    <section class="project-section">
+        <div class="container">
+            <h2 class="section-heading">Research</h2>
+            <div class="stats-row">
+                <div class="stat-card">
+                    <span class="stat-number">270M</span>
+                    <span class="stat-label">Monthly active users of Microsoft Teams worldwide (2022)</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">91</span>
+                    <span class="stat-label">Fortune 100 companies use Microsoft Teams</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">230K+</span>
+                    <span class="stat-label">Educational institutions worldwide on the platform</span>
+                </div>
+            </div>
+
+            <div class="project-image">
+                <img src="../notion/taskflowvid.gif" alt="Task flow analysis comparing direct messaging across video platforms" loading="lazy">
+            </div>
+
+            <div class="content-block">
+                <p>I onboarded regular users of video calling platforms through a survey and ran usability testing sessions to gauge differences across platforms.</p>
+            </div>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Platform</th>
+                        <th>Send DM through Meeting Chat?</th>
+                        <th>What comes first?</th>
+                        <th>Search in Meeting Chat?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Teams</td>
+                        <td>No</td>
+                        <td>Participant</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Zoom</td>
+                        <td>Yes</td>
+                        <td>Either</td>
+                        <td>Drop down</td>
+                    </tr>
+                    <tr>
+                        <td>Google Meet</td>
+                        <td>No</td>
+                        <td>None</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Gather</td>
+                        <td>Yes</td>
+                        <td>Either</td>
+                        <td>Search bar</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Design / Solution -->
+    <section class="project-section">
+        <div class="container">
+            <h2 class="section-heading">Solution</h2>
+            <p class="section-intro">I started with three simple ideas to incorporate the proposed considerations in different ways. The final solution was chosen because it addressed key usability gaps:</p>
+            <div class="content-block">
+                <ul>
+                    <li><strong>Search bar</strong> that lists participants to ensure recognition before the need for recall.</li>
+                    <li><strong>No chat pop-ups</strong> over the incoming video stream, hence not affecting visibility of vital components of a video call.</li>
+                    <li><strong>Semi-persistent visibility</strong> of previous chats done during the meeting with full name visibility and preview of previous chats.</li>
+                    <li>The user has the <strong>flexibility</strong> of keeping the direct chat drop down open or not.</li>
+                </ul>
+            </div>
+            <div class="project-image">
+                <img src="../notion/Untitled%203.png" alt="Final UI design for Microsoft Teams meeting chat direct messaging feature" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Results / Business Impact -->
+    <section class="project-section">
+        <div class="container">
+            <h2 class="section-heading">Business Impact</h2>
+            <p class="section-intro">I ideated quantitative metrics that could be measured, benchmarked before feature roll-out and after, while ensuring no other platform changes could affect the numbers.</p>
+            <div class="project-image">
+                <img src="../notion/cbd76e3e-9174-44eb-a6b9-74eac513b068.png" alt="Quantitative metrics framework for measuring feature success" loading="lazy">
+            </div>
+            <div class="stats-row">
+                <div class="stat-card">
+                    <span class="stat-number">$9</span>
+                    <span class="stat-label">Cost savings per professional per year for businesses</span>
+                </div>
+            </div>
+            <div class="content-block">
+                <p>The proposed design serves as an important starting point to run a deeper and large-scale effort into analyzing participants' chatting habits during meetings.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reflections -->
+    <section class="project-section">
+        <div class="container">
+            <h2 class="section-heading">Reflections</h2>
+            <div class="reflection-list">
+                <div class="reflection-item">
+                    <span class="reflection-number">1</span>
+                    <p><strong>Big platforms don't have big problems.</strong> Each problem seems small, but collectively if solved can lead to high returns.</p>
+                </div>
+                <div class="reflection-item">
+                    <span class="reflection-number">2</span>
+                    <p><strong>Form and Function are interconnected.</strong> UI &ne; UX is true, but it might be better put as UI &sub; UX. The interface design is a subset of the entire user experience.</p>
+                </div>
+                <div class="reflection-item">
+                    <span class="reflection-number">3</span>
+                    <p><strong>Always be cognizant of User's Mental Models.</strong> Careful consideration needs to be given since mental models become rigid and users become resistant to change.</p>
+                </div>
+            </div>
+            <div class="project-image" style="margin-top: 32px;">
+                <img src="../notion/Group_1010105113.png" alt="Diagram illustrating how user mental models affect design decisions across platforms" loading="lazy">
+                <div class="image-caption">Always be cognizant of User's Mental Models, even if they were established by your competitors.</div>
+            </div>
+            <div class="content-block" style="margin-top: 24px;">
+                <p>While proposed features and designs within platforms should be internally consistent through type, color, icon usage, it is also important to be consistent with industry standards. You need to differentiate from competitors, but careful consideration must be given since users' mental models become rigid over time and people become resistant to change, even across platforms.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Navigation -->
+    <nav class="project-footer-nav" aria-label="Browse other projects">
+        <p class="footer-nav-label">Browse Projects</p>
+        <div class="footer-nav-grid">
+            <a href="danfoss.html" class="footer-nav-card">
+                <div class="nav-card-company">Danfoss</div>
+                <div class="nav-card-title">Portfolio Manager &mdash; Medium Power Pumps</div>
+            </a>
+            <a href="teams-chat.html" class="footer-nav-card current">
+                <div class="nav-card-company">Microsoft</div>
+                <div class="nav-card-title">Teams Meeting Chat Feature</div>
+            </a>
+            <a href="harley-davidson.html" class="footer-nav-card">
+                <div class="nav-card-company">Harley-Davidson</div>
+                <div class="nav-card-title">Social Commerce Strategy</div>
+            </a>
+            <a href="vapotherm.html" class="footer-nav-card">
+                <div class="nav-card-company">Vapotherm</div>
+                <div class="nav-card-title">COPD Telehealth Solution</div>
+            </a>
+        </div>
+        <a href="../index.html#projects" class="back-to-portfolio">&larr; Back to Portfolio</a>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="project-footer">
+        <div class="container">
+            <p>&copy; 2024 Tanya Gupta. Built with purpose.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
