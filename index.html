@@ -65,19 +65,204 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 class="hero-headline">
-                <span class="text-linkedin">Product Manager | Building at the Intersection of Product, Strategy &amp; Systems</span>
-                <span class="text-unhinged">I Ship Stuff Despite Meetings | PM Who Chose Violence</span>
-            </h1>
-            <p class="hero-subheadline">
-                <span class="text-linkedin">B.Tech IIT Bombay &bull; M.S. Carnegie Mellon &bull; Experience in Healthcare, Finance &amp; Manufacturing</span>
-                <span class="text-unhinged">Survived: Regulated industries, startup chaos, and more Figma debates than any human should endure</span>
-            </p>
-            <a href="#projects" class="hero-cta">
-                <span class="text-linkedin">View Projects</span>
-                <span class="text-unhinged">See The Chaos</span>
-            </a>
+        <div class="hero-inner">
+            <div class="hero-content">
+                <h1 class="hero-headline">
+                    <span class="text-linkedin">Product Manager | Building at the Intersection of Product, Strategy &amp; Systems</span>
+                    <span class="text-unhinged">I Ship Stuff Despite Meetings | PM Who Chose Violence</span>
+                </h1>
+                <p class="hero-subheadline">
+                    <span class="text-linkedin">B.Tech IIT Bombay &bull; M.S. Carnegie Mellon &bull; Experience in Healthcare, Finance &amp; Manufacturing</span>
+                    <span class="text-unhinged">Survived: Regulated industries, startup chaos, and more Figma debates than any human should endure</span>
+                </p>
+                <a href="#projects" class="hero-cta">
+                    <span class="text-linkedin">View Projects</span>
+                    <span class="text-unhinged">See The Chaos</span>
+                </a>
+            </div>
+
+            <!-- Phone Mockup -->
+            <div class="phone-mockup" aria-hidden="true">
+                <div class="phone-frame">
+                    <!-- Status Bar -->
+                    <div class="phone-status-bar">
+                        <span class="phone-status-time text-linkedin">9:41</span>
+                        <span class="phone-status-time text-unhinged">2:47</span>
+                        <div class="phone-status-icons">
+                            <div class="phone-status-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <svg class="phone-battery text-linkedin" width="16" height="12" viewBox="0 0 16 12" fill="none">
+                                <rect x="0.5" y="0.5" width="15" height="11" rx="2" stroke="currentColor"/>
+                                <path d="M16 4V8C17 8 17 4 16 4Z" fill="currentColor"/>
+                                <rect x="1.5" y="1.5" width="12" height="9" fill="currentColor"/>
+                            </svg>
+                            <svg class="phone-battery phone-battery--low text-unhinged" width="16" height="12" viewBox="0 0 16 12" fill="none">
+                                <rect x="0.5" y="0.5" width="15" height="11" rx="2" stroke="#EF4444"/>
+                                <path d="M16 4V8C17 8 17 4 16 4Z" fill="#EF4444"/>
+                                <rect x="1.5" y="1.5" width="2.5" height="9" fill="#EF4444"/>
+                            </svg>
+                            <span class="phone-battery-pct text-unhinged">3%</span>
+                        </div>
+                    </div>
+
+                    <!-- Slack Header -->
+                    <div class="phone-header">
+                        <div class="phone-header-top">
+                            <div class="phone-header-left">
+                                <div class="phone-workspace-icon">PM</div>
+                                <span class="phone-workspace-name">PM Workspace</span>
+                            </div>
+                            <div class="phone-header-bell">
+                                <svg class="phone-bell-icon text-linkedin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                                <svg class="phone-bell-icon phone-bell-icon--urgent text-unhinged" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                                <div class="phone-bell-badge text-unhinged">127</div>
+                            </div>
+                        </div>
+                        <div class="phone-search-bar">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <span>Search</span>
+                        </div>
+                    </div>
+
+                    <!-- Unhinged: Urgent Meeting Banner -->
+                    <div class="phone-meeting-banner text-unhinged">
+                        <span>&#128197; Meeting in 2 minutes</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </div>
+
+                    <!-- Channel List: LinkedIn -->
+                    <div class="phone-channels text-linkedin">
+                        <div class="phone-section-header">
+                            <span>Channels</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </div>
+                        <div class="phone-channel phone-channel--active">
+                            <span class="phone-channel-hash">#</span>
+                            <span class="phone-channel-name">product-updates</span>
+                        </div>
+                        <div class="phone-channel">
+                            <span class="phone-channel-hash">#</span>
+                            <span class="phone-channel-name">roadmap-planning</span>
+                        </div>
+                        <div class="phone-channel">
+                            <span class="phone-channel-hash">#</span>
+                            <span class="phone-channel-name">sprint-retros</span>
+                        </div>
+                    </div>
+
+                    <!-- Channel List: Unhinged -->
+                    <div class="phone-channels text-unhinged">
+                        <div class="phone-section-header">
+                            <span>Channels</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </div>
+                        <div class="phone-channel phone-channel--urgent">
+                            <span class="phone-channel-hash">#</span>
+                            <span class="phone-channel-name">stakeholder-emergency</span>
+                            <span class="phone-channel-badge">15</span>
+                        </div>
+                        <div class="phone-channel phone-channel--urgent">
+                            <span class="phone-channel-hash">#</span>
+                            <span class="phone-channel-name">legal-compliance</span>
+                            <span class="phone-channel-badge">8</span>
+                        </div>
+                        <div class="phone-channel phone-channel--urgent">
+                            <span class="phone-channel-hash">#</span>
+                            <span class="phone-channel-name">eng-questions</span>
+                            <span class="phone-channel-badge">31</span>
+                        </div>
+                        <div class="phone-channel phone-channel--urgent">
+                            <span class="phone-channel-hash">#</span>
+                            <span class="phone-channel-name">budget-crisis</span>
+                            <span class="phone-channel-badge">19</span>
+                        </div>
+                    </div>
+
+                    <!-- LinkedIn: Project Cards -->
+                    <div class="phone-projects text-linkedin">
+                        <div class="phone-section-label">ACTIVE PROJECTS</div>
+                        <div class="phone-project-card">
+                            <div class="phone-project-top">
+                                <span class="phone-project-name">Mobile App Redesign</span>
+                                <span class="phone-project-status phone-project-status--green">On Track</span>
+                            </div>
+                            <div class="phone-progress-bar">
+                                <div class="phone-progress-fill phone-progress-fill--green" style="width:75%"></div>
+                            </div>
+                            <div class="phone-project-meta">
+                                <span>75% Complete</span>
+                                <span>Alex Chen</span>
+                            </div>
+                        </div>
+                        <div class="phone-project-card">
+                            <div class="phone-project-top">
+                                <span class="phone-project-name">API Integration</span>
+                                <span class="phone-project-status phone-project-status--blue">Complete</span>
+                            </div>
+                            <div class="phone-progress-bar">
+                                <div class="phone-progress-fill phone-progress-fill--blue" style="width:100%"></div>
+                            </div>
+                            <div class="phone-project-meta">
+                                <span>100% Complete</span>
+                                <span>Jordan Smith</span>
+                            </div>
+                        </div>
+                        <div class="phone-project-card">
+                            <div class="phone-project-top">
+                                <span class="phone-project-name">Q1 Campaign</span>
+                                <span class="phone-project-status phone-project-status--green">On Track</span>
+                            </div>
+                            <div class="phone-progress-bar">
+                                <div class="phone-progress-fill phone-progress-fill--green" style="width:60%"></div>
+                            </div>
+                            <div class="phone-project-meta">
+                                <span>60% Complete</span>
+                                <span>Sam Taylor</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Unhinged: DMs and CEO message -->
+                    <div class="phone-dms text-unhinged">
+                        <div class="phone-section-header">
+                            <span>Direct messages</span>
+                        </div>
+                        <div class="phone-dm phone-dm--urgent">
+                            <div class="phone-dm-avatar phone-dm-avatar--purple">CE</div>
+                            <span class="phone-dm-name">CEO</span>
+                            <span class="phone-dm-dot"></span>
+                        </div>
+                        <div class="phone-dm phone-dm--urgent">
+                            <div class="phone-dm-avatar phone-dm-avatar--pink">DL</div>
+                            <span class="phone-dm-name">Design (Emergency)</span>
+                            <span class="phone-dm-dot"></span>
+                        </div>
+                        <div class="phone-dm phone-dm--urgent">
+                            <div class="phone-dm-avatar phone-dm-avatar--blue">EM</div>
+                            <span class="phone-dm-name">Engineering-questions</span>
+                            <span class="phone-dm-dot"></span>
+                        </div>
+
+                        <!-- CEO Message Preview -->
+                        <div class="phone-ceo-msg">
+                            <div class="phone-ceo-msg-inner">
+                                <div class="phone-dm-avatar phone-dm-avatar--purple phone-dm-avatar--sm">CE</div>
+                                <div class="phone-ceo-msg-text">
+                                    <span class="phone-ceo-msg-meta">CEO &bull; Just now</span>
+                                    <span class="phone-ceo-msg-body">"Can we hop on a quick call about scope?"</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Label -->
+                    <div class="phone-bottom-label">
+                        <span class="phone-label phone-label--clean text-linkedin">&#10024; CLEAN VERSION</span>
+                        <span class="phone-label phone-label--unhinged text-unhinged">&#128293; UNHINGED VERSION</span>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="hero-scroll-indicator" aria-hidden="true">
             <span class="scroll-arrow"></span>
