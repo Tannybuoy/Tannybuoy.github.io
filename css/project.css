@@ -518,6 +518,67 @@ a {
 }
 
 /* ============================================
+   CONTACT / CONNECT SECTION
+   ============================================ */
+.contact-section {
+    background: var(--bg-primary);
+    text-align: center;
+    padding: var(--spacing-section) 0;
+}
+
+.contact-section .section-heading {
+    text-align: center;
+}
+
+.contact-section .section-heading::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.contact-description {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin: 20px auto 40px;
+    line-height: 1.7;
+}
+
+.contact-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    font-size: var(--font-size-small);
+    color: var(--text-primary);
+    transition: all var(--transition-speed) ease;
+}
+
+.contact-link svg {
+    flex-shrink: 0;
+    color: var(--accent);
+    transition: color var(--transition-speed) ease;
+}
+
+.contact-link:hover,
+.contact-link:focus-visible {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ============================================
    BOTTOM PROJECT NAVIGATION
    ============================================ */
 .project-footer-nav {
@@ -660,6 +721,17 @@ a {
 
     .reflection-item {
         padding: 16px;
+    }
+
+    .contact-links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-link {
+        width: 100%;
+        max-width: 320px;
+        justify-content: center;
     }
 }
 
