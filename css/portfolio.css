@@ -895,7 +895,7 @@ body.unhinged .contact-link {
 
 .writings-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 28px;
 }
 
@@ -920,23 +920,48 @@ body.unhinged .writing-card {
 body.unhinged .writing-card:nth-child(1) { transform: rotate(-0.5deg); }
 body.unhinged .writing-card:nth-child(2) { transform: rotate(0.3deg); }
 body.unhinged .writing-card:nth-child(3) { transform: rotate(0.5deg); }
-body.unhinged .writing-card:nth-child(4) { transform: rotate(-0.3deg); }
 
 body.unhinged .writing-card:hover {
     transform: rotate(0deg) translateY(-4px);
 }
 
+.writing-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.writing-card-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--bg-secondary);
+}
+
+.writing-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.writing-card:hover .writing-card-image img {
+    transform: scale(1.05);
+}
+
+.writing-card-content {
+    padding: 20px;
+}
+
 .writing-source {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 14px 20px;
+    gap: 6px;
     font-size: var(--font-size-small);
     font-weight: 600;
     color: var(--text-muted);
-    border-bottom: 1px solid var(--border);
-    transition: color var(--transition-speed) ease,
-                border-color var(--transition-speed) ease;
+    margin-bottom: 10px;
+    transition: color var(--transition-speed) ease;
 }
 
 .writing-source svg {
@@ -945,22 +970,33 @@ body.unhinged .writing-card:hover {
     transition: color var(--transition-speed) ease;
 }
 
-.writing-embed {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    background: var(--bg-secondary);
-    transition: background var(--transition-speed) ease;
+.writing-card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+    transition: color var(--transition-speed) ease;
 }
 
-.writing-embed iframe {
-    max-width: 100%;
-    border: none;
-    border-radius: var(--radius-sm);
+.writing-card-desc {
+    font-size: var(--font-size-small);
+    color: var(--text-secondary);
+    margin: 0 0 16px 0;
+    line-height: 1.5;
+    transition: color var(--transition-speed) ease;
 }
 
-.writing-embed .substack-post-embed {
-    width: 100%;
+.writing-card-cta {
+    display: inline-block;
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--accent);
+    transition: color var(--transition-speed) ease;
+}
+
+.writing-card:hover .writing-card-cta {
+    text-decoration: underline;
 }
 
 /* Active nav link */
@@ -969,14 +1005,18 @@ body.unhinged .writing-card:hover {
     background: var(--accent-light);
 }
 
+@media (max-width: 1024px) {
+    .writings-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+}
+
 @media (max-width: 768px) {
     .writings-grid {
         grid-template-columns: 1fr;
-    }
-
-    .writing-embed iframe {
-        width: 100% !important;
-        max-width: 504px;
+        max-width: 400px;
+        margin: 0 auto;
     }
 }
 
@@ -985,8 +1025,8 @@ body.unhinged .writing-card:hover {
         padding: calc(var(--nav-height) + 40px) 0 24px;
     }
 
-    .writing-embed {
-        padding: 12px;
+    .writing-card-content {
+        padding: 16px;
     }
 }
 
