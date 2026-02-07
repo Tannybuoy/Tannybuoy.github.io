@@ -569,12 +569,14 @@ body.unhinged .phone-frame {
     font-size: 8px;
     font-weight: 700;
     border-radius: 50%;
+    padding: 2px 2px;
     width: 18px;
     height: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
     animation: phonePulse 2s ease infinite;
+
 }
 
 .phone-search-bar {
