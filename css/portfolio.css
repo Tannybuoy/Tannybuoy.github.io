@@ -879,6 +879,118 @@ body.unhinged .contact-link {
 }
 
 /* ============================================
+   WRITINGS PAGE
+   ============================================ */
+.writings-hero {
+    padding: calc(var(--nav-height) + 60px) 0 40px;
+    text-align: center;
+    background: var(--bg-primary);
+    transition: background var(--transition-speed) ease;
+}
+
+.writings-section {
+    background: var(--bg-secondary);
+    transition: background var(--transition-speed) ease;
+}
+
+.writings-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+}
+
+.writing-card {
+    background: var(--bg-card);
+    border: var(--card-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: all var(--transition-speed) ease;
+}
+
+.writing-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+body.unhinged .writing-card {
+    border-radius: var(--radius-lg);
+}
+
+body.unhinged .writing-card:nth-child(1) { transform: rotate(-0.5deg); }
+body.unhinged .writing-card:nth-child(2) { transform: rotate(0.3deg); }
+body.unhinged .writing-card:nth-child(3) { transform: rotate(0.5deg); }
+body.unhinged .writing-card:nth-child(4) { transform: rotate(-0.3deg); }
+
+body.unhinged .writing-card:hover {
+    transform: rotate(0deg) translateY(-4px);
+}
+
+.writing-source {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 20px;
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    transition: color var(--transition-speed) ease,
+                border-color var(--transition-speed) ease;
+}
+
+.writing-source svg {
+    color: var(--accent);
+    flex-shrink: 0;
+    transition: color var(--transition-speed) ease;
+}
+
+.writing-embed {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background: var(--bg-secondary);
+    transition: background var(--transition-speed) ease;
+}
+
+.writing-embed iframe {
+    max-width: 100%;
+    border: none;
+    border-radius: var(--radius-sm);
+}
+
+.writing-embed .substack-post-embed {
+    width: 100%;
+}
+
+/* Active nav link */
+.nav-link.active {
+    color: var(--accent);
+    background: var(--accent-light);
+}
+
+@media (max-width: 768px) {
+    .writings-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .writing-embed iframe {
+        width: 100% !important;
+        max-width: 504px;
+    }
+}
+
+@media (max-width: 480px) {
+    .writings-hero {
+        padding: calc(var(--nav-height) + 40px) 0 24px;
+    }
+
+    .writing-embed {
+        padding: 12px;
+    }
+}
+
+/* ============================================
    BACK TO TOP
    ============================================ */
 .back-to-top {
