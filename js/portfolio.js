@@ -17,6 +17,8 @@
     var navHamburger = document.getElementById('navHamburger');
     var navLinks = document.getElementById('navLinks');
     var footerQuote = document.getElementById('footerQuote');
+    var contactForm = document.getElementById('contactForm');
+    var formStatus = document.getElementById('formStatus');
 
     // --- PM Quotes (for UNHINGED footer) ---
     var pmQuotes = [
@@ -51,6 +53,7 @@
         setupScrollEffects();
         setupKonamiCode();
         updateFooterQuote();
+        setupContactForm();
     }
 
     // --- Load saved mode from localStorage ---
@@ -268,6 +271,116 @@
         }, 5000);
 
         updateFooterQuote();
+    }
+
+    // --- Contact Form Submission (Google Sheets via Apps Script) ---
+    // HOW TO SET UP:
+    // 1. Create a Google Sheet with columns: Timestamp, Name, Email, Topic, Message
+    // 2. Go to Extensions > Apps Script and paste:
+    //      function doPost(e) {
+    //        var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    //        var data = JSON.parse(e.postData.contents);
+    //        sheet.appendRow([new Date(), data.name, data.email, data.topic, data.message]);
+    //        return ContentService.createTextOutput(JSON.stringify({result: 'success'}))
+    //          .setMimeType(ContentService.MimeType.JSON);
+    //      }
+    // 3. Deploy as Web App (Execute as: Me, Access: Anyone)
+    // 4. Replace the URL below with your deployment URL
+    var GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID_HERE/exec';
+
+    function setupContactForm() {
+        if (!contactForm) return;
+
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Clear previous errors
+            var inputs = contactForm.querySelectorAll('.form-input');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].classList.remove('form-error');
+            }
+            formStatus.className = 'form-status';
+            formStatus.textContent = '';
+
+            // Gather values
+            var name = document.getElementById('contactName').value.trim();
+            var email = document.getElementById('contactEmail').value.trim();
+            var topic = document.getElementById('contactTopic').value;
+            var message = document.getElementById('contactMessage').value.trim();
+
+            // Validate
+            var valid = true;
+            if (!name) {
+                document.getElementById('contactName').classList.add('form-error');
+                valid = false;
+            }
+            if (!email || !isValidEmail(email)) {
+                document.getElementById('contactEmail').classList.add('form-error');
+                valid = false;
+            }
+            if (!topic) {
+                document.getElementById('contactTopic').classList.add('form-error');
+                valid = false;
+            }
+            if (!message) {
+                document.getElementById('contactMessage').classList.add('form-error');
+                valid = false;
+            }
+
+            if (!valid) {
+                formStatus.className = 'form-status error';
+                formStatus.textContent = 'Please fill in all fields correctly.';
+                return;
+            }
+
+            // Disable submit button
+            var submitBtn = document.getElementById('contactSubmit');
+            submitBtn.disabled = true;
+            submitBtn.querySelector('.text-linkedin') && (submitBtn.querySelector('.text-linkedin').textContent = 'Sending...');
+            submitBtn.querySelector('.text-unhinged') && (submitBtn.querySelector('.text-unhinged').textContent = 'Yeeting...');
+
+            var payload = JSON.stringify({
+                name: name,
+                email: email,
+                topic: topic,
+                message: message
+            });
+
+            // Send to Google Sheets
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', GOOGLE_SHEETS_URL, true);
+            xhr.setRequestHeader('Content-Type', 'text/plain');
+            xhr.onload = function () {
+                submitBtn.disabled = false;
+                submitBtn.querySelector('.text-linkedin') && (submitBtn.querySelector('.text-linkedin').textContent = 'Send Message');
+                submitBtn.querySelector('.text-unhinged') && (submitBtn.querySelector('.text-unhinged').textContent = 'Yeet This Message');
+
+                if (xhr.status >= 200 && xhr.status < 400) {
+                    formStatus.className = 'form-status success';
+                    if (body.classList.contains('unhinged')) {
+                        formStatus.textContent = 'Message yeeted successfully! I\'ll get back to you.';
+                    } else {
+                        formStatus.textContent = 'Message sent successfully! I\'ll be in touch soon.';
+                    }
+                    contactForm.reset();
+                } else {
+                    formStatus.className = 'form-status error';
+                    formStatus.textContent = 'Something went wrong. Please try emailing me directly.';
+                }
+            };
+            xhr.onerror = function () {
+                submitBtn.disabled = false;
+                submitBtn.querySelector('.text-linkedin') && (submitBtn.querySelector('.text-linkedin').textContent = 'Send Message');
+                submitBtn.querySelector('.text-unhinged') && (submitBtn.querySelector('.text-unhinged').textContent = 'Yeet This Message');
+                formStatus.className = 'form-status error';
+                formStatus.textContent = 'Network error. Please try emailing me directly.';
+            };
+            xhr.send(payload);
+        });
+    }
+
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
     // --- Utility: Throttle ---

@@ -531,7 +531,7 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Connect Section -->
     <section id="contact" class="section contact-section">
         <div class="container">
             <h2 class="section-title">
@@ -542,6 +542,43 @@
                 <span class="text-linkedin">Open to Product Management opportunities. Let's discuss how I can drive impact for your organization.</span>
                 <span class="text-unhinged">Hire me if you appreciate PMs who've actually shipped things and aren't afraid to admit when stakeholder alignment is a myth.</span>
             </p>
+
+            <!-- Availability Tags -->
+            <div class="availability-section">
+                <p class="availability-label">
+                    <span class="text-linkedin">Currently available for:</span>
+                    <span class="text-unhinged">Will say yes to:</span>
+                </p>
+                <div class="availability-tags">
+                    <span class="availability-tag">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                        <span class="text-linkedin">Speaking Opportunities</span>
+                        <span class="text-unhinged">Ranting on Stage</span>
+                    </span>
+                    <span class="availability-tag">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        <span class="text-linkedin">Mentoring</span>
+                        <span class="text-unhinged">Therapy Sessions (for PMs)</span>
+                    </span>
+                    <span class="availability-tag">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        <span class="text-linkedin">Side Projects</span>
+                        <span class="text-unhinged">Chaos Engineering</span>
+                    </span>
+                    <span class="availability-tag">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <span class="text-linkedin">Career Advice</span>
+                        <span class="text-unhinged">Unsolicited Opinions</span>
+                    </span>
+                    <span class="availability-tag">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        <span class="text-linkedin">Angel Investment</span>
+                        <span class="text-unhinged">Throwing Money at Cool Ideas</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Contact Links -->
             <div class="contact-links">
                 <a href="mailto:mjtanyagupta@gmail.com" class="contact-link" aria-label="Email">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -563,6 +600,52 @@
                     <span class="text-linkedin">Download CV</span>
                     <span class="text-unhinged">The Polished Version of Me</span>
                 </a>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-wrapper">
+                <h3 class="contact-form-title">
+                    <span class="text-linkedin">Or, drop me a message directly</span>
+                    <span class="text-unhinged">Or, shoot your shot below</span>
+                </h3>
+                <form id="contactForm" class="contact-form" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contactName" class="form-label">Name</label>
+                            <input type="text" id="contactName" name="name" class="form-input" placeholder="Your name" required aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail" class="form-label">Email</label>
+                            <input type="email" id="contactEmail" name="email" class="form-input" placeholder="your@email.com" required aria-required="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactTopic" class="form-label">
+                            <span class="text-linkedin">What can I help with?</span>
+                            <span class="text-unhinged">What's this about?</span>
+                        </label>
+                        <select id="contactTopic" name="topic" class="form-input form-select" required aria-required="true">
+                            <option value="" disabled selected>Select a topic</option>
+                            <option value="Speaking Opportunity">Speaking Opportunity</option>
+                            <option value="Side Project">Side Project</option>
+                            <option value="Career Advice">Career Advice</option>
+                            <option value="Mentoring">Mentoring</option>
+                            <option value="Angel Investment">Angel Investment</option>
+                            <option value="Job Opportunity">Job Opportunity</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage" class="form-label">Message</label>
+                        <textarea id="contactMessage" name="message" class="form-input form-textarea" rows="5" placeholder="Tell me more..." required aria-required="true"></textarea>
+                    </div>
+                    <button type="submit" id="contactSubmit" class="form-submit">
+                        <span class="text-linkedin">Send Message</span>
+                        <span class="text-unhinged">Yeet This Message</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </button>
+                    <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
+                </form>
             </div>
         </div>
     </section>
