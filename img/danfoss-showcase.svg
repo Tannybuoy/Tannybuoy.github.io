@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="800" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f0f4f8"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="bar1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d32f2f"/>
+      <stop offset="100%" stop-color="#b71c1c"/>
+    </linearGradient>
+    <linearGradient id="bar2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1565c0"/>
+      <stop offset="100%" stop-color="#0d47a1"/>
+    </linearGradient>
+    <linearGradient id="line-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2e7d32"/>
+      <stop offset="100%" stop-color="#1b5e20"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="400" rx="12" fill="url(#bg)"/>
+
+  <!-- Dashboard panel -->
+  <rect x="40" y="30" width="720" height="340" rx="10" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <!-- Header bar -->
+  <rect x="40" y="30" width="720" height="44" rx="10" fill="#1a237e"/>
+  <rect x="40" y="54" width="720" height="20" fill="#1a237e"/>
+  <text x="60" y="58" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#fff">Portfolio Analytics Dashboard</text>
+  <circle cx="720" cy="52" r="6" fill="#4caf50"/>
+  <circle cx="700" cy="52" r="6" fill="#ff9800"/>
+  <circle cx="680" cy="52" r="6" fill="#f44336"/>
+
+  <!-- KPI Cards Row -->
+  <rect x="60" y="86" width="160" height="64" rx="8" fill="#e8eaf6" stroke="#c5cae9" stroke-width="1"/>
+  <text x="80" y="108" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#5c6bc0" font-weight="500">ML ANOMALY SAVINGS</text>
+  <text x="80" y="136" font-family="Inter, system-ui, sans-serif" font-size="22" fill="#1a237e" font-weight="700">$8M+</text>
+
+  <rect x="240" y="86" width="160" height="64" rx="8" fill="#e8f5e9" stroke="#c8e6c9" stroke-width="1"/>
+  <text x="260" y="108" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#43a047" font-weight="500">NPD VALUE</text>
+  <text x="260" y="136" font-family="Inter, system-ui, sans-serif" font-size="22" fill="#1b5e20" font-weight="700">$2M+</text>
+
+  <rect x="420" y="86" width="160" height="64" rx="8" fill="#fff3e0" stroke="#ffe0b2" stroke-width="1"/>
+  <text x="440" y="108" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#ef6c00" font-weight="500">DASHBOARDS</text>
+  <text x="440" y="136" font-family="Inter, system-ui, sans-serif" font-size="22" fill="#e65100" font-weight="700">5+</text>
+
+  <rect x="600" y="86" width="140" height="64" rx="8" fill="#fce4ec" stroke="#f8bbd0" stroke-width="1"/>
+  <text x="620" y="108" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#c62828" font-weight="500">PRODUCTS</text>
+  <text x="620" y="136" font-family="Inter, system-ui, sans-serif" font-size="22" fill="#b71c1c" font-weight="700">10+</text>
+
+  <!-- Bar Chart Area -->
+  <rect x="60" y="168" width="340" height="185" rx="8" fill="#fafbfc" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="76" y="190" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#64748b" font-weight="600">Sales History Analysis (20+ Years)</text>
+
+  <!-- Y-axis labels -->
+  <text x="76" y="216" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#94a3b8">100%</text>
+  <text x="82" y="252" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#94a3b8">75%</text>
+  <text x="82" y="288" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#94a3b8">50%</text>
+  <text x="82" y="324" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#94a3b8">25%</text>
+
+  <!-- Grid lines -->
+  <line x1="108" y1="212" x2="380" y2="212" stroke="#e2e8f0" stroke-width="0.5"/>
+  <line x1="108" y1="248" x2="380" y2="248" stroke="#e2e8f0" stroke-width="0.5"/>
+  <line x1="108" y1="284" x2="380" y2="284" stroke="#e2e8f0" stroke-width="0.5"/>
+  <line x1="108" y1="320" x2="380" y2="320" stroke="#e2e8f0" stroke-width="0.5"/>
+  <line x1="108" y1="340" x2="380" y2="340" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Bars -->
+  <rect x="120" y="260" width="20" height="80" rx="3" fill="url(#bar1)" opacity="0.85"/>
+  <rect x="144" y="232" width="20" height="108" rx="3" fill="url(#bar2)" opacity="0.85"/>
+
+  <rect x="180" y="240" width="20" height="100" rx="3" fill="url(#bar1)" opacity="0.85"/>
+  <rect x="204" y="218" width="20" height="122" rx="3" fill="url(#bar2)" opacity="0.85"/>
+
+  <rect x="240" y="228" width="20" height="112" rx="3" fill="url(#bar1)" opacity="0.85"/>
+  <rect x="264" y="222" width="20" height="118" rx="3" fill="url(#bar2)" opacity="0.85"/>
+
+  <rect x="300" y="216" width="20" height="124" rx="3" fill="url(#bar1)" opacity="0.85"/>
+  <rect x="324" y="208" width="20" height="132" rx="3" fill="url(#bar2)" opacity="0.85"/>
+
+  <rect x="360" y="220" width="20" height="120" rx="3" fill="url(#bar1)" opacity="0.85"/>
+
+  <!-- Legend -->
+  <rect x="240" y="344" width="10" height="10" rx="2" fill="url(#bar1)"/>
+  <text x="254" y="353" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#64748b">Pumps</text>
+  <rect x="296" y="344" width="10" height="10" rx="2" fill="url(#bar2)"/>
+  <text x="310" y="353" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#64748b">Motors</text>
+
+  <!-- Line Chart Area -->
+  <rect x="420" y="168" width="320" height="185" rx="8" fill="#fafbfc" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="436" y="190" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#64748b" font-weight="600">Anomaly Prediction Model</text>
+
+  <!-- Line chart grid -->
+  <line x1="450" y1="212" x2="720" y2="212" stroke="#e2e8f0" stroke-width="0.5"/>
+  <line x1="450" y1="248" x2="720" y2="248" stroke="#e2e8f0" stroke-width="0.5"/>
+  <line x1="450" y1="284" x2="720" y2="284" stroke="#e2e8f0" stroke-width="0.5"/>
+  <line x1="450" y1="320" x2="720" y2="320" stroke="#e2e8f0" stroke-width="0.5"/>
+
+  <!-- Normal range band -->
+  <rect x="450" y="256" width="270" height="40" rx="0" fill="#e8f5e9" opacity="0.5"/>
+  <text x="652" y="280" font-family="Inter, system-ui, sans-serif" font-size="8" fill="#66bb6a">Normal</text>
+
+  <!-- Data line -->
+  <polyline points="450,290 480,282 510,278 540,270 570,274 590,260 610,242 625,230 640,222 660,248 680,272 700,280 720,276"
+    stroke="url(#line-grad)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Anomaly point -->
+  <circle cx="625" cy="230" r="6" fill="#f44336" stroke="#fff" stroke-width="2"/>
+  <circle cx="640" cy="222" r="6" fill="#f44336" stroke="#fff" stroke-width="2"/>
+  <text x="610" y="216" font-family="Inter, system-ui, sans-serif" font-size="8" fill="#f44336" font-weight="600">Anomaly</text>
+
+  <!-- Data points -->
+  <circle cx="450" cy="290" r="3" fill="#2e7d32"/>
+  <circle cx="480" cy="282" r="3" fill="#2e7d32"/>
+  <circle cx="510" cy="278" r="3" fill="#2e7d32"/>
+  <circle cx="540" cy="270" r="3" fill="#2e7d32"/>
+  <circle cx="570" cy="274" r="3" fill="#2e7d32"/>
+  <circle cx="590" cy="260" r="3" fill="#2e7d32"/>
+  <circle cx="660" cy="248" r="3" fill="#2e7d32"/>
+  <circle cx="680" cy="272" r="3" fill="#2e7d32"/>
+  <circle cx="700" cy="280" r="3" fill="#2e7d32"/>
+  <circle cx="720" cy="276" r="3" fill="#2e7d32"/>
+</svg>
