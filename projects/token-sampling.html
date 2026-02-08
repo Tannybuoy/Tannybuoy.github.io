@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Token Sampling Demo — Top-K &amp; Top-P | Tanya Gupta</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="Interactive demo explaining Top-K and Top-P token sampling in language models. See how parameter tuning affects AI text generation.">
+
+    <!-- Favicons -->
+    <link href="../img/favicon.png" rel="icon">
+    <link href="../img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+    /* ============================================
+       Token Sampling Demo — Styles
+       ============================================ */
+    :root {
+        --bg-primary: #FFFFFF;
+        --bg-secondary: #F8F9FA;
+        --bg-card: #FFFFFF;
+        --text-primary: #1A1A2E;
+        --text-secondary: #555770;
+        --text-muted: #8E8EA0;
+        --accent: #0077B5;
+        --accent-hover: #005F8F;
+        --accent-light: rgba(0, 119, 181, 0.08);
+        --border: #E5E7EB;
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+        --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.1);
+        --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+        --radius-sm: 6px;
+        --radius-md: 12px;
+        --radius-lg: 20px;
+        --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-mono: 'Space Mono', 'Courier New', monospace;
+        --font-size-body: 1rem;
+        --font-size-small: 0.875rem;
+        --nav-height: 64px;
+        --transition-speed: 0.3s;
+        --color-topk: #2563EB;
+        --color-topp: #9333EA;
+        --color-greedy: #059669;
+        --color-filtered-out: #E5E7EB;
+        --color-filtered-in: #0077B5;
+        --color-bar-default: #CBD5E1;
+    }
+
+    *, *::before, *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: var(--font-primary);
+        font-size: var(--font-size-body);
+        line-height: 1.7;
+        color: var(--text-primary);
+        background-color: var(--bg-primary);
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+
+    /* --- Navigation --- */
+    .project-nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        height: var(--nav-height);
+        background: rgba(255,255,255,0.92);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        z-index: 1000;
+    }
+
+    .nav-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 24px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .back-link {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 600;
+        font-size: var(--font-size-small);
+        color: var(--accent);
+        transition: opacity 0.2s;
+    }
+    .back-link:hover { opacity: 0.7; }
+
+    .nav-projects {
+        display: flex;
+        list-style: none;
+        gap: 4px;
+    }
+    .nav-projects a {
+        padding: 6px 14px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-muted);
+        border-radius: var(--radius-sm);
+        transition: color 0.2s, background 0.2s;
+    }
+    .nav-projects a:hover,
+    .nav-projects a.active {
+        color: var(--accent);
+        background: var(--accent-light);
+    }
+
+    /* --- Hero --- */
+    .demo-hero {
+        padding: calc(var(--nav-height) + 60px) 0 48px;
+        text-align: center;
+        background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+    }
+
+    .demo-hero h1 {
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: -1px;
+        color: var(--text-primary);
+        margin-bottom: 16px;
+    }
+
+    .demo-hero .subtitle {
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        color: var(--text-secondary);
+        max-width: 640px;
+        margin: 0 auto 24px;
+    }
+
+    .hero-tags {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .hero-tag {
+        font-size: 0.75rem;
+        font-weight: 500;
+        padding: 4px 12px;
+        background: var(--accent-light);
+        color: var(--accent);
+        border-radius: 50px;
+        border: 1px solid var(--border);
+    }
+
+    /* --- Story Section --- */
+    .story-section {
+        padding: 64px 0;
+        background: var(--bg-primary);
+    }
+
+    .story-card {
+        background: linear-gradient(135deg, #FFF7ED 0%, #FEF3C7 100%);
+        border: 1px solid #FDE68A;
+        border-radius: var(--radius-md);
+        padding: 36px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .story-card::before {
+        content: '';
+        position: absolute;
+        top: -20px; right: -20px;
+        width: 120px; height: 120px;
+        background: rgba(251, 191, 36, 0.15);
+        border-radius: 50%;
+    }
+
+    .story-emoji {
+        font-size: 2.5rem;
+        margin-bottom: 12px;
+        display: block;
+    }
+
+    .story-card h2 {
+        font-size: clamp(1.3rem, 3vw, 1.8rem);
+        font-weight: 700;
+        color: #92400E;
+        margin-bottom: 16px;
+        line-height: 1.3;
+    }
+
+    .story-card p {
+        color: #78350F;
+        line-height: 1.8;
+        margin-bottom: 12px;
+    }
+
+    .story-card p:last-child { margin-bottom: 0; }
+
+    .story-highlight {
+        font-weight: 600;
+        color: #B45309;
+    }
+
+    /* --- Concepts Section --- */
+    .concepts-section {
+        padding: 64px 0;
+        background: var(--bg-secondary);
+    }
+
+    .concepts-section h2 {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 40px;
+        color: var(--text-primary);
+    }
+
+    .concepts-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+    }
+
+    .concept-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 28px;
+        box-shadow: var(--shadow-card);
+    }
+
+    .concept-card h3 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .concept-badge {
+        display: inline-block;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        padding: 3px 10px;
+        border-radius: 50px;
+        color: #FFF;
+    }
+
+    .concept-badge--topk { background: var(--color-topk); }
+    .concept-badge--topp { background: var(--color-topp); }
+
+    .concept-card p {
+        color: var(--text-secondary);
+        line-height: 1.7;
+        margin-bottom: 12px;
+    }
+
+    .concept-card p:last-child { margin-bottom: 0; }
+
+    .concept-example {
+        background: var(--bg-secondary);
+        border-radius: var(--radius-sm);
+        padding: 14px 16px;
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        line-height: 1.6;
+        color: var(--text-primary);
+        border: 1px solid var(--border);
+        margin-top: 12px;
+    }
+
+    .concept-analogy {
+        background: #F0F9FF;
+        border: 1px solid #BAE6FD;
+        border-radius: var(--radius-sm);
+        padding: 12px 16px;
+        font-size: var(--font-size-small);
+        color: #0C4A6E;
+        margin-top: 12px;
+    }
+
+    .concept-analogy strong { color: #075985; }
+
+    /* --- Tradeoff Section --- */
+    .tradeoff-section {
+        padding: 48px 0 64px;
+        background: var(--bg-secondary);
+    }
+
+    .tradeoff-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 28px;
+        box-shadow: var(--shadow-card);
+    }
+
+    .tradeoff-card h3 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+        text-align: center;
+    }
+
+    .tradeoff-spectrum {
+        display: flex;
+        align-items: stretch;
+        gap: 0;
+        margin-top: 12px;
+    }
+
+    .tradeoff-end {
+        flex: 1;
+        padding: 16px;
+        text-align: center;
+    }
+
+    .tradeoff-end--low {
+        background: #EFF6FF;
+        border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+        border: 1px solid #BFDBFE;
+    }
+
+    .tradeoff-end--high {
+        background: #FEF3C7;
+        border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        border: 1px solid #FDE68A;
+    }
+
+    .tradeoff-end h4 {
+        font-size: var(--font-size-small);
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .tradeoff-end--low h4 { color: #1E40AF; }
+    .tradeoff-end--high h4 { color: #92400E; }
+
+    .tradeoff-end p {
+        font-size: 0.82rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+    }
+
+    .tradeoff-arrow {
+        display: flex;
+        align-items: center;
+        padding: 0 8px;
+        color: var(--text-muted);
+        font-size: 1.2rem;
+    }
+
+    /* --- Interactive Demo Section --- */
+    .demo-section {
+        padding: 64px 0;
+        background: var(--bg-primary);
+    }
+
+    .demo-section h2 {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 8px;
+        color: var(--text-primary);
+    }
+
+    .demo-section .section-desc {
+        text-align: center;
+        color: var(--text-muted);
+        font-size: var(--font-size-small);
+        margin-bottom: 36px;
+    }
+
+    .demo-panel {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+    }
+
+    .demo-controls {
+        padding: 28px;
+        border-bottom: 1px solid var(--border);
+        background: var(--bg-secondary);
+    }
+
+    .prompt-row {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .prompt-input {
+        flex: 1;
+        padding: 12px 16px;
+        font-family: var(--font-primary);
+        font-size: var(--font-size-body);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        background: var(--bg-card);
+        color: var(--text-primary);
+        outline: none;
+        transition: border-color 0.2s;
+    }
+
+    .prompt-input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-light);
+    }
+
+    .prompt-input::placeholder { color: var(--text-muted); }
+
+    .btn-generate {
+        padding: 12px 24px;
+        background: var(--accent);
+        color: #FFF;
+        font-family: var(--font-primary);
+        font-weight: 600;
+        font-size: var(--font-size-body);
+        border: none;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: background 0.2s, transform 0.1s;
+        white-space: nowrap;
+    }
+
+    .btn-generate:hover { background: var(--accent-hover); }
+    .btn-generate:active { transform: scale(0.97); }
+
+    .sliders-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+    }
+
+    .slider-group label {
+        display: block;
+        font-size: var(--font-size-small);
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin-bottom: 6px;
+    }
+
+    .slider-group label .slider-val {
+        font-family: var(--font-mono);
+        color: var(--accent);
+        font-weight: 700;
+    }
+
+    .slider-group input[type="range"] {
+        width: 100%;
+        height: 6px;
+        -webkit-appearance: none;
+        appearance: none;
+        background: var(--border);
+        border-radius: 3px;
+        outline: none;
+    }
+
+    .slider-group input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 18px; height: 18px;
+        border-radius: 50%;
+        background: var(--accent);
+        cursor: pointer;
+        border: 2px solid #FFF;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    .slider-group input[type="range"]::-moz-range-thumb {
+        width: 18px; height: 18px;
+        border-radius: 50%;
+        background: var(--accent);
+        cursor: pointer;
+        border: 2px solid #FFF;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    .slider-group--topk input[type="range"]::-webkit-slider-thumb { background: var(--color-topk); }
+    .slider-group--topk input[type="range"]::-moz-range-thumb { background: var(--color-topk); }
+    .slider-group--topk .slider-val { color: var(--color-topk) !important; }
+
+    .slider-group--topp input[type="range"]::-webkit-slider-thumb { background: var(--color-topp); }
+    .slider-group--topp input[type="range"]::-moz-range-thumb { background: var(--color-topp); }
+    .slider-group--topp .slider-val { color: var(--color-topp) !important; }
+
+    .slider-group--temp input[type="range"]::-webkit-slider-thumb { background: var(--color-greedy); }
+    .slider-group--temp input[type="range"]::-moz-range-thumb { background: var(--color-greedy); }
+    .slider-group--temp .slider-val { color: var(--color-greedy) !important; }
+
+    /* --- Output Panels --- */
+    .demo-output {
+        padding: 28px;
+    }
+
+    .output-tabs {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid var(--border);
+        padding-bottom: 0;
+    }
+
+    .output-tab {
+        padding: 10px 20px;
+        font-family: var(--font-primary);
+        font-size: var(--font-size-small);
+        font-weight: 600;
+        color: var(--text-muted);
+        background: none;
+        border: none;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        transition: color 0.2s, border-color 0.2s;
+    }
+
+    .output-tab:hover { color: var(--text-secondary); }
+
+    .output-tab.active {
+        color: var(--accent);
+        border-bottom-color: var(--accent);
+    }
+
+    .output-tab--topk.active {
+        color: var(--color-topk);
+        border-bottom-color: var(--color-topk);
+    }
+    .output-tab--topp.active {
+        color: var(--color-topp);
+        border-bottom-color: var(--color-topp);
+    }
+
+    .tab-content {
+        display: none;
+    }
+    .tab-content.active {
+        display: block;
+    }
+
+    .generated-text {
+        font-family: var(--font-mono);
+        font-size: 0.9rem;
+        line-height: 1.8;
+        padding: 20px;
+        background: var(--bg-secondary);
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border);
+        margin-bottom: 24px;
+        min-height: 60px;
+        position: relative;
+    }
+
+    .generated-text .prompt-echo {
+        color: var(--text-muted);
+    }
+
+    .generated-text .gen-token {
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+
+    .placeholder-text {
+        color: var(--text-muted);
+        font-style: italic;
+        font-family: var(--font-primary);
+    }
+
+    /* --- Bar Chart Visualization --- */
+    .viz-title {
+        font-size: var(--font-size-small);
+        font-weight: 700;
+        color: var(--text-secondary);
+        margin-bottom: 4px;
+    }
+
+    .viz-subtitle {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        margin-bottom: 16px;
+    }
+
+    .viz-step-nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    .btn-step {
+        padding: 6px 14px;
+        font-family: var(--font-primary);
+        font-size: 0.78rem;
+        font-weight: 600;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        background: var(--bg-card);
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .btn-step:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+
+    .btn-step:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    .step-label {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+
+    .bar-chart {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .bar-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 28px;
+    }
+
+    .bar-label {
+        width: 90px;
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        text-align: right;
+        color: var(--text-secondary);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .bar-track {
+        flex: 1;
+        height: 20px;
+        background: #F1F5F9;
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .bar-fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.4s ease, background-color 0.3s ease;
+        position: relative;
+    }
+
+    .bar-fill--default { background: var(--color-bar-default); }
+    .bar-fill--included { background: var(--color-topk); }
+    .bar-fill--excluded { background: var(--color-filtered-out); opacity: 0.5; }
+    .bar-fill--selected {
+        background: #F59E0B;
+        box-shadow: 0 0 0 2px #FDE68A;
+    }
+
+    .bar-fill--included-topp { background: var(--color-topp); }
+
+    .bar-pct {
+        width: 52px;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        text-align: left;
+        flex-shrink: 0;
+    }
+
+    .bar-row.excluded .bar-label { color: var(--text-muted); opacity: 0.5; }
+    .bar-row.excluded .bar-pct { opacity: 0.5; }
+
+    .bar-row.selected .bar-label {
+        font-weight: 700;
+        color: #B45309;
+    }
+
+    .cutoff-line {
+        margin: 8px 0 8px 100px;
+        padding: 4px 12px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        border-radius: 50px;
+        display: inline-block;
+    }
+
+    .cutoff-line--topk {
+        background: #EFF6FF;
+        color: var(--color-topk);
+        border: 1px solid #BFDBFE;
+    }
+
+    .cutoff-line--topp {
+        background: #F5F3FF;
+        color: var(--color-topp);
+        border: 1px solid #DDD6FE;
+    }
+
+    /* --- Comparison Section --- */
+    .compare-section {
+        padding: 64px 0;
+        background: var(--bg-secondary);
+    }
+
+    .compare-section h2 {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 36px;
+        color: var(--text-primary);
+    }
+
+    .compare-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+    }
+
+    .compare-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 24px;
+        text-align: center;
+        box-shadow: var(--shadow-card);
+    }
+
+    .compare-card h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .compare-card .compare-params {
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        margin-bottom: 12px;
+    }
+
+    .compare-card p {
+        font-size: var(--font-size-small);
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+
+    .compare-meter {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 12px 0;
+    }
+
+    .meter-label {
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        width: 70px;
+        text-align: right;
+    }
+
+    .meter-track {
+        flex: 1;
+        height: 8px;
+        background: #F1F5F9;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .meter-fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.3s ease;
+    }
+
+    .meter-fill--coherence { background: var(--color-topk); }
+    .meter-fill--creativity { background: #F59E0B; }
+
+    /* --- Footer --- */
+    .demo-footer {
+        padding: 40px 0;
+        border-top: 1px solid var(--border);
+        background: var(--bg-secondary);
+        text-align: center;
+    }
+
+    .demo-footer p {
+        color: var(--text-muted);
+        font-size: var(--font-size-small);
+    }
+
+    .demo-footer a {
+        color: var(--accent);
+        font-weight: 600;
+    }
+
+    .demo-footer a:hover { text-decoration: underline; }
+
+    /* --- Info callout --- */
+    .info-callout {
+        background: #F0F9FF;
+        border: 1px solid #BAE6FD;
+        border-radius: var(--radius-sm);
+        padding: 14px 18px;
+        font-size: var(--font-size-small);
+        color: #0C4A6E;
+        line-height: 1.6;
+        margin-top: 20px;
+    }
+
+    .info-callout strong { color: #075985; }
+
+    /* --- Responsive --- */
+    @media (max-width: 768px) {
+        .concepts-grid { grid-template-columns: 1fr; }
+        .compare-grid { grid-template-columns: 1fr; }
+        .sliders-row { grid-template-columns: 1fr; }
+        .prompt-row { flex-direction: column; }
+        .nav-projects { display: none; }
+        .tradeoff-spectrum { flex-direction: column; }
+        .tradeoff-end--low { border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+        .tradeoff-end--high { border-radius: 0 0 var(--radius-sm) var(--radius-sm); }
+        .tradeoff-arrow { justify-content: center; transform: rotate(90deg); }
+    }
+
+    @media (max-width: 480px) {
+        .container { padding: 0 16px; }
+        .demo-controls { padding: 20px 16px; }
+        .demo-output { padding: 20px 16px; }
+        .bar-label { width: 70px; font-size: 0.7rem; }
+        .cutoff-line { margin-left: 80px; }
+    }
+
+    /* Focus visible */
+    *:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="project-nav" role="navigation" aria-label="Project navigation">
+        <div class="nav-inner">
+            <a href="../index.html#projects" class="back-link">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                Portfolio
+            </a>
+            <ul class="nav-projects">
+                <li><a href="danfoss.html">Danfoss</a></li>
+                <li><a href="teams-chat.html">Teams Chat</a></li>
+                <li><a href="harley-davidson.html">Harley-Davidson</a></li>
+                <li><a href="vapotherm.html">Vapotherm</a></li>
+                <li><a href="token-sampling.html" class="active">Sampling Demo</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="demo-hero">
+        <div class="container">
+            <h1>Top-K &amp; Top-P Token Sampling</h1>
+            <p class="subtitle">An interactive playground to understand how language models choose their next word.</p>
+            <div class="hero-tags">
+                <span class="hero-tag">Interactive Demo</span>
+                <span class="hero-tag">No API Keys Required</span>
+                <span class="hero-tag">AI / LLMs</span>
+                <span class="hero-tag">Beginner Friendly</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Story Hook -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-card">
+                <span class="story-emoji" aria-hidden="true">&#129302;</span>
+                <h2>Why Your Chatbot Sounds Boring &mdash; or Unhinged</h2>
+                <p>
+                    Ever asked ChatGPT a question and got the most <span class="story-highlight">vanilla, corporate-approved answer</span> imaginable?
+                    Or tweaked some settings and suddenly it started writing like a sleep-deprived poet on espresso?
+                </p>
+                <p>
+                    That's not magic. It's <span class="story-highlight">token sampling</span> &mdash; the behind-the-scenes mechanism that decides
+                    which word comes next. Language models don't just pick the "best" word. They pick from a <em>probability distribution</em>
+                    of candidate words, and <strong>how</strong> they pick from that distribution determines whether your chatbot sounds like a
+                    corporate FAQ or a creative writing minor.
+                </p>
+                <p>
+                    The two most important knobs controlling this behavior? <span class="story-highlight">Top-K</span> and <span class="story-highlight">Top-P</span>.
+                    Let's demystify them.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concepts -->
+    <section class="concepts-section">
+        <div class="container">
+            <h2>The Two Sampling Strategies</h2>
+            <div class="concepts-grid">
+                <!-- Top-K -->
+                <div class="concept-card">
+                    <h3><span class="concept-badge concept-badge--topk">TOP-K</span> Fixed Guest List</h3>
+                    <p>
+                        Top-K sampling keeps only the <strong>K most probable</strong> next tokens, then samples from those.
+                        Everything outside the top K is discarded &mdash; no matter how likely or unlikely.
+                    </p>
+                    <p>
+                        <strong>K = 1</strong> means always pick the most likely word (greedy decoding). <strong>K = 50</strong> means the model can choose from 50 candidates,
+                        allowing more variety.
+                    </p>
+                    <div class="concept-example">
+                        Prompt: "The cat sat on the ___"<br>
+                        All tokens: [mat 30%, floor 25%, chair 15%, table 10%, roof 8%, moon 5%, keyboard 4%, ...]<br>
+                        <strong>Top-K=3:</strong> [mat 30%, floor 25%, chair 15%] &rarr; sample from these 3
+                    </div>
+                    <div class="concept-analogy">
+                        <strong>Analogy:</strong> It's like a restaurant that only shows you the 5 most popular dishes, regardless of whether #4 and #5 have wildly different demand.
+                    </div>
+                </div>
+
+                <!-- Top-P -->
+                <div class="concept-card">
+                    <h3><span class="concept-badge concept-badge--topp">TOP-P</span> Probability Budget</h3>
+                    <p>
+                        Top-P (nucleus sampling) keeps the <strong>smallest set of tokens</strong> whose combined probability exceeds a threshold P.
+                        It adapts &mdash; sometimes that's 3 tokens, sometimes 20.
+                    </p>
+                    <p>
+                        <strong>P = 0.1</strong> is very focused (only the near-certain tokens). <strong>P = 0.95</strong> allows almost everything in.
+                    </p>
+                    <div class="concept-example">
+                        Prompt: "The cat sat on the ___"<br>
+                        Token probs: [mat 30%, floor 25%, chair 15%, table 10%, roof 8%, ...]<br>
+                        <strong>Top-P=0.7:</strong> mat(30%) + floor(25%) + chair(15%) = 70% &ge; 0.7 &rarr; sample from these 3
+                    </div>
+                    <div class="concept-analogy">
+                        <strong>Analogy:</strong> It's like a budget &mdash; you keep adding dishes to your order until you've spent 90% of your money. Could be 2 items or 10, depending on their prices.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tradeoff -->
+            <div class="tradeoff-card" style="margin-top: 24px;">
+                <h3>The Randomness vs. Coherence Tradeoff</h3>
+                <div class="tradeoff-spectrum">
+                    <div class="tradeoff-end tradeoff-end--low">
+                        <h4>Low K / Low P</h4>
+                        <p>Fewer candidates. More predictable, coherent output. Can be repetitive or "boring." Think: customer support bot.</p>
+                    </div>
+                    <div class="tradeoff-arrow">&harr;</div>
+                    <div class="tradeoff-end tradeoff-end--high">
+                        <h4>High K / High P</h4>
+                        <p>More candidates. More creative, surprising output. Can be nonsensical or "unhinged." Think: creative writing prompt.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo -->
+    <section class="demo-section" id="demo">
+        <div class="container">
+            <h2>Try It Yourself</h2>
+            <p class="section-desc">Enter a prompt and adjust the sampling parameters. This demo simulates token probabilities locally &mdash; no API calls.</p>
+
+            <div class="demo-panel">
+                <div class="demo-controls">
+                    <div class="prompt-row">
+                        <input type="text" class="prompt-input" id="promptInput" placeholder='Try: "The cat sat on the" or "Once upon a time"' value="The cat sat on the" aria-label="Enter a text prompt">
+                        <button class="btn-generate" id="btnGenerate">Generate</button>
+                    </div>
+                    <div class="sliders-row">
+                        <div class="slider-group slider-group--topk">
+                            <label>Top-K: <span class="slider-val" id="topkVal">5</span></label>
+                            <input type="range" id="topkSlider" min="1" max="15" value="5" aria-label="Top-K value">
+                        </div>
+                        <div class="slider-group slider-group--topp">
+                            <label>Top-P: <span class="slider-val" id="toppVal">0.90</span></label>
+                            <input type="range" id="toppSlider" min="10" max="100" value="90" step="5" aria-label="Top-P value">
+                        </div>
+                        <div class="slider-group slider-group--temp">
+                            <label>Temperature: <span class="slider-val" id="tempVal">1.0</span></label>
+                            <input type="range" id="tempSlider" min="1" max="20" value="10" aria-label="Temperature value">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-output">
+                    <!-- Tabs -->
+                    <div class="output-tabs" role="tablist">
+                        <button class="output-tab output-tab--topk active" role="tab" aria-selected="true" data-tab="topk">Top-K Sampling</button>
+                        <button class="output-tab output-tab--topp" role="tab" aria-selected="false" data-tab="topp">Top-P Sampling</button>
+                    </div>
+
+                    <!-- Top-K Tab -->
+                    <div class="tab-content active" id="tab-topk" role="tabpanel">
+                        <div class="generated-text" id="topk-output">
+                            <span class="placeholder-text">Click "Generate" to see Top-K sampling in action.</span>
+                        </div>
+                        <div class="viz-title">Token Probability Distribution</div>
+                        <div class="viz-subtitle">Blue bars = included by Top-K filter. Grey bars = filtered out. Gold = selected token.</div>
+                        <div class="viz-step-nav">
+                            <button class="btn-step" id="topk-prev" disabled>&larr; Prev Step</button>
+                            <span class="step-label" id="topk-step-label">Step 0 / 0</span>
+                            <button class="btn-step" id="topk-next" disabled>Next Step &rarr;</button>
+                        </div>
+                        <div class="bar-chart" id="topk-chart">
+                            <div style="padding:20px; text-align:center; color: var(--text-muted); font-style: italic;">Visualization will appear after generation.</div>
+                        </div>
+                        <div class="info-callout" id="topk-info" style="display:none;">
+                            <strong>What happened:</strong> <span id="topk-info-text"></span>
+                        </div>
+                    </div>
+
+                    <!-- Top-P Tab -->
+                    <div class="tab-content" id="tab-topp" role="tabpanel">
+                        <div class="generated-text" id="topp-output">
+                            <span class="placeholder-text">Click "Generate" to see Top-P sampling in action.</span>
+                        </div>
+                        <div class="viz-title">Token Probability Distribution</div>
+                        <div class="viz-subtitle">Purple bars = included by Top-P filter. Grey bars = filtered out. Gold = selected token.</div>
+                        <div class="viz-step-nav">
+                            <button class="btn-step" id="topp-prev" disabled>&larr; Prev Step</button>
+                            <span class="step-label" id="topp-step-label">Step 0 / 0</span>
+                            <button class="btn-step" id="topp-next" disabled>Next Step &rarr;</button>
+                        </div>
+                        <div class="bar-chart" id="topp-chart">
+                            <div style="padding:20px; text-align:center; color: var(--text-muted); font-style: italic;">Visualization will appear after generation.</div>
+                        </div>
+                        <div class="info-callout" id="topp-info" style="display:none;">
+                            <strong>What happened:</strong> <span id="topp-info-text"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Cards -->
+    <section class="compare-section">
+        <div class="container">
+            <h2>Common Presets at a Glance</h2>
+            <div class="compare-grid">
+                <div class="compare-card">
+                    <h3>Factual / Safe</h3>
+                    <div class="compare-params">K=1, P=0.1, T=0.2</div>
+                    <div class="compare-meter">
+                        <span class="meter-label">Coherence</span>
+                        <div class="meter-track"><div class="meter-fill meter-fill--coherence" style="width:95%"></div></div>
+                    </div>
+                    <div class="compare-meter">
+                        <span class="meter-label">Creativity</span>
+                        <div class="meter-track"><div class="meter-fill meter-fill--creativity" style="width:10%"></div></div>
+                    </div>
+                    <p>Best for: code generation, factual Q&amp;A, data extraction. Always picks the most probable token.</p>
+                </div>
+                <div class="compare-card">
+                    <h3>Balanced</h3>
+                    <div class="compare-params">K=40, P=0.9, T=0.7</div>
+                    <div class="compare-meter">
+                        <span class="meter-label">Coherence</span>
+                        <div class="meter-track"><div class="meter-fill meter-fill--coherence" style="width:70%"></div></div>
+                    </div>
+                    <div class="compare-meter">
+                        <span class="meter-label">Creativity</span>
+                        <div class="meter-track"><div class="meter-fill meter-fill--creativity" style="width:60%"></div></div>
+                    </div>
+                    <p>Best for: chatbots, general assistants. Natural-sounding with low risk of nonsense. The ChatGPT sweet spot.</p>
+                </div>
+                <div class="compare-card">
+                    <h3>Creative / Wild</h3>
+                    <div class="compare-params">K=100, P=0.98, T=1.5</div>
+                    <div class="compare-meter">
+                        <span class="meter-label">Coherence</span>
+                        <div class="meter-track"><div class="meter-fill meter-fill--coherence" style="width:30%"></div></div>
+                    </div>
+                    <div class="compare-meter">
+                        <span class="meter-label">Creativity</span>
+                        <div class="meter-track"><div class="meter-fill meter-fill--creativity" style="width:95%"></div></div>
+                    </div>
+                    <p>Best for: brainstorming, poetry, fiction. Surprising word choices but may drift off-topic. Enter at your own risk.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="demo-footer">
+        <div class="container">
+            <p>Built by <a href="../index.html">Tanya Gupta</a>. Token probabilities are simulated locally for educational purposes &mdash; no language model API is called.</p>
+            <p style="margin-top:8px;">&copy; 2026 Tanya Gupta</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+    (function() {
+        'use strict';
+
+        // =============================================
+        // SIMULATED VOCABULARY & BIGRAM MODEL
+        // =============================================
+        // A toy "language model" using hand-crafted bigram probabilities.
+        // Maps the last word of the prompt to a distribution over next tokens.
+
+        var vocab = {
+            'the': [
+                {token: 'cat', prob: 0.12}, {token: 'dog', prob: 0.09}, {token: 'old', prob: 0.08},
+                {token: 'big', prob: 0.07}, {token: 'small', prob: 0.05}, {token: 'red', prob: 0.05},
+                {token: 'first', prob: 0.04}, {token: 'new', prob: 0.04}, {token: 'last', prob: 0.04},
+                {token: 'dark', prob: 0.03}, {token: 'great', prob: 0.03}, {token: 'same', prob: 0.03},
+                {token: 'other', prob: 0.02}, {token: 'young', prob: 0.02}, {token: 'whole', prob: 0.02}
+            ],
+            'cat': [
+                {token: 'sat', prob: 0.22}, {token: 'jumped', prob: 0.14}, {token: 'slept', prob: 0.10},
+                {token: 'ran', prob: 0.09}, {token: 'purred', prob: 0.07}, {token: 'climbed', prob: 0.06},
+                {token: 'was', prob: 0.05}, {token: 'looked', prob: 0.04}, {token: 'hissed', prob: 0.04},
+                {token: 'meowed', prob: 0.03}, {token: 'stretched', prob: 0.03}, {token: 'ate', prob: 0.03},
+                {token: 'walked', prob: 0.02}, {token: 'waited', prob: 0.02}, {token: 'disappeared', prob: 0.02}
+            ],
+            'sat': [
+                {token: 'on', prob: 0.30}, {token: 'down', prob: 0.18}, {token: 'in', prob: 0.10},
+                {token: 'by', prob: 0.08}, {token: 'quietly', prob: 0.06}, {token: 'still', prob: 0.05},
+                {token: 'there', prob: 0.04}, {token: 'alone', prob: 0.03}, {token: 'up', prob: 0.03},
+                {token: 'beside', prob: 0.02}, {token: 'near', prob: 0.02}, {token: 'upon', prob: 0.02},
+                {token: 'inside', prob: 0.02}, {token: 'outside', prob: 0.01}, {token: 'underneath', prob: 0.01}
+            ],
+            'on': [
+                {token: 'the', prob: 0.28}, {token: 'a', prob: 0.15}, {token: 'top', prob: 0.08},
+                {token: 'my', prob: 0.06}, {token: 'his', prob: 0.05}, {token: 'her', prob: 0.04},
+                {token: 'its', prob: 0.04}, {token: 'that', prob: 0.03}, {token: 'this', prob: 0.03},
+                {token: 'their', prob: 0.02}, {token: 'our', prob: 0.02}, {token: 'every', prob: 0.02},
+                {token: 'one', prob: 0.02}, {token: 'some', prob: 0.01}, {token: 'each', prob: 0.01}
+            ],
+            'mat': [
+                {token: 'and', prob: 0.18}, {token: 'while', prob: 0.10}, {token: 'with', prob: 0.08},
+                {token: 'in', prob: 0.07}, {token: 'near', prob: 0.06}, {token: 'beside', prob: 0.05},
+                {token: 'watching', prob: 0.05}, {token: 'quietly', prob: 0.04}, {token: 'purring', prob: 0.04},
+                {token: 'sleeping', prob: 0.04}, {token: 'dreaming', prob: 0.03}, {token: 'waiting', prob: 0.03},
+                {token: 'alone', prob: 0.03}, {token: 'all', prob: 0.02}, {token: 'until', prob: 0.02}
+            ],
+            'once': [
+                {token: 'upon', prob: 0.35}, {token: 'there', prob: 0.12}, {token: 'more', prob: 0.08},
+                {token: 'again', prob: 0.07}, {token: 'a', prob: 0.06}, {token: 'in', prob: 0.05},
+                {token: 'the', prob: 0.04}, {token: 'every', prob: 0.03}, {token: 'before', prob: 0.03},
+                {token: 'during', prob: 0.02}, {token: 'when', prob: 0.02}, {token: 'we', prob: 0.02},
+                {token: 'they', prob: 0.02}, {token: 'you', prob: 0.01}, {token: 'I', prob: 0.01}
+            ],
+            'upon': [
+                {token: 'a', prob: 0.40}, {token: 'the', prob: 0.15}, {token: 'this', prob: 0.06},
+                {token: 'his', prob: 0.05}, {token: 'her', prob: 0.04}, {token: 'my', prob: 0.04},
+                {token: 'their', prob: 0.03}, {token: 'our', prob: 0.02}, {token: 'that', prob: 0.02},
+                {token: 'its', prob: 0.02}, {token: 'each', prob: 0.02}, {token: 'one', prob: 0.02},
+                {token: 'which', prob: 0.01}, {token: 'some', prob: 0.01}, {token: 'every', prob: 0.01}
+            ],
+            'a': [
+                {token: 'time', prob: 0.15}, {token: 'big', prob: 0.08}, {token: 'small', prob: 0.06},
+                {token: 'new', prob: 0.06}, {token: 'long', prob: 0.05}, {token: 'great', prob: 0.05},
+                {token: 'little', prob: 0.05}, {token: 'dark', prob: 0.04}, {token: 'young', prob: 0.04},
+                {token: 'cold', prob: 0.03}, {token: 'warm', prob: 0.03}, {token: 'quiet', prob: 0.03},
+                {token: 'strange', prob: 0.03}, {token: 'beautiful', prob: 0.02}, {token: 'distant', prob: 0.02}
+            ],
+            'time': [
+                {token: 'when', prob: 0.14}, {token: 'there', prob: 0.12}, {token: 'in', prob: 0.09},
+                {token: 'the', prob: 0.07}, {token: 'a', prob: 0.06}, {token: 'ago', prob: 0.06},
+                {token: 'of', prob: 0.05}, {token: 'for', prob: 0.04}, {token: 'to', prob: 0.04},
+                {token: 'and', prob: 0.04}, {token: 'that', prob: 0.03}, {token: 'before', prob: 0.03},
+                {token: 'after', prob: 0.02}, {token: 'long', prob: 0.02}, {token: 'not', prob: 0.02}
+            ],
+            'dog': [
+                {token: 'barked', prob: 0.18}, {token: 'ran', prob: 0.14}, {token: 'jumped', prob: 0.10},
+                {token: 'sat', prob: 0.08}, {token: 'wagged', prob: 0.07}, {token: 'chased', prob: 0.06},
+                {token: 'was', prob: 0.05}, {token: 'looked', prob: 0.04}, {token: 'ate', prob: 0.04},
+                {token: 'slept', prob: 0.03}, {token: 'played', prob: 0.03}, {token: 'walked', prob: 0.03},
+                {token: 'sniffed', prob: 0.02}, {token: 'howled', prob: 0.02}, {token: 'waited', prob: 0.02}
+            ],
+            'i': [
+                {token: 'was', prob: 0.14}, {token: 'am', prob: 0.10}, {token: 'think', prob: 0.08},
+                {token: 'went', prob: 0.07}, {token: 'saw', prob: 0.06}, {token: 'had', prob: 0.06},
+                {token: 'could', prob: 0.05}, {token: 'would', prob: 0.05}, {token: 'will', prob: 0.04},
+                {token: 'have', prob: 0.04}, {token: 'know', prob: 0.04}, {token: 'found', prob: 0.03},
+                {token: 'never', prob: 0.03}, {token: 'always', prob: 0.02}, {token: 'just', prob: 0.02}
+            ],
+            'it': [
+                {token: 'was', prob: 0.20}, {token: 'is', prob: 0.12}, {token: 'had', prob: 0.08},
+                {token: 'would', prob: 0.06}, {token: 'could', prob: 0.05}, {token: 'might', prob: 0.04},
+                {token: 'should', prob: 0.04}, {token: 'will', prob: 0.04}, {token: 'seemed', prob: 0.04},
+                {token: 'felt', prob: 0.03}, {token: 'looked', prob: 0.03}, {token: 'turned', prob: 0.03},
+                {token: 'began', prob: 0.02}, {token: 'happened', prob: 0.02}, {token: 'made', prob: 0.02}
+            ]
+        };
+
+        // Default/fallback distribution for unknown last words
+        var defaultDist = [
+            {token: 'the', prob: 0.12}, {token: 'a', prob: 0.08}, {token: 'and', prob: 0.07},
+            {token: 'is', prob: 0.06}, {token: 'was', prob: 0.06}, {token: 'in', prob: 0.05},
+            {token: 'to', prob: 0.05}, {token: 'of', prob: 0.05}, {token: 'it', prob: 0.04},
+            {token: 'that', prob: 0.04}, {token: 'for', prob: 0.03}, {token: 'with', prob: 0.03},
+            {token: 'on', prob: 0.03}, {token: 'at', prob: 0.02}, {token: 'from', prob: 0.02}
+        ];
+
+        // =============================================
+        // SAMPLING ENGINE
+        // =============================================
+
+        function getDistribution(lastWord, temperature) {
+            var key = lastWord.toLowerCase().replace(/[^a-z]/g, '');
+            var dist = vocab[key] || defaultDist;
+
+            // Deep copy
+            var result = [];
+            var i;
+            for (i = 0; i < dist.length; i++) {
+                result.push({token: dist[i].token, prob: dist[i].prob});
+            }
+
+            // Apply temperature
+            if (temperature !== 1.0) {
+                var sum = 0;
+                for (i = 0; i < result.length; i++) {
+                    result[i].prob = Math.pow(result[i].prob, 1.0 / temperature);
+                    sum += result[i].prob;
+                }
+                for (i = 0; i < result.length; i++) {
+                    result[i].prob = result[i].prob / sum;
+                }
+            }
+
+            // Sort descending
+            result.sort(function(a, b) { return b.prob - a.prob; });
+            return result;
+        }
+
+        function applyTopK(dist, k) {
+            var included = dist.slice(0, k);
+            var excluded = dist.slice(k);
+            // Renormalize
+            var sum = 0;
+            var i;
+            for (i = 0; i < included.length; i++) {
+                sum += included[i].prob;
+            }
+            var normalized = [];
+            for (i = 0; i < included.length; i++) {
+                normalized.push({token: included[i].token, prob: included[i].prob / sum});
+            }
+            return {included: normalized, excluded: excluded, cutoffIndex: k};
+        }
+
+        function applyTopP(dist, p) {
+            var cumulative = 0;
+            var cutoff = 0;
+            var i;
+            for (i = 0; i < dist.length; i++) {
+                cumulative += dist[i].prob;
+                cutoff = i + 1;
+                if (cumulative >= p) break;
+            }
+            var included = dist.slice(0, cutoff);
+            var excluded = dist.slice(cutoff);
+            // Renormalize
+            var sum = 0;
+            for (i = 0; i < included.length; i++) {
+                sum += included[i].prob;
+            }
+            var normalized = [];
+            for (i = 0; i < included.length; i++) {
+                normalized.push({token: included[i].token, prob: included[i].prob / sum});
+            }
+            return {included: normalized, excluded: excluded, cutoffIndex: cutoff, cumulativeAtCutoff: cumulative};
+        }
+
+        function sampleFrom(dist) {
+            var r = Math.random();
+            var cumulative = 0;
+            for (var i = 0; i < dist.length; i++) {
+                cumulative += dist[i].prob;
+                if (r <= cumulative) return dist[i].token;
+            }
+            return dist[dist.length - 1].token;
+        }
+
+        // =============================================
+        // GENERATION
+        // =============================================
+
+        var NUM_STEPS = 6;
+
+        function generateSequence(prompt, topK, topP, temperature, mode) {
+            var words = prompt.trim().split(/\s+/);
+            var lastWord = words[words.length - 1];
+            var steps = [];
+            var generatedTokens = [];
+
+            for (var step = 0; step < NUM_STEPS; step++) {
+                var dist = getDistribution(lastWord, temperature);
+                var filtered;
+                if (mode === 'topk') {
+                    filtered = applyTopK(dist, topK);
+                } else {
+                    filtered = applyTopP(dist, topP);
+                }
+                var selected = sampleFrom(filtered.included);
+                steps.push({
+                    fullDist: dist,
+                    filtered: filtered,
+                    selected: selected,
+                    mode: mode
+                });
+                generatedTokens.push(selected);
+                lastWord = selected;
+            }
+
+            return {prompt: prompt, tokens: generatedTokens, steps: steps};
+        }
+
+        // =============================================
+        // VISUALIZATION
+        // =============================================
+
+        function renderBarChart(containerId, stepData) {
+            var container = document.getElementById(containerId);
+            var fullDist = stepData.fullDist;
+            var filtered = stepData.filtered;
+            var selected = stepData.selected;
+            var mode = stepData.mode;
+            var cutoff = filtered.cutoffIndex;
+
+            var maxProb = fullDist[0].prob;
+            var html = '';
+
+            for (var i = 0; i < fullDist.length; i++) {
+                var token = fullDist[i].token;
+                var prob = fullDist[i].prob;
+                var pct = (prob / maxProb) * 100;
+                var isIncluded = i < cutoff;
+                var isSelected = token === selected;
+
+                var rowClass = 'bar-row';
+                if (!isIncluded) rowClass += ' excluded';
+                if (isSelected) rowClass += ' selected';
+
+                var fillClass = 'bar-fill';
+                if (isSelected) {
+                    fillClass += ' bar-fill--selected';
+                } else if (isIncluded) {
+                    fillClass += (mode === 'topp') ? ' bar-fill--included-topp' : ' bar-fill--included';
+                } else {
+                    fillClass += ' bar-fill--excluded';
+                }
+
+                html += '<div class="' + rowClass + '">';
+                html += '<span class="bar-label">' + escapeHtml(token) + (isSelected ? ' *' : '') + '</span>';
+                html += '<div class="bar-track"><div class="' + fillClass + '" style="width:' + pct.toFixed(1) + '%"></div></div>';
+                html += '<span class="bar-pct">' + (prob * 100).toFixed(1) + '%</span>';
+                html += '</div>';
+
+                if (i === cutoff - 1 && cutoff < fullDist.length) {
+                    var lineClass = (mode === 'topp') ? 'cutoff-line cutoff-line--topp' : 'cutoff-line cutoff-line--topk';
+                    if (mode === 'topk') {
+                        html += '<div class="' + lineClass + '">&#9660; Top-K cutoff (K=' + cutoff + ') &mdash; tokens below are filtered out</div>';
+                    } else {
+                        var cumPct = (filtered.cumulativeAtCutoff * 100).toFixed(0);
+                        html += '<div class="' + lineClass + '">&#9660; Top-P cutoff (cumulative = ' + cumPct + '%) &mdash; tokens below are filtered out</div>';
+                    }
+                }
+            }
+
+            container.innerHTML = html;
+        }
+
+        function escapeHtml(str) {
+            var div = document.createElement('div');
+            div.appendChild(document.createTextNode(str));
+            return div.innerHTML;
+        }
+
+        function renderOutput(containerId, result) {
+            var el = document.getElementById(containerId);
+            var html = '<span class="prompt-echo">' + escapeHtml(result.prompt) + ' </span>';
+            for (var i = 0; i < result.tokens.length; i++) {
+                html += '<span class="gen-token">' + escapeHtml(result.tokens[i]) + ' </span>';
+            }
+            el.innerHTML = html;
+        }
+
+        function renderStepInfo(infoId, textId, stepData) {
+            var info = document.getElementById(infoId);
+            var text = document.getElementById(textId);
+            info.style.display = 'block';
+
+            var mode = stepData.mode;
+            var cutoff = stepData.filtered.cutoffIndex;
+            var total = stepData.fullDist.length;
+            var selected = stepData.selected;
+
+            if (mode === 'topk') {
+                text.textContent = 'The model considered ' + total + ' possible next tokens. Top-K=' + cutoff +
+                    ' kept only the ' + cutoff + ' most probable. From those, "' + selected + '" was randomly sampled (weighted by probability).';
+            } else {
+                var cumPct = (stepData.filtered.cumulativeAtCutoff * 100).toFixed(0);
+                text.textContent = 'The model considered ' + total + ' possible next tokens. Top-P kept the smallest set whose probabilities sum to >= ' +
+                    cumPct + '% (' + cutoff + ' tokens). From those, "' + selected + '" was randomly sampled.';
+            }
+        }
+
+        // =============================================
+        // UI WIRING
+        // =============================================
+
+        var promptInput = document.getElementById('promptInput');
+        var btnGenerate = document.getElementById('btnGenerate');
+        var topkSlider = document.getElementById('topkSlider');
+        var toppSlider = document.getElementById('toppSlider');
+        var tempSlider = document.getElementById('tempSlider');
+        var topkVal = document.getElementById('topkVal');
+        var toppVal = document.getElementById('toppVal');
+        var tempVal = document.getElementById('tempVal');
+
+        // Tab state
+        var topkResult = null;
+        var toppResult = null;
+        var topkStep = 0;
+        var toppStep = 0;
+
+        // Slider display updates
+        topkSlider.addEventListener('input', function() {
+            topkVal.textContent = this.value;
+        });
+        toppSlider.addEventListener('input', function() {
+            toppVal.textContent = (parseInt(this.value) / 100).toFixed(2);
+        });
+        tempSlider.addEventListener('input', function() {
+            tempVal.textContent = (parseInt(this.value) / 10).toFixed(1);
+        });
+
+        // Tab switching
+        var tabs = document.querySelectorAll('.output-tab');
+        for (var t = 0; t < tabs.length; t++) {
+            tabs[t].addEventListener('click', function() {
+                var tabName = this.getAttribute('data-tab');
+                for (var j = 0; j < tabs.length; j++) {
+                    tabs[j].classList.remove('active');
+                    tabs[j].setAttribute('aria-selected', 'false');
+                }
+                this.classList.add('active');
+                this.setAttribute('aria-selected', 'true');
+
+                var contents = document.querySelectorAll('.tab-content');
+                for (var j = 0; j < contents.length; j++) {
+                    contents[j].classList.remove('active');
+                }
+                document.getElementById('tab-' + tabName).classList.add('active');
+            });
+        }
+
+        // Step navigation
+        function setupStepNav(prefix, getResult, getStep, setStep) {
+            var prevBtn = document.getElementById(prefix + '-prev');
+            var nextBtn = document.getElementById(prefix + '-next');
+            var label = document.getElementById(prefix + '-step-label');
+
+            prevBtn.addEventListener('click', function() {
+                var s = getStep();
+                if (s > 0) {
+                    s--;
+                    setStep(s);
+                    updateStepView(prefix, getResult(), s);
+                }
+            });
+
+            nextBtn.addEventListener('click', function() {
+                var result = getResult();
+                var s = getStep();
+                if (result && s < result.steps.length - 1) {
+                    s++;
+                    setStep(s);
+                    updateStepView(prefix, result, s);
+                }
+            });
+        }
+
+        function updateStepView(prefix, result, step) {
+            var label = document.getElementById(prefix + '-step-label');
+            var prevBtn = document.getElementById(prefix + '-prev');
+            var nextBtn = document.getElementById(prefix + '-next');
+
+            label.textContent = 'Step ' + (step + 1) + ' / ' + result.steps.length;
+            prevBtn.disabled = step === 0;
+            nextBtn.disabled = step >= result.steps.length - 1;
+
+            renderBarChart(prefix + '-chart', result.steps[step]);
+            renderStepInfo(prefix + '-info', prefix + '-info-text', result.steps[step]);
+
+            // Highlight generated tokens up to current step
+            var outputEl = document.getElementById(prefix + '-output');
+            var html = '<span class="prompt-echo">' + escapeHtml(result.prompt) + ' </span>';
+            for (var i = 0; i < result.tokens.length; i++) {
+                var style = i <= step ? 'font-weight:700;' : 'opacity:0.4;';
+                if (i === step) style += 'text-decoration:underline;text-underline-offset:4px;';
+                html += '<span class="gen-token" style="' + style + '">' + escapeHtml(result.tokens[i]) + ' </span>';
+            }
+            outputEl.innerHTML = html;
+        }
+
+        setupStepNav('topk',
+            function() { return topkResult; },
+            function() { return topkStep; },
+            function(s) { topkStep = s; }
+        );
+
+        setupStepNav('topp',
+            function() { return toppResult; },
+            function() { return toppStep; },
+            function(s) { toppStep = s; }
+        );
+
+        // Generate button
+        btnGenerate.addEventListener('click', function() {
+            var prompt = promptInput.value.trim();
+            if (!prompt) {
+                promptInput.focus();
+                return;
+            }
+
+            var topK = parseInt(topkSlider.value);
+            var topP = parseInt(toppSlider.value) / 100;
+            var temp = parseInt(tempSlider.value) / 10;
+
+            topkResult = generateSequence(prompt, topK, topP, temp, 'topk');
+            toppResult = generateSequence(prompt, topK, topP, temp, 'topp');
+
+            topkStep = 0;
+            toppStep = 0;
+
+            renderOutput('topk-output', topkResult);
+            renderOutput('topp-output', toppResult);
+
+            updateStepView('topk', topkResult, 0);
+            updateStepView('topp', toppResult, 0);
+        });
+
+        // Enter key in input
+        promptInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                btnGenerate.click();
+            }
+        });
+
+        // Auto-generate on load
+        btnGenerate.click();
+
+    })();
+    </script>
+
+</body>
+</html>
