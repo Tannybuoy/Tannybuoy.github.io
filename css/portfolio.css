@@ -1656,6 +1656,10 @@ body.unhinged .reveal.visible .project-card:nth-child(2) { transform: rotate(0.3
         gap: 40px;
     }
 
+    .phone-mockup {
+        display: none;
+    }
+
     .hero-content {
         text-align: center;
         max-width: 780px;
