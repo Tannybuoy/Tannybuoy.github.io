@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEVIOSA 2048</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --page-bg: #F2F8FC;        /* very light blue background */
+      --board-bg: #D6EAF6;       /* board container */
+      --cell-bg: #B9D9ED;        /* empty cell color */
+
+      --accent-blue: #0077B5;    /* primary brand color */
+      --accent-blue-hover: #3399CC;
+
+      --accent-light: #66B7DF;   /* highlight / UI elements */
+
+      --text-dark: #0F2A3A;      /* primary text */
+      --text-muted: #5F7F91;     /* secondary text */
+      --tile-size: 80px;
+      --gap: 12px;
+      --tile-step: calc(var(--tile-size) + var(--gap));
+      --board-size: calc(4 * var(--tile-size) + 5 * var(--gap));
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--page-bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      body { padding: 16px; }
+    }
+
+    .app {
+      position: relative;
+      z-index: 10;
+      max-width: 560px;
+      width: 100%;
+    }
+    @media (min-width: 768px) {
+      .app { max-width: 720px; }
+    }
+
+    /* Decorative stars */
+    .star {
+      position: fixed;
+      color: var(--accent-pink);
+      pointer-events: none;
+      font-size: 24px;
+    }
+    .star:nth-child(1) { top: 48px; left: 48px; opacity: 0.7; font-size: 32px; }
+    .star:nth-child(2) { top: 96px; right: 96px; opacity: 0.5; }
+    .star:nth-child(3) { bottom: 80px; left: 128px; opacity: 0.6; font-size: 40px; }
+    .star:nth-child(4) { bottom: 128px; right: 64px; opacity: 0.4; font-size: 28px; }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    @media (min-width: 768px) {
+      .header { margin-bottom: 32px; }
+    }
+    .header h1 {
+      font-size: 1.875rem;
+      font-weight: bold;
+      color: var(--accent-gold);
+      margin-bottom: 4px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      letter-spacing: 0.05em;
+    }
+    @media (min-width: 768px) {
+      .header h1 { font-size: 3.75rem; margin-bottom: 8px; }
+    }
+    .header p {
+      color: var(--accent-pink);
+      font-size: 0.875rem;
+    }
+    @media (min-width: 768px) {
+      .header p { font-size: 1.125rem; }
+    }
+
+    /* Center container */
+    .center-wrap { width: fit-content; margin: 0 auto; display: flex; flex-direction: column; }
+    @media (min-width: 768px) {
+      .center-wrap { flex-direction: row; gap: 16px; align-items: stretch; }
+    }
+
+    /* Mobile ordering: score above board, buttons below */
+    @media (max-width: 767px) {
+      .score-panel { order: -1; }
+      .action-buttons { order: 10; }
+    }
+
+    /* Sidebar (score + buttons on desktop) */
+    .sidebar {
+      display: contents;
+    }
+    @media (min-width: 768px) {
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-width: 130px;
+        order: 2;
+        height: var(--board-size) !important;
+        align-items: stretch;
+      }
+      .board-wrapper { order: 1; }
+    }
+
+    /* Robust desktop layout: ensure flex children can shrink and action buttons fill leftover space */
+    @media (min-width: 768px) {
+      .center-wrap { align-items: stretch; }
+      .sidebar { min-height: 0; }
+      .score-panel { flex: 0 0 auto; min-height: 0; }
+      .action-buttons { flex: 1 1 0; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+      .action-buttons .action-btn { flex: 1 1 0; min-height: 0; }
+    }
+
+    /* Score panel */
+    .score-panel {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+    @media (min-width: 768px) {
+      .score-panel { flex-direction: column; margin-bottom: 0; gap: 12px; flex: 0 0 auto; display: flex; }
+    }
+    .score-box {
+      flex: 1;
+      background: var(--board-bg);
+      border-radius: 12px;
+      padding: 8px;
+      text-align: center;
+    }
+    @media (min-width: 768px) {
+      .score-box { border-radius: 16px; padding: 16px; flex: 0 0 72px; width: 100%; display: flex; flex-direction: column; justify-content: center; }
+    }
+    .score-label {
+      color: var(--accent-pink);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 2px;
+    }
+    @media (min-width: 768px) {
+      .score-label { font-size: 0.875rem; margin-bottom: 4px; }
+    }
+    .score-value {
+      color: var(--accent-gold);
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+    @media (min-width: 768px) {
+      .score-value { font-size: 1.875rem; }
+    }
+
+    /* Board */
+    .board-wrapper {
+      position: relative;
+      background: var(--board-bg);
+      padding: var(--gap);
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      width: var(--board-size);
+      height: var(--board-size);
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .grid-bg {
+      display: grid;
+      grid-template-columns: repeat(4, var(--tile-size));
+      gap: var(--gap);
+    }
+    .grid-cell {
+      width: var(--tile-size);
+      height: var(--tile-size);
+      background: var(--cell-bg);
+      border-radius: 12px;
+    }
+    .tiles-layer {
+      position: absolute;
+      top: var(--gap);
+      left: var(--gap);
+      right: var(--gap);
+      bottom: var(--gap);
+    }
+
+    /* Tile */
+    .tile {
+      position: absolute;
+      width: var(--tile-size);
+      height: var(--tile-size);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+      transition: transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: transform;
+    }
+    .tile-emoji {
+      font-size: 1.5rem;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+    .tile-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1;
+    }
+    .tile-small .tile-emoji {
+      font-size: 1.25rem;
+      margin-bottom: 0;
+    }
+    .tile-small .tile-label {
+      font-size: 10px;
+    }
+
+    /* Tile animations */
+    .tile.tile-new {
+      animation: tile-appear 220ms cubic-bezier(0.2, 0.9, 0.3, 1) 100ms both;
+    }
+    .tile.tile-merged {
+      animation: tile-merge 320ms cubic-bezier(0.2, 0.9, 0.3, 1) both;
+    }
+    .tile.tile-consumed {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @keyframes tile-appear {
+      from { opacity: 0; transform: var(--tile-transform) scale(0); }
+      to { opacity: 1; transform: var(--tile-transform) scale(1); }
+    }
+    @keyframes tile-merge {
+      0% { transform: var(--tile-transform) scale(1); }
+      40% { transform: var(--tile-transform) scale(1.18); }
+      70% { transform: var(--tile-transform) scale(1.06); }
+      100% { transform: var(--tile-transform) scale(1); }
+    }
+
+    /* Instructions */
+    .instructions {
+      margin-top: 8px;
+      text-align: center;
+      color: var(--accent-pink);
+      font-size: 0.75rem;
+    }
+    @media (min-width: 768px) {
+      .instructions { margin-top: 24px; font-size: 0.875rem; }
+    }
+    .instructions .desktop-only { display: none; }
+    .instructions .mobile-only { display: block; }
+    @media (min-width: 768px) {
+      .instructions .desktop-only { display: block; }
+      .instructions .mobile-only { display: none; }
+    }
+
+    /* Action buttons */
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    @media (min-width: 768px) {
+      .action-buttons {
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 0;
+        flex: 1 1 0;
+        display: flex;
+        justify-content: center;
+      }
+    }
+    .action-btn {
+      background: var(--accent-gold);
+      color: #0077B5;
+      border: none;
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 1.25rem;
+      line-height: 1;
+      transition: all 0.15s;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    }
+    @media (min-width: 768px) {
+      .action-btn { padding: 16px; border-radius: 16px; font-size: 1.5rem; flex: 1 1 0; }
+    }
+    .action-btn:hover { background: var(--accent-gold-hover); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+    .action-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .action-btn:disabled:hover { background: var(--accent-gold); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+
+    /* Modal overlay */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      padding: 16px;
+      animation: fade-in 200ms ease-out;
+    }
+    .modal-overlay.hidden { display: none; }
+
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes modal-in {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-content {
+      background: #F5EFE6;
+      border-radius: 24px;
+      padding: 32px;
+      max-width: 448px;
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      animation: modal-in 300ms ease-out;
+    }
+    .modal-content h2 {
+      font-size: 3rem;
+      font-weight: bold;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .modal-sparkle {
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+    .modal-stats {
+      text-align: center;
+      color: var(--text-dark);
+      font-size: 1.125rem;
+      margin-bottom: 8px;
+    }
+    .modal-stats strong { font-weight: bold; }
+    .modal-flavor {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .modal-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      border-radius: 16px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-bottom: 12px;
+    }
+    .modal-btn:last-child { margin-bottom: 0; }
+    .modal-btn-primary {
+      background: #F5F5F0;
+      color: var(--text-dark);
+      border: 2px solid var(--text-muted);
+    }
+    .modal-btn-primary:hover { background: #E8E8DD; }
+    .modal-btn-secondary {
+      background: var(--text-muted);
+      color: white;
+    }
+    .modal-btn-secondary:hover { background: #7A5A7A; }
+
+    /* Rules modal */
+    .rules-content {
+      background: #F5EFE6;
+      border-radius: 24px;
+      padding: 24px;
+      max-width: 640px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      animation: modal-in 300ms ease-out;
+    }
+    .rules-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+    .rules-header h2 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .rules-header p { color: var(--text-muted); }
+    .rules-close {
+      background: var(--text-muted);
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 1.25rem;
+      line-height: 1;
+      transition: all 0.15s;
+    }
+    .rules-close:hover { background: #7A5A7A; }
+    .rules-section {
+      background: rgba(255,255,255,0.5);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .rules-section h3 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+    .rules-section ul { list-style: none; }
+    .rules-section li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+    .rules-section li:last-child { margin-bottom: 0; }
+    .rules-bullet { color: var(--accent-gold); font-weight: bold; }
+    .rules-section li strong { font-weight: bold; }
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    @media (min-width: 640px) {
+      .rules-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .rules-tile-emoji { font-size: 1.5rem; margin-bottom: 4px; }
+    .rules-tile-name { font-size: 0.75rem; font-weight: bold; color: var(--text-dark); }
+    .rules-tile-value { font-size: 1rem; color: var(--text-muted); opacity: 0.75; }
+    .rules-example {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .rules-example-tile {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    }
+    .rules-example-tile .tile-emoji { font-size: 1.5rem; }
+    .rules-example-tile .tile-label { font-size: 0.75rem; font-weight: bold; }
+    .rules-example-op { font-size: 1.5rem; color: var(--accent-gold); font-weight: bold; }
+    .rules-done-btn {
+      display: block;
+      width: 100%;
+      margin-top: 24px;
+      background: var(--text-muted);
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 16px;
+      border-radius: 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .rules-done-btn:hover { background: #7A5A7A; }
+  </style>
+</head>
+<body>
+  <!-- Decorative stars -->
+  <div class="star">✨</div>
+  <div class="star">✨</div>
+  <div class="star">✨</div>
+  <div class="star">✨</div>
+
+  <div class="app">
+    <!-- Header -->
+    <div class="header">
+      <h1>LEVIOSA 2048</h1>
+      <p>Merge tiles to go from Problem to Launch! 🌟</p>
+    </div>
+
+    <!-- Center container -->
+    <div class="center-wrap">
+      <!-- Game Board -->
+      <div class="board-wrapper" id="board-wrapper">
+        <div class="grid-bg" id="grid-bg"></div>
+        <div class="tiles-layer" id="tiles-layer"></div>
+      </div>
+
+      <!-- Sidebar: score + buttons (right side on desktop, above/below on mobile) -->
+      <div class="sidebar">
+        <!-- Score Panel -->
+        <div class="score-panel">
+          <div class="score-box">
+            <div class="score-label">Score</div>
+            <div class="score-value" id="score-display">0</div>
+          </div>
+          <div class="score-box">
+            <div class="score-label">Moves</div>
+            <div class="score-value" id="moves-display">0</div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button class="action-btn" id="btn-reset" title="Reset">↻</button>
+          <button class="action-btn" id="btn-undo" title="Undo" disabled>↩</button>
+          <button class="action-btn" id="btn-help" title="Help">?</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Instructions -->
+    <!-- <div class="instructions"> -->
+      <!-- <p class="desktop-only">Use arrow keys to move tiles. Merge identical items to progress!</p> -->
+      <!-- <p class="mobile-only">Swipe to move tiles. Merge identical items to progress!</p> -->
+    <!-- </div> -->
+  </div>
+
+  <!-- Game Over Modal -->
+  <div class="modal-overlay hidden" id="game-modal">
+    <div class="modal-content">
+      <h2 id="modal-title">Game Over</h2>
+      <div class="modal-sparkle hidden" id="modal-sparkle">🌟</div>
+      <p class="modal-stats" id="modal-stats"></p>
+      <p class="modal-flavor" id="modal-flavor"></p>
+      <button class="modal-btn modal-btn-primary" id="modal-reset">Start Over</button>
+      <button class="modal-btn modal-btn-secondary hidden" id="modal-continue">Keep Going</button>
+    </div>
+  </div>
+
+  <!-- Rules Modal -->
+  <div class="modal-overlay hidden" id="rules-modal">
+    <div class="rules-content">
+      <div class="rules-header">
+        <div>
+          <h2>How to Play</h2>
+          <p>Master the merge!</p>
+        </div>
+        <button class="rules-close" id="rules-close">✕</button>
+      </div>
+
+      <div class="rules-section">
+        <h3>🎮 Basic Rules</h3>
+        <ul>
+          <li><span class="rules-bullet">•</span><span>Use <strong>arrow keys</strong> (↑ ↓ ← →) or <strong>swipe</strong> to slide all tiles</span></li>
+          <li><span class="rules-bullet">•</span><span>When two tiles with the <strong>same item</strong> touch, they <strong>merge into one</strong></span></li>
+          <li><span class="rules-bullet">•</span><span>Each merge creates the <strong>next item</strong> in the progression</span></li>
+          <li><span class="rules-bullet">•</span><span>After every move, a new tile appears randomly</span></li>
+          <li><span class="rules-bullet">•</span><span>Your goal is to run a <strong>Launch (2048)</strong>! 🌟</span></li>
+        </ul>
+      </div>
+
+      <div class="rules-section">
+        <h3>🚀 Tile Progression</h3>
+        <p style="color: var(--text-muted); margin-bottom: 16px; font-size: 0.875rem;">Merge two of the same to create the next item:</p>
+        <div class="rules-grid" id="rules-grid"></div>
+      </div>
+
+      <div class="rules-section">
+        <h3>✨ Example</h3>
+        <div class="rules-example" id="rules-example"></div>
+      </div>
+
+      <div class="rules-section">
+        <h3>🏆 Win & Lose</h3>
+        <ul>
+          <li><span style="color: green; font-weight: bold;">✓</span><span><strong>Win:</strong> Create the Launch (2048) tile!</span></li>
+          <li><span style="color: red; font-weight: bold;">✗</span><span><strong>Lose:</strong> The board fills up and no more moves are possible</span></li>
+        </ul>
+      </div>
+
+      <button class="rules-done-btn" id="rules-done">Got it! Let's Play 🌟</button>
+    </div>
+  </div>
+
+  <script>
+    // ==================== TILE CONFIG ====================
+    const TILE_CONFIG = {
+      2:    { bg: '#E6F3FA', text: '#053047', emoji: '🔍', label: 'Problem' },
+      4:    { bg: '#CCE7F5', text: '#053047', emoji: '🩵', label: 'Empathy' },
+      8:    { bg: '#99CFEA', text: '#053047', emoji: '👤', label: 'User' },
+      16:   { bg: '#66B7DF', text: '#053047', emoji: '💡', label: 'Insight' },
+      32:   { bg: '#339FD4', text: '#FFFFFF', emoji: '📊', label: 'Market' },
+      64:   { bg: '#0077B5', text: '#FFFFFF', emoji: '🧠', label: 'Brainstorm' },
+      128:  { bg: '#00659A', text: '#FFFFFF', emoji: '🔧', label: 'Prototype' },
+      256:  { bg: '#005480', text: '#FFFFFF', emoji: '🧪', label: 'Test' },
+      512:  { bg: '#004266', text: '#FFFFFF', emoji: '📈', label: 'Metric' },
+      1024: { bg: '#00314D', text: '#FFFFFF', emoji: '🌟', label: 'Product' },
+      2048: { bg: '#002033', text: '#FFFFFF', emoji: '🚀', label: 'Launch' },
+    };
+
+    // ==================== CONSTANTS ====================
+    const GAP = 12;
+    const DESKTOP_TILE_SIZE = 80;
+
+    // ==================== STATE ====================
+    let nextTileId = 1;
+    let isAnimating = false;
+    let history = [];
+    let continueAfterWin = false;
+    let state = { board: null, tiles: [], score: 0, moves: 0, gameOver: false, won: false };
+
+    // DOM element map for tile reconciliation
+    const tileElements = new Map();
+
+    // ==================== DOM REFS ====================
+    const scoreDisplay = document.getElementById('score-display');
+    const movesDisplay = document.getElementById('moves-display');
+    const tilesLayer = document.getElementById('tiles-layer');
+    const boardWrapper = document.getElementById('board-wrapper');
+    const gridBg = document.getElementById('grid-bg');
+    const gameModal = document.getElementById('game-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalSparkle = document.getElementById('modal-sparkle');
+    const modalStats = document.getElementById('modal-stats');
+    const modalFlavor = document.getElementById('modal-flavor');
+    const modalReset = document.getElementById('modal-reset');
+    const modalContinue = document.getElementById('modal-continue');
+    const rulesModal = document.getElementById('rules-modal');
+    const btnReset = document.getElementById('btn-reset');
+    const btnUndo = document.getElementById('btn-undo');
+    const btnHelp = document.getElementById('btn-help');
+
+    // ==================== RESPONSIVE TILE SIZE ====================
+    let tileSize = DESKTOP_TILE_SIZE;
+
+    function computeTileSize() {
+      if (window.innerWidth < 768) {
+        const available = Math.min(window.innerWidth - 32, 400);
+        return Math.max(Math.floor((available - 60) / 4), 40);
+      }
+      return DESKTOP_TILE_SIZE;
+    }
+
+    function updateBoardSize() {
+      tileSize = computeTileSize();
+      const root = document.documentElement;
+      root.style.setProperty('--tile-size', tileSize + 'px');
+      root.style.setProperty('--tile-step', (tileSize + GAP) + 'px');
+      root.style.setProperty('--board-size', (4 * tileSize + 5 * GAP) + 'px');
+      render();
+    }
+
+    // ==================== GAME LOGIC (ported from useGame.ts) ====================
+    function createEmptyBoard() {
+      return Array.from({ length: 4 }, () => Array(4).fill(null));
+    }
+
+    function getEmptyCells(board) {
+      const empty = [];
+      for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 4; col++) {
+          if (board[row][col] === null) empty.push({ row, col });
+        }
+      }
+      return empty;
+    }
+
+    function buildBoard(tiles) {
+      const board = createEmptyBoard();
+      for (const tile of tiles) {
+        if (!tile.isConsumed) {
+          board[tile.position.row][tile.position.col] = tile.value;
+        }
+      }
+      return board;
+    }
+
+    function createTile(row, col, value, isNew) {
+      return {
+        id: nextTileId++,
+        value,
+        position: { row, col },
+        isNew: isNew,
+        isMerged: false,
+      };
+    }
+
+    function addRandomTile(tiles) {
+      const board = buildBoard(tiles);
+      const emptyCells = getEmptyCells(board);
+      if (emptyCells.length === 0) return tiles;
+      const { row, col } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+      const value = Math.random() < 0.9 ? 2 : 4;
+      return [...tiles, createTile(row, col, value, true)];
+    }
+
+    function rotateCW(p) { return { row: p.col, col: 3 - p.row }; }
+    function rotateCCW(p) { return { row: 3 - p.col, col: p.row }; }
+
+    function applyRotation(pos, fn, times) {
+      let p = pos;
+      for (let i = 0; i < times; i++) p = fn(p);
+      return p;
+    }
+
+    function moveTiles(currentTiles, direction) {
+      let tiles = currentTiles.map(t => ({
+        ...t,
+        position: { ...t.position },
+        isNew: false,
+        isMerged: false,
+      }));
+
+      // Pre-rotate to normalize to "slide left"
+      if (direction === 'up') {
+        tiles.forEach(t => t.position = rotateCCW(t.position));
+      } else if (direction === 'right') {
+        tiles.forEach(t => t.position = applyRotation(t.position, rotateCW, 2));
+      } else if (direction === 'down') {
+        tiles.forEach(t => t.position = rotateCW(t.position));
+      }
+
+      let score = 0;
+      let moved = false;
+
+      for (let row = 0; row < 4; row++) {
+        const rowTiles = tiles
+          .filter(t => t.position.row === row)
+          .sort((a, b) => a.position.col - b.position.col);
+
+        let writeCol = 0;
+        for (let i = 0; i < rowTiles.length; i++) {
+          if (i < rowTiles.length - 1 && rowTiles[i].value === rowTiles[i + 1].value) {
+            const keeper = rowTiles[i];
+            const consumed = rowTiles[i + 1];
+            keeper.mergedValue = keeper.value * 2;
+            keeper.isMerged = true;
+            score += keeper.mergedValue;
+            if (keeper.position.col !== writeCol) moved = true;
+            keeper.position.col = writeCol;
+            consumed.position.col = writeCol;
+            consumed.isConsumed = true;
+            moved = true;
+            writeCol++;
+            i++;
+          } else {
+            if (rowTiles[i].position.col !== writeCol) moved = true;
+            rowTiles[i].position.col = writeCol;
+            writeCol++;
+          }
+        }
+      }
+
+      // Reverse rotation
+      if (direction === 'up') {
+        tiles.forEach(t => t.position = rotateCW(t.position));
+      } else if (direction === 'right') {
+        tiles.forEach(t => t.position = applyRotation(t.position, rotateCW, 2));
+      } else if (direction === 'down') {
+        tiles.forEach(t => t.position = rotateCCW(t.position));
+      }
+
+      return { tiles, score, moved };
+    }
+
+    function canMove(board) {
+      if (getEmptyCells(board).length > 0) return true;
+      for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 4; col++) {
+          const current = board[row][col];
+          if (col < 3 && current === board[row][col + 1]) return true;
+          if (row < 3 && current === board[row + 1][col]) return true;
+        }
+      }
+      return false;
+    }
+
+    function hasWon(board) {
+      for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 4; col++) {
+          if (board[row][col] === 2048) return true;
+        }
+      }
+      return false;
+    }
+
+    // ==================== GAME ACTIONS ====================
+    function makeMove(direction) {
+      if (isAnimating) return;
+      if (state.gameOver) return;
+
+      const { tiles: movedTiles, score: addedScore, moved } = moveTiles(state.tiles, direction);
+      if (!moved) return;
+
+      // Save for undo
+      history.push(JSON.parse(JSON.stringify(state)));
+
+      const hasConsumed = movedTiles.some(t => t.isConsumed);
+
+      if (hasConsumed) {
+        // Two-phase merge
+        isAnimating = true;
+
+        const phase1Tiles = movedTiles.map(t => ({ ...t, isMerged: false }));
+
+        state = {
+          board: state.board,
+          tiles: phase1Tiles,
+          score: state.score + addedScore,
+          moves: state.moves + 1,
+          gameOver: false,
+          won: state.won,
+        };
+        render();
+
+        setTimeout(() => {
+          const activeTiles = state.tiles
+            .filter(t => !t.isConsumed)
+            .map(t => ({ ...t }));
+
+          activeTiles.forEach(t => {
+            if (t.mergedValue) {
+              t.value = t.mergedValue;
+              t.mergedValue = undefined;
+              t.isMerged = true;
+            }
+          });
+
+          const tilesWithNew = addRandomTile(activeTiles);
+          const board = buildBoard(tilesWithNew);
+          const won = hasWon(board);
+          const gameOver = !canMove(board);
+
+          isAnimating = false;
+
+          state = {
+            board,
+            tiles: tilesWithNew,
+            score: state.score,
+            moves: state.moves,
+            gameOver,
+            won: won || state.won,
+          };
+          render();
+        }, 100);
+      } else {
+        // No merges — slide and add new tile immediately
+        const tilesWithNew = addRandomTile(movedTiles);
+        const board = buildBoard(tilesWithNew);
+        const won = hasWon(board);
+        const gameOver = !canMove(board);
+
+        state = {
+          board,
+          tiles: tilesWithNew,
+          score: state.score + addedScore,
+          moves: state.moves + 1,
+          gameOver,
+          won: won || state.won,
+        };
+        render();
+      }
+    }
+
+    function undoMove() {
+      if (isAnimating || history.length === 0) return;
+      state = history.pop();
+      continueAfterWin = false;
+      // Clear tile elements and re-render from scratch
+      tileElements.forEach(el => el.remove());
+      tileElements.clear();
+      render();
+    }
+
+    function resetGame() {
+      isAnimating = false;
+      history = [];
+      continueAfterWin = false;
+      // Clear all tile DOM elements
+      tileElements.forEach(el => el.remove());
+      tileElements.clear();
+
+      let tiles = [];
+      const board = createEmptyBoard();
+      const emptyCells = getEmptyCells(board);
+      const first = emptyCells.splice(Math.floor(Math.random() * emptyCells.length), 1)[0];
+      const second = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+      tiles.push(createTile(first.row, first.col, Math.random() < 0.9 ? 2 : 4, true));
+      tiles.push(createTile(second.row, second.col, Math.random() < 0.9 ? 2 : 4, true));
+
+      state = {
+        board: buildBoard(tiles),
+        tiles,
+        score: 0,
+        moves: 0,
+        gameOver: false,
+        won: false,
+      };
+      render();
+    }
+
+    // ==================== RENDERING ====================
+    function render() {
+      // Update score and moves
+      scoreDisplay.textContent = state.score;
+      movesDisplay.textContent = state.moves;
+
+      // Update undo button
+      btnUndo.disabled = history.length === 0;
+
+      // Reconcile tiles
+      const tileStep = tileSize + GAP;
+      const isSmall = tileSize < 70;
+      const currentIds = new Set();
+
+      for (const tile of state.tiles) {
+        currentIds.add(tile.id);
+        const config = TILE_CONFIG[tile.value] || TILE_CONFIG[2];
+        const tx = tile.position.col * tileStep;
+        const ty = tile.position.row * tileStep;
+        const transformValue = 'translate(' + tx + 'px, ' + ty + 'px)';
+
+        let el = tileElements.get(tile.id);
+
+        if (!el) {
+          // Create new tile element
+          el = document.createElement('div');
+          el.className = 'tile';
+          el.innerHTML = '<div class="tile-emoji"></div><div class="tile-label"></div>';
+          tilesLayer.appendChild(el);
+          tileElements.set(tile.id, el);
+        }
+
+        // Update position via CSS custom property for animations
+        el.style.setProperty('--tile-transform', transformValue);
+        el.style.transform = transformValue;
+        el.style.backgroundColor = config.bg;
+        el.style.color = config.text;
+        el.querySelector('.tile-emoji').textContent = config.emoji;
+        el.querySelector('.tile-label').textContent = config.label;
+
+        // Update classes
+        el.classList.toggle('tile-small', isSmall);
+        el.classList.toggle('tile-consumed', !!tile.isConsumed);
+
+        // Handle new tile animation
+        if (tile.isNew) {
+          el.classList.remove('tile-new');
+          // Force reflow to restart animation
+          void el.offsetWidth;
+          el.classList.add('tile-new');
+        } else {
+          el.classList.remove('tile-new');
+        }
+
+        // Handle merge animation
+        if (tile.isMerged) {
+          el.classList.remove('tile-merged');
+          void el.offsetWidth;
+          el.classList.add('tile-merged');
+        } else {
+          el.classList.remove('tile-merged');
+        }
+      }
+
+      // Remove old tile elements
+      for (const [id, el] of tileElements) {
+        if (!currentIds.has(id)) {
+          el.remove();
+          tileElements.delete(id);
+        }
+      }
+
+      // Show/hide modal
+      const showModal = (state.won && !continueAfterWin) || state.gameOver;
+      if (showModal) {
+        gameModal.classList.remove('hidden');
+        modalTitle.textContent = state.won ? 'You Win!' : 'Game Over';
+        modalSparkle.classList.toggle('hidden', !state.won);
+        modalStats.innerHTML = '<strong>' + state.score + '</strong> points scored in <strong>' + state.moves + '</strong> moves.';
+        modalFlavor.textContent = state.won ? "You've achieved Launch! 🚀" : 'Try again to reach Launch!';
+        // Show continue button only if won but game not over
+        const canContinueGame = state.won && !state.gameOver;
+        modalContinue.classList.toggle('hidden', !canContinueGame);
+      } else {
+        gameModal.classList.add('hidden');
+      }
+    }
+
+    // ==================== GRID BACKGROUND ====================
+    function initGrid() {
+      gridBg.innerHTML = '';
+      for (let i = 0; i < 16; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'grid-cell';
+        gridBg.appendChild(cell);
+      }
+    }
+
+    // ==================== RULES MODAL CONTENT ====================
+    function initRulesContent() {
+      const grid = document.getElementById('rules-grid');
+      const progression = [
+        { value: 2, emoji: '🔍', name: 'Problem', color: '#E6F3FA' },
+        { value: 4, emoji: '🩵', name: 'Empathy', color: '#CCE7F5' },
+        { value: 8, emoji: '👤', name: 'User', color: '#99CFEA' },
+        { value: 16, emoji: '💡', name: 'Insight', color: '#66B7DF' },
+        { value: 32, emoji: '📊', name: 'Market', color: '#339FD4' },
+        { value: 64, emoji: '🧠', name: 'Brainstorm', color: '#0077B5' },
+        { value: 128, emoji: '🔧', name: 'Prototype', color: '#00659A' },
+        { value: 256, emoji: '🧪', name: 'Test', color: '#005480' },
+        { value: 512, emoji: '📈', name: 'Metric', color: '#004266' },
+        { value: 1024, emoji: '🌟', name: 'Product', color: '#00314D' },
+        { value: 2048, emoji: '🚀', name: 'Launch', color: '#002033' },
+      ];
+
+      grid.innerHTML = '';
+      for (const tile of progression) {
+        const div = document.createElement('div');
+        div.className = 'rules-tile';
+        div.style.backgroundColor = tile.color;
+        div.innerHTML =
+          '<div class="rules-tile-emoji">' + tile.emoji + '</div>' +
+          '<div class="rules-tile-name">' + tile.name + '</div>' +
+          '<div class="rules-tile-value">' + tile.value + '</div>';
+        grid.appendChild(div);
+      }
+
+      // Example section
+      const example = document.getElementById('rules-example');
+      example.innerHTML =
+        '<div class="rules-example-tile" style="background: #E6F3FA;">' +
+          '<div class="tile-emoji">🔍</div>' +
+          '<div class="tile-label" style="color: #053047;">Problem</div>' +
+        '</div>' +
+        '<div class="rules-example-op">+</div>' +
+        '<div class="rules-example-tile" style="background: #E6F3FA;">' +
+          '<div class="tile-emoji">🔍</div>' +
+          '<div class="tile-label" style="color: #053047;">Problem</div>' +
+        '</div>' +
+        '<div class="rules-example-op">=</div>' +
+        '<div class="rules-example-tile" style="background: #CCE7F5;">' +
+          '<div class="tile-emoji">🩵</div>' +
+          '<div class="tile-label" style="color: #053047;">Empathy</div>' +
+        '</div>';
+    }
+
+    // ==================== INPUT HANDLING ====================
+    // Keyboard
+    window.addEventListener('keydown', function(e) {
+      const directionMap = {
+        ArrowUp: 'up',
+        ArrowDown: 'down',
+        ArrowLeft: 'left',
+        ArrowRight: 'right',
+      };
+      if (directionMap[e.key]) {
+        e.preventDefault();
+        makeMove(directionMap[e.key]);
+      }
+    });
+
+    // Touch swipe
+    let touchStart = null;
+    boardWrapper.addEventListener('touchstart', function(e) {
+      const touch = e.touches[0];
+      touchStart = { x: touch.clientX, y: touch.clientY };
+    }, { passive: true });
+
+    boardWrapper.addEventListener('touchend', function(e) {
+      if (!touchStart) return;
+      const touch = e.changedTouches[0];
+      const dx = touch.clientX - touchStart.x;
+      const dy = touch.clientY - touchStart.y;
+      const MIN_SWIPE = 30;
+      if (Math.max(Math.abs(dx), Math.abs(dy)) < MIN_SWIPE) {
+        touchStart = null;
+        return;
+      }
+      if (Math.abs(dx) > Math.abs(dy)) {
+        makeMove(dx > 0 ? 'right' : 'left');
+      } else {
+        makeMove(dy > 0 ? 'down' : 'up');
+      }
+      touchStart = null;
+    });
+
+    // ==================== BUTTON HANDLERS ====================
+    btnReset.addEventListener('click', resetGame);
+    btnUndo.addEventListener('click', undoMove);
+    btnHelp.addEventListener('click', function() {
+      rulesModal.classList.remove('hidden');
+    });
+
+    // Modal buttons
+    modalReset.addEventListener('click', function() {
+      resetGame();
+      gameModal.classList.add('hidden');
+    });
+    modalContinue.addEventListener('click', function() {
+      continueAfterWin = true;
+      gameModal.classList.add('hidden');
+    });
+
+    // Rules modal close
+    document.getElementById('rules-close').addEventListener('click', function() {
+      rulesModal.classList.add('hidden');
+    });
+    document.getElementById('rules-done').addEventListener('click', function() {
+      rulesModal.classList.add('hidden');
+    });
+    rulesModal.addEventListener('click', function(e) {
+      if (e.target === rulesModal) rulesModal.classList.add('hidden');
+    });
+
+    // ==================== INIT ====================
+    window.addEventListener('resize', updateBoardSize);
+    initGrid();
+    initRulesContent();
+    updateBoardSize();
+    resetGame();
+  </script>
+</body>
+</html>
