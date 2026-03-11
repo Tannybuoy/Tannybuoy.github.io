@@ -55,7 +55,7 @@
         }
         Calendly.initBadgeWidget({
             url: 'https://calendly.com/tanya_gupta/discovery',
-            text: 'Schedule time with me',
+            text: 'Schedule 1:1 Chat',
             color: getCalendlyColor(),
             textColor: '#ffffff',
             branding: true
