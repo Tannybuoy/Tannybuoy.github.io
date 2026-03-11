@@ -42,6 +42,33 @@
     ];
     var konamiIndex = 0;
 
+    // --- Calendly Badge Widget ---
+    function getCalendlyColor() {
+        return body.classList.contains('unhinged') ? '#FF4500' : '#0077B5';
+    }
+
+    function initCalendly() {
+        if (typeof Calendly === 'undefined') {
+            // Retry until the async script loads
+            setTimeout(initCalendly, 500);
+            return;
+        }
+        Calendly.initBadgeWidget({
+            url: 'https://calendly.com/tanya_gupta/discovery',
+            text: 'Schedule 1:1 Chat',
+            color: getCalendlyColor(),
+            textColor: '#ffffff',
+            branding: true
+        });
+    }
+
+    function updateCalendlyColor() {
+        var badge = document.querySelector('.calendly-badge-widget .calendly-badge-content');
+        if (badge) {
+            badge.style.background = getCalendlyColor();
+        }
+    }
+
     // --- Initialize ---
     function init() {
         loadSavedMode();
@@ -51,6 +78,7 @@
         setupScrollEffects();
         setupKonamiCode();
         updateFooterQuote();
+        initCalendly();
     }
 
     // --- Load saved mode from localStorage ---
@@ -92,6 +120,9 @@
 
             // Announce mode change for screen readers
             announceMode(isUnhinged);
+
+            // Update Calendly badge color
+            updateCalendlyColor();
         });
     }
 
