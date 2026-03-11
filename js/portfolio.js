@@ -44,7 +44,7 @@
 
     // --- Calendly Badge Widget ---
     function getCalendlyColor() {
-        return body.classList.contains('unhinged') ? '#FF4500' : '#0069ff';
+        return body.classList.contains('unhinged') ? '#FF4500' : '#0077B5';
     }
 
     function initCalendly() {
