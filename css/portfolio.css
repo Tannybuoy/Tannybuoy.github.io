@@ -435,6 +435,62 @@ body.unhinged .hero-cta {
     opacity: 0.5;
 }
 
+/* Floating decorative tiles in hero background */
+.floating-tiles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0; /* behind hero content */
+    overflow: visible;
+}
+
+.hero-content { z-index: 2; position: relative; }
+
+.floating-tile {
+    position: absolute;
+    width: 84px;
+    height: 84px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    box-shadow: 0 10px 22px rgba(8,30,50,0.08);
+    color: #053047;
+    mix-blend-mode: normal;
+    opacity: 0.95;
+    transform-origin: center;
+    animation: floatMove 8s ease-in-out infinite;
+}
+
+.floating-tile .emoji { font-size: 22px; margin-bottom: 6px; }
+.floating-tile .label { font-size: 11px; font-weight: 600; }
+
+/* darker tile text */
+.floating-tile.dark { color: #fff; }
+
+/* Give each tile a slightly different animation timing */
+.floating-tile.t1 { left: 6%; top: 18%; animation-duration: 9s; animation-delay: 0s; }
+.floating-tile.t2 { right: 8%; top: 12%; animation-duration: 11s; animation-delay: 1s; }
+.floating-tile.t3 { left: 18%; bottom: 12%; animation-duration: 10s; animation-delay: 2s; }
+.floating-tile.t4 { right: 22%; bottom: 22%; animation-duration: 12s; animation-delay: 0.5s; }
+.floating-tile.t5 { left: 42%; top: 6%; animation-duration: 13s; animation-delay: 2.2s; }
+.floating-tile.t6 { right: 40%; top: 28%; animation-duration: 14s; animation-delay: 1.6s; }
+
+@keyframes floatMove {
+    0% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-18px) rotate(2deg); }
+    50% { transform: translateY(0) rotate(0deg); }
+    75% { transform: translateY(14px) rotate(-2deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* Hide floating tiles on very small screens to avoid clutter */
+@media (max-width: 640px) {
+    .floating-tile { display: none; }
+}
+
 /* ============================================
    PHONE MOCKUP
    ============================================ */
