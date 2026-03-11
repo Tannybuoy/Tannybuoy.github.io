@@ -358,16 +358,16 @@ body.unhinged .mode-toggle:active .toggle-thumb {
 
 .hero-inner {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 64px;
     max-width: 1140px;
     width: 100%;
 }
 
 .hero-content {
-    max-width: 540px;
-    text-align: left;
+    max-width: 780px;
+    text-align: center;
     animation: fadeInUp 0.8s ease forwards;
 }
 
@@ -1544,6 +1544,21 @@ body.unhinged .writing-card:hover {
     transition: background var(--transition-speed) ease;
 }
 
+.approach-layout {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+}
+
+.approach-layout .approach-grid {
+    flex: 1;
+    min-width: 0;
+}
+
+.approach-layout .phone-mockup {
+    flex-shrink: 0;
+}
+
 .approach-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1796,8 +1811,23 @@ body.unhinged .inspiration-list li {
     border: 1px dashed var(--accent-light);
 }
 
+/* About page responsive - 1024px */
+@media (max-width: 1024px) {
+    .approach-layout {
+        gap: 32px;
+    }
+}
+
 /* About page responsive - 768px */
 @media (max-width: 768px) {
+    .approach-layout {
+        flex-direction: column;
+    }
+
+    .approach-layout .phone-mockup {
+        display: none;
+    }
+
     .approach-grid {
         grid-template-columns: 1fr;
     }
