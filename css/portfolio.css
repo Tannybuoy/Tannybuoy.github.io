@@ -499,6 +499,54 @@ body.unhinged .phone-frame {
     color: #1A1A2E;
 }
 
+/* --- Embedded Game: two-column hero layout --- */
+.hero-inner.has-game {
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 32px;
+}
+
+.hero-inner.has-game .hero-content {
+    max-width: 560px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px 0;
+}
+
+.hero-game {
+    flex: 1 1 560px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 320px;
+}
+
+.hero-game iframe {
+    width: 100%;
+    height: 640px;
+    border: none;
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+    background: var(--bg-secondary);
+}
+
+/* Smaller screens: stack vertically and reduce iframe height */
+@media (max-width: 900px) {
+    .hero-inner.has-game {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .hero-inner.has-game .hero-content { text-align: center; }
+    .hero-game iframe { height: 520px; }
+}
+
+@media (max-width: 480px) {
+    .hero-game iframe { height: 420px; }
+}
+
 .phone-battery--low {
     color: #EF4444;
 }

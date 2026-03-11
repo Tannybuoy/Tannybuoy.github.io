@@ -51,17 +51,7 @@
       .app { max-width: 720px; }
     }
 
-    /* Decorative stars */
-    .star {
-      position: fixed;
-      color: var(--accent-pink);
-      pointer-events: none;
-      font-size: 24px;
-    }
-    .star:nth-child(1) { top: 48px; left: 48px; opacity: 0.7; font-size: 32px; }
-    .star:nth-child(2) { top: 96px; right: 96px; opacity: 0.5; }
-    .star:nth-child(3) { bottom: 80px; left: 128px; opacity: 0.6; font-size: 40px; }
-    .star:nth-child(4) { bottom: 128px; right: 64px; opacity: 0.4; font-size: 28px; }
+    /* Decorative stars removed */
 
     /* Header */
     .header {
@@ -294,7 +284,12 @@
       color: #0077B5;
       border: none;
       cursor: pointer;
-      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      padding: 0;
       border-radius: 12px;
       font-size: 1.25rem;
       line-height: 1;
@@ -302,7 +297,7 @@
       box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
     }
     @media (min-width: 768px) {
-      .action-btn { padding: 16px; border-radius: 16px; font-size: 1.5rem; flex: 1 1 0; }
+      .action-btn { width: 64px; height: 64px; padding: 0; border-radius: 16px; font-size: 1.5rem; flex: 0 0 auto; }
     }
     .action-btn:hover { background: var(--accent-gold-hover); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
     .action-btn:disabled {
@@ -310,6 +305,34 @@
       cursor: not-allowed;
     }
     .action-btn:disabled:hover { background: var(--accent-gold); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+
+    /* Specific styling for undo, help, and reset (new game) buttons: blue base, white icon/text */
+    #btn-undo,
+    #btn-help,
+    #btn-reset {
+      background: var(--accent-blue);
+      color: #FFFFFF;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+    }
+
+    #btn-undo:hover,
+    #btn-help:hover {
+      background: var(--accent-blue-hover);
+      transform: translateY(-2px);
+    }
+
+    #btn-reset:hover {
+      background: var(--accent-blue-hover);
+      transform: translateY(-2px);
+    }
+
+    /* Modal Start Over button (match blue style) */
+    #modal-reset {
+      background: var(--accent-blue);
+      color: #FFFFFF;
+      border: none;
+    }
+    #modal-reset:hover { background: var(--accent-blue-hover); }
 
     /* Modal overlay */
     .modal-overlay {
@@ -395,7 +418,8 @@
 
     /* Rules modal */
     .rules-content {
-      background: #F5EFE6;
+      background: var(--board-bg);
+      color: var(--text-dark);
       border-radius: 24px;
       padding: 24px;
       max-width: 640px;
@@ -463,8 +487,22 @@
       .rules-grid { grid-template-columns: repeat(3, 1fr); }
     }
     .rules-tile-emoji { font-size: 1.5rem; margin-bottom: 4px; }
-    .rules-tile-name { font-size: 0.75rem; font-weight: bold; color: var(--text-dark); }
-    .rules-tile-value { font-size: 1rem; color: var(--text-muted); opacity: 0.75; }
+    .rules-tile-name { font-size: 0.75rem; font-weight: bold; color: inherit; }
+    .rules-tile-value { font-size: 1rem; color: inherit; opacity: 0.9; }
+
+    /* Tile box styling: centered content and rounded edges */
+    .rules-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      padding: 12px 8px;
+      min-height: 88px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      color: var(--text-dark);
+      text-align: center;
+    }
     .rules-example {
       display: flex;
       align-items: center;
@@ -503,16 +541,12 @@
   </style>
 </head>
 <body>
-  <!-- Decorative stars -->
-  <div class="star">✨</div>
-  <div class="star">✨</div>
-  <div class="star">✨</div>
-  <div class="star">✨</div>
+
 
   <div class="app">
     <!-- Header -->
     <div class="header">
-      <h1>LEVIOSA 2048</h1>
+      <h1>LAUNCH(2048)</h1>
       <p>Merge tiles to go from Problem to Launch! 🌟</p>
     </div>
 
@@ -1048,6 +1082,10 @@
         const div = document.createElement('div');
         div.className = 'rules-tile';
         div.style.backgroundColor = tile.color;
+        // For darker tiles, force white text for readability
+        if (tile.value >= 128) {
+          div.style.color = '#FFFFFF';
+        }
         div.innerHTML =
           '<div class="rules-tile-emoji">' + tile.emoji + '</div>' +
           '<div class="rules-tile-name">' + tile.name + '</div>' +
