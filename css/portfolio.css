@@ -1364,6 +1364,104 @@ body.unhinged .skill-icon {
     transition: color var(--transition-speed) ease;
 }
 
+/* --- AI & Technical Expertise Sub-Section --- */
+.section-subtitle-heading {
+    font-size: var(--font-size-h2);
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+    margin: 60px 0 12px;
+    transition: color var(--transition-speed) ease;
+}
+
+.ai-skills-intro {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    max-width: 680px;
+    margin: 0 auto 36px;
+    line-height: 1.7;
+    transition: color var(--transition-speed) ease;
+}
+
+.ai-skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.ai-skill-card {
+    padding: 24px;
+    background: var(--bg-primary);
+    border: var(--card-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-speed) ease;
+}
+
+.ai-skill-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+}
+
+body.unhinged .ai-skill-card:nth-child(odd) {
+    transform: rotate(-0.5deg);
+}
+body.unhinged .ai-skill-card:nth-child(even) {
+    transform: rotate(0.4deg);
+}
+body.unhinged .ai-skill-card:hover {
+    transform: rotate(0deg) translateY(-3px);
+}
+
+.ai-skill-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.ai-skill-icon {
+    flex-shrink: 0;
+}
+
+.ai-skill-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    transition: color var(--transition-speed) ease;
+}
+
+.ai-skill-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ai-skill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.ai-tag-name {
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: color var(--transition-speed) ease;
+}
+
+.ai-tag-detail {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: right;
+    transition: color var(--transition-speed) ease;
+}
+
 /* ============================================
    CONTACT SECTION
    ============================================ */
@@ -2113,6 +2211,10 @@ body.unhinged .reveal.visible .project-card:nth-child(2) { transform: rotate(0.3
         grid-template-columns: repeat(3, 1fr);
     }
 
+    .ai-skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .about-grid {
         grid-template-columns: 220px 1fr;
         gap: 40px;
@@ -2232,6 +2334,15 @@ body.unhinged .reveal.visible .project-card:nth-child(2) { transform: rotate(0.3
         gap: 12px;
     }
 
+    .ai-skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .section-subtitle-heading {
+        margin-top: 48px;
+    }
+
     .contact-links {
         flex-direction: column;
         align-items: center;
@@ -2314,6 +2425,19 @@ body.unhinged .reveal.visible .project-card:nth-child(2) { transform: rotate(0.3
 
     .skill-item {
         padding: 20px 10px;
+    }
+
+    .ai-skills-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .ai-skill-card {
+        padding: 20px;
+    }
+
+    .section-subtitle-heading {
+        margin-top: 40px;
     }
 
     .section-subtitle {
