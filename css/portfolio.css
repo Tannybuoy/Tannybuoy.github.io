@@ -390,30 +390,36 @@ body.unhinged .mode-toggle:active .toggle-thumb {
 }
 
 .hero-cta {
-    display: inline-block;
-    padding: 14px 36px;
-    background: var(--accent);
-    color: #FFFFFF;
-    font-weight: 600;
-    font-size: 1rem;
-    border-radius: var(--radius-sm);
-    border: 2px solid var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    background: var(--bg-secondary);
+    border: var(--card-border);
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    font-size: var(--font-size-small);
+    color: var(--text-primary);
     transition: all var(--transition-speed) ease;
-    letter-spacing: 0.2px;
+}
+
+.hero-cta svg {
+    flex-shrink: 0;
+    color: var(--accent);
+    transition: color var(--transition-speed) ease;
 }
 
 body.unhinged .hero-cta {
-    border-radius: var(--radius-md);
-    border: 2px dashed var(--accent);
-    background: var(--accent);
+    border-style: dashed;
+    border-radius: var(--radius-lg);
 }
 
 .hero-cta:hover,
 .hero-cta:focus-visible {
-    background: var(--accent-hover);
-    border-color: var(--accent-hover);
+    border-color: var(--accent);
+    background: var(--accent-light);
     transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-md);
 }
 
 /* Scroll indicator */
@@ -2313,8 +2319,7 @@ body.unhinged .reveal.visible .project-card:nth-child(2) { transform: rotate(0.3
     }
 
     .hero-cta {
-        padding: 12px 28px;
-        font-size: 0.9rem;
+        padding: 12px 20px;
     }
 
     .phone-frame {
