@@ -1141,7 +1141,7 @@ body.unhinged .highlight-item:nth-child(3) { --card-rotate: -0.5deg; }
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: 28px;
 }
 
@@ -2104,11 +2104,6 @@ body.unhinged .reveal.visible .project-card:nth-child(2) { transform: rotate(0.3
         border-width: 8px;
     }
 
-    .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
-
     .skills-grid {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -2221,10 +2216,6 @@ body.unhinged .reveal.visible .project-card:nth-child(2) { transform: rotate(0.3
 
     .highlight-number {
         font-size: 1.6rem;
-    }
-
-    .projects-grid {
-        grid-template-columns: 1fr;
     }
 
     .skills-grid {
