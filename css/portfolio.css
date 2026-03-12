@@ -1187,7 +1187,7 @@ body.unhinged .project-card:hover {
 
 .card-image img {
     width: 100%;
-    height: 200px;
+    height: 400px;
     object-fit: cover;
     object-position: center top;
     transition: transform 0.4s ease;
@@ -2351,7 +2351,7 @@ body.unhinged .reveal.visible .project-card:nth-child(2) { transform: rotate(0.3
     }
 
     .card-image img {
-        height: 150px;
+        height: 300px;
     }
 
     .skills-grid {
