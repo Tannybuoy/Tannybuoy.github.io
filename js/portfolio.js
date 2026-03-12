@@ -51,6 +51,7 @@
         setupScrollEffects();
         setupKonamiCode();
         updateFooterQuote();
+        initFloatingTiles();
     }
 
     // --- Load saved mode from localStorage ---
@@ -287,6 +288,204 @@
     var style = document.createElement('style');
     style.textContent = '@keyframes shake{0%,100%{transform:translateX(0)}10%,30%,50%,70%,90%{transform:translateX(-4px)}20%,40%,60%,80%{transform:translateX(4px)}}';
     document.head.appendChild(style);
+
+    // ============================================
+    //  Draggable Floating Tiles with Bounce Physics
+    // ============================================
+    function initFloatingTiles() {
+        var container = document.querySelector('.floating-tiles');
+        if (!container) return;
+
+        var tiles = container.querySelectorAll('.floating-tile');
+        if (!tiles.length) return;
+
+        var TILE_SIZE = 84;
+        var FRICTION = 0.98;
+        var MIN_SPEED = 0.1;
+        var IDLE_SPEED = 0.4;
+        var tileStates = [];
+        var animFrameId = null;
+
+        // Convert percentage/CSS positions to absolute pixel positions
+        function resolveInitialPosition(tile, idx) {
+            var rect = tile.getBoundingClientRect();
+            var containerRect = container.getBoundingClientRect();
+            var x = rect.left - containerRect.left;
+            var y = rect.top - containerRect.top;
+            // Clamp inside container
+            var maxX = container.clientWidth - TILE_SIZE;
+            var maxY = container.clientHeight - TILE_SIZE;
+            x = Math.max(0, Math.min(x, maxX));
+            y = Math.max(0, Math.min(y, maxY));
+            return { x: x, y: y };
+        }
+
+        // Set up each tile
+        for (var i = 0; i < tiles.length; i++) {
+            var pos = resolveInitialPosition(tiles[i], i);
+            // Random gentle velocity
+            var angle = Math.random() * Math.PI * 2;
+            tileStates.push({
+                el: tiles[i],
+                x: pos.x,
+                y: pos.y,
+                vx: Math.cos(angle) * IDLE_SPEED,
+                vy: Math.sin(angle) * IDLE_SPEED,
+                isDragging: false,
+                dragOffsetX: 0,
+                dragOffsetY: 0,
+                rotation: 0,
+                rotTarget: 0
+            });
+            // Clear CSS positioning — JS handles it now
+            tiles[i].style.left = '';
+            tiles[i].style.right = '';
+            tiles[i].style.top = '';
+            tiles[i].style.bottom = '';
+            tiles[i].style.position = 'absolute';
+            tiles[i].style.transform = 'translate(' + pos.x + 'px,' + pos.y + 'px)';
+        }
+
+        // --- Pointer event handlers (mouse + touch) ---
+        function getPointerPos(e) {
+            if (e.touches && e.touches.length) {
+                return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }
+            return { x: e.clientX, y: e.clientY };
+        }
+
+        function onPointerDown(e) {
+            // Find which tile
+            var target = e.target;
+            while (target && target !== container) {
+                for (var i = 0; i < tileStates.length; i++) {
+                    if (tileStates[i].el === target) {
+                        startDrag(i, e);
+                        return;
+                    }
+                }
+                target = target.parentElement;
+            }
+        }
+
+        var activeDragIdx = -1;
+        var lastPointer = { x: 0, y: 0 };
+        var prevPointer = { x: 0, y: 0 };
+
+        function startDrag(idx, e) {
+            e.preventDefault();
+            var state = tileStates[idx];
+            var pos = getPointerPos(e);
+            var containerRect = container.getBoundingClientRect();
+            state.isDragging = true;
+            state.el.classList.add('is-dragging');
+            state.dragOffsetX = pos.x - containerRect.left - state.x;
+            state.dragOffsetY = pos.y - containerRect.top - state.y;
+            state.vx = 0;
+            state.vy = 0;
+            activeDragIdx = idx;
+            lastPointer = { x: pos.x, y: pos.y };
+            prevPointer = { x: pos.x, y: pos.y };
+
+            document.addEventListener('mousemove', onPointerMove);
+            document.addEventListener('mouseup', onPointerUp);
+            document.addEventListener('touchmove', onPointerMove, { passive: false });
+            document.addEventListener('touchend', onPointerUp);
+        }
+
+        function onPointerMove(e) {
+            if (activeDragIdx < 0) return;
+            e.preventDefault();
+            var pos = getPointerPos(e);
+            prevPointer = { x: lastPointer.x, y: lastPointer.y };
+            lastPointer = { x: pos.x, y: pos.y };
+            var containerRect = container.getBoundingClientRect();
+            var state = tileStates[activeDragIdx];
+            var maxX = container.clientWidth - TILE_SIZE;
+            var maxY = container.clientHeight - TILE_SIZE;
+            state.x = Math.max(0, Math.min(pos.x - containerRect.left - state.dragOffsetX, maxX));
+            state.y = Math.max(0, Math.min(pos.y - containerRect.top - state.dragOffsetY, maxY));
+        }
+
+        function onPointerUp(e) {
+            if (activeDragIdx < 0) return;
+            var state = tileStates[activeDragIdx];
+            state.isDragging = false;
+            state.el.classList.remove('is-dragging');
+            // Fling velocity from last two pointer positions
+            var pos = getPointerPos(e.changedTouches ? e : e);
+            state.vx = (lastPointer.x - prevPointer.x) * 0.3;
+            state.vy = (lastPointer.y - prevPointer.y) * 0.3;
+            // Cap fling speed
+            var maxFling = 8;
+            state.vx = Math.max(-maxFling, Math.min(state.vx, maxFling));
+            state.vy = Math.max(-maxFling, Math.min(state.vy, maxFling));
+            activeDragIdx = -1;
+            document.removeEventListener('mousemove', onPointerMove);
+            document.removeEventListener('mouseup', onPointerUp);
+            document.removeEventListener('touchmove', onPointerMove);
+            document.removeEventListener('touchend', onPointerUp);
+        }
+
+        container.addEventListener('mousedown', onPointerDown);
+        container.addEventListener('touchstart', onPointerDown, { passive: false });
+
+        // --- Physics animation loop ---
+        function tick() {
+            var maxX = container.clientWidth - TILE_SIZE;
+            var maxY = container.clientHeight - TILE_SIZE;
+
+            for (var i = 0; i < tileStates.length; i++) {
+                var s = tileStates[i];
+                if (s.isDragging) {
+                    s.el.style.transform = 'translate(' + s.x + 'px,' + s.y + 'px) scale(1.1)';
+                    continue;
+                }
+
+                // Apply velocity
+                s.x += s.vx;
+                s.y += s.vy;
+
+                // Bounce off walls
+                if (s.x <= 0) { s.x = 0; s.vx = Math.abs(s.vx); }
+                if (s.x >= maxX) { s.x = maxX; s.vx = -Math.abs(s.vx); }
+                if (s.y <= 0) { s.y = 0; s.vy = Math.abs(s.vy); }
+                if (s.y >= maxY) { s.y = maxY; s.vy = -Math.abs(s.vy); }
+
+                // Friction
+                s.vx *= FRICTION;
+                s.vy *= FRICTION;
+
+                // When nearly stopped, give a gentle random nudge to keep them floating
+                var speed = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
+                if (speed < MIN_SPEED) {
+                    var angle = Math.random() * Math.PI * 2;
+                    s.vx = Math.cos(angle) * IDLE_SPEED;
+                    s.vy = Math.sin(angle) * IDLE_SPEED;
+                }
+
+                // Gentle rotation based on horizontal velocity
+                s.rotTarget = s.vx * 2;
+                s.rotation += (s.rotTarget - s.rotation) * 0.1;
+
+                s.el.style.transform = 'translate(' + s.x + 'px,' + s.y + 'px) rotate(' + s.rotation.toFixed(1) + 'deg)';
+            }
+
+            animFrameId = requestAnimationFrame(tick);
+        }
+
+        tick();
+
+        // Recalculate on resize
+        window.addEventListener('resize', throttle(function () {
+            var maxX = container.clientWidth - TILE_SIZE;
+            var maxY = container.clientHeight - TILE_SIZE;
+            for (var i = 0; i < tileStates.length; i++) {
+                tileStates[i].x = Math.min(tileStates[i].x, maxX);
+                tileStates[i].y = Math.min(tileStates[i].y, maxY);
+            }
+        }, 200));
+    }
 
     // --- Run when DOM is ready ---
     if (document.readyState === 'loading') {
