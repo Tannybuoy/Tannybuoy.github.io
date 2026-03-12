@@ -21,13 +21,13 @@
     --radius-sm: 6px;
     --radius-md: 12px;
     --radius-lg: 20px;
-    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-primary: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-size-hero: clamp(2rem, 5vw, 3.5rem);
     --font-size-h2: clamp(1.75rem, 3vw, 2.5rem);
     --font-size-h3: clamp(1.1rem, 2vw, 1.35rem);
     --font-size-body: 1rem;
     --font-size-small: 0.875rem;
-    --spacing-section: 100px;
+    --spacing-section: 90px;
     --card-rotate: 0deg;
     --card-border: 1px solid var(--border);
     --nav-height: 72px;
@@ -47,8 +47,6 @@ body.unhinged {
     --accent-light: rgba(255, 69, 0, 0.08);
     --border: #E0D6CC;
     --shadow-card: 0 3px 12px rgba(0, 0, 0, 0.1);
-    --font-primary: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --spacing-section: 90px;
 }
 
 /* --- Reset & Base --- */
@@ -396,16 +394,10 @@ body.unhinged .mode-toggle:active .toggle-thumb {
     color: #FFFFFF;
     font-weight: 600;
     font-size: 1rem;
-    border-radius: var(--radius-sm);
-    border: 2px solid var(--accent);
-    transition: all var(--transition-speed) ease;
-    letter-spacing: 0.2px;
-}
-
-body.unhinged .hero-cta {
     border-radius: var(--radius-md);
     border: 2px dashed var(--accent);
-    background: var(--accent);
+    transition: all var(--transition-speed) ease;
+    letter-spacing: 0.2px;
 }
 
 .hero-cta:hover,
@@ -1051,16 +1043,12 @@ body.unhinged div.phone-meeting-banner.text-linkedin {
 }
 
 .about-image-wrapper {
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-md);
+    transform: rotate(-1deg);
     transition: box-shadow var(--transition-speed) ease,
                 transform var(--transition-speed) ease;
-}
-
-body.unhinged .about-image-wrapper {
-    transform: rotate(-1deg);
-    border-radius: var(--radius-lg);
 }
 
 .about-image {
@@ -1107,13 +1095,13 @@ body.unhinged .about-image-wrapper {
     transition: all var(--transition-speed) ease;
 }
 
-body.unhinged .highlight-item {
+.highlight-item {
     transform: rotate(var(--card-rotate));
 }
 
-body.unhinged .highlight-item:nth-child(1) { --card-rotate: -1deg; }
-body.unhinged .highlight-item:nth-child(2) { --card-rotate: 0.5deg; }
-body.unhinged .highlight-item:nth-child(3) { --card-rotate: -0.5deg; }
+.highlight-item:nth-child(1) { --card-rotate: -1deg; }
+.highlight-item:nth-child(2) { --card-rotate: 0.5deg; }
+.highlight-item:nth-child(3) { --card-rotate: -0.5deg; }
 
 .highlight-number {
     display: block;
@@ -1149,7 +1137,7 @@ body.unhinged .highlight-item:nth-child(3) { --card-rotate: -0.5deg; }
     display: block;
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     overflow: hidden;
     cursor: pointer;
     text-decoration: none;
@@ -1157,24 +1145,16 @@ body.unhinged .highlight-item:nth-child(3) { --card-rotate: -0.5deg; }
     position: relative;
 }
 
+.project-card:nth-child(1) { transform: rotate(-0.5deg); }
+.project-card:nth-child(2) { transform: rotate(0.3deg); }
+.project-card:nth-child(3) { transform: rotate(0.5deg); }
+.project-card:nth-child(4) { transform: rotate(-0.3deg); }
+.project-card:nth-child(5) { transform: rotate(0.4deg); }
+.project-card:nth-child(6) { transform: rotate(-0.6deg); }
+
 .project-card:hover {
     border-color: var(--accent);
     box-shadow: var(--shadow-lg);
-    transform: translateY(-2px);
-}
-
-body.unhinged .project-card {
-    border-radius: var(--radius-lg);
-}
-
-body.unhinged .project-card:nth-child(1) { transform: rotate(-0.5deg); }
-body.unhinged .project-card:nth-child(2) { transform: rotate(0.3deg); }
-body.unhinged .project-card:nth-child(3) { transform: rotate(0.5deg); }
-body.unhinged .project-card:nth-child(4) { transform: rotate(-0.3deg); }
-body.unhinged .project-card:nth-child(5) { transform: rotate(0.4deg); }
-body.unhinged .project-card:nth-child(6) { transform: rotate(-0.6deg); }
-
-body.unhinged .project-card:hover {
     transform: rotate(0deg) translateY(-2px);
 }
 
@@ -1197,7 +1177,7 @@ body.unhinged .project-card:hover {
     transform: scale(1.03);
 }
 
-body.unhinged .card-image {
+.card-image {
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
@@ -1309,12 +1289,8 @@ body.unhinged .card-image {
     font-size: 0.75rem;
     font-weight: 500;
     color: var(--text-primary);
-    border: 1px solid var(--border);
+    border: 1px dashed var(--border);
     transition: all var(--transition-speed) ease;
-}
-
-body.unhinged .tag {
-    border-style: dashed;
 }
 
 /* Outcome Column (Right) */
@@ -1383,18 +1359,14 @@ body.unhinged .tag {
     transition: all var(--transition-speed) ease;
 }
 
-.skill-item:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-3px);
-}
-
-body.unhinged .skill-item:nth-child(odd) {
+.skill-item:nth-child(odd) {
     transform: rotate(-1deg);
 }
-body.unhinged .skill-item:nth-child(even) {
+.skill-item:nth-child(even) {
     transform: rotate(0.8deg);
 }
-body.unhinged .skill-item:hover {
+.skill-item:hover {
+    box-shadow: var(--shadow-md);
     transform: rotate(0deg) translateY(-3px);
 }
 
@@ -1406,13 +1378,9 @@ body.unhinged .skill-item:hover {
     justify-content: center;
     background: var(--accent-light);
     color: var(--accent);
-    border-radius: var(--radius-md);
+    border-radius: 50%;
     margin-bottom: 14px;
     transition: all var(--transition-speed) ease;
-}
-
-body.unhinged .skill-icon {
-    border-radius: 50%;
 }
 
 .skill-name {
@@ -1455,7 +1423,8 @@ body.unhinged .skill-icon {
     padding: 14px 24px;
     background: var(--bg-secondary);
     border: var(--card-border);
-    border-radius: var(--radius-md);
+    border-style: dashed;
+    border-radius: var(--radius-lg);
     font-weight: 500;
     font-size: var(--font-size-small);
     color: var(--text-primary);
@@ -1474,11 +1443,6 @@ body.unhinged .skill-icon {
     background: var(--accent-light);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
-}
-
-body.unhinged .contact-link {
-    border-style: dashed;
-    border-radius: var(--radius-lg);
 }
 
 /* ============================================
@@ -1543,26 +1507,18 @@ body.unhinged .contact-link {
 .writing-card {
     background: var(--bg-card);
     border: var(--card-border);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-card);
     transition: all var(--transition-speed) ease;
 }
 
+.writing-card:nth-child(1) { transform: rotate(-0.5deg); }
+.writing-card:nth-child(2) { transform: rotate(0.3deg); }
+.writing-card:nth-child(3) { transform: rotate(0.5deg); }
+
 .writing-card:hover {
     box-shadow: var(--shadow-lg);
-    transform: translateY(-4px);
-}
-
-body.unhinged .writing-card {
-    border-radius: var(--radius-lg);
-}
-
-body.unhinged .writing-card:nth-child(1) { transform: rotate(-0.5deg); }
-body.unhinged .writing-card:nth-child(2) { transform: rotate(0.3deg); }
-body.unhinged .writing-card:nth-child(3) { transform: rotate(0.5deg); }
-
-body.unhinged .writing-card:hover {
     transform: rotate(0deg) translateY(-4px);
 }
 
@@ -1732,21 +1688,17 @@ body.unhinged .writing-card:hover {
     padding: 32px;
     background: var(--bg-card);
     border: var(--card-border);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card);
     transition: all var(--transition-speed) ease;
 }
 
-body.unhinged .approach-card {
-    border-radius: var(--radius-lg);
-}
+.approach-card:nth-child(1) { transform: rotate(-0.5deg); }
+.approach-card:nth-child(2) { transform: rotate(0.3deg); }
+.approach-card:nth-child(3) { transform: rotate(0.5deg); }
+.approach-card:nth-child(4) { transform: rotate(-0.3deg); }
 
-body.unhinged .approach-card:nth-child(1) { transform: rotate(-0.5deg); }
-body.unhinged .approach-card:nth-child(2) { transform: rotate(0.3deg); }
-body.unhinged .approach-card:nth-child(3) { transform: rotate(0.5deg); }
-body.unhinged .approach-card:nth-child(4) { transform: rotate(-0.3deg); }
-
-body.unhinged .approach-card:hover {
+.approach-card:hover {
     transform: rotate(0deg) translateY(-4px);
 }
 
@@ -1797,13 +1749,9 @@ body.unhinged .approach-card:hover {
     padding: 28px;
     background: var(--bg-card);
     border: var(--card-border);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card);
     transition: all var(--transition-speed) ease;
-}
-
-body.unhinged .changed-mind-item {
-    border-radius: var(--radius-lg);
 }
 
 .changed-mind-label {
@@ -1849,20 +1797,16 @@ body.unhinged .changed-mind-item {
     padding: 28px;
     background: var(--bg-card);
     border: var(--card-border);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card);
     text-align: center;
     transition: all var(--transition-speed) ease;
 }
 
-body.unhinged .hot-take-card {
-    border-radius: var(--radius-lg);
-}
+.hot-take-card:nth-child(odd) { transform: rotate(-0.5deg); }
+.hot-take-card:nth-child(even) { transform: rotate(0.5deg); }
 
-body.unhinged .hot-take-card:nth-child(odd) { transform: rotate(-0.5deg); }
-body.unhinged .hot-take-card:nth-child(even) { transform: rotate(0.5deg); }
-
-body.unhinged .hot-take-card:hover {
+.hot-take-card:hover {
     transform: rotate(0deg) translateY(-4px);
 }
 
@@ -1896,22 +1840,18 @@ body.unhinged .hot-take-card:hover {
 .inspiration-card {
     background: var(--bg-card);
     border: var(--card-border);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card);
     overflow: hidden;
     transition: all var(--transition-speed) ease;
 }
 
-body.unhinged .inspiration-card {
-    border-radius: var(--radius-lg);
-}
+.inspiration-card:nth-child(1) { transform: rotate(-0.4deg); }
+.inspiration-card:nth-child(2) { transform: rotate(0.5deg); }
+.inspiration-card:nth-child(3) { transform: rotate(0.3deg); }
+.inspiration-card:nth-child(4) { transform: rotate(-0.5deg); }
 
-body.unhinged .inspiration-card:nth-child(1) { transform: rotate(-0.4deg); }
-body.unhinged .inspiration-card:nth-child(2) { transform: rotate(0.5deg); }
-body.unhinged .inspiration-card:nth-child(3) { transform: rotate(0.3deg); }
-body.unhinged .inspiration-card:nth-child(4) { transform: rotate(-0.5deg); }
-
-body.unhinged .inspiration-card:hover {
+.inspiration-card:hover {
     transform: rotate(0deg) translateY(-4px);
 }
 
@@ -1970,7 +1910,7 @@ body.unhinged .inspiration-card:hover {
     transition: all var(--transition-speed) ease;
 }
 
-body.unhinged .inspiration-list li {
+.inspiration-list li {
     border: 1px dashed var(--accent-light);
 }
 
@@ -2143,8 +2083,8 @@ body.unhinged .inspiration-list li {
     transform: translateY(0);
 }
 
-body.unhinged .reveal.visible .project-card:nth-child(1) { transform: rotate(-0.5deg); }
-body.unhinged .reveal.visible .project-card:nth-child(2) { transform: rotate(0.3deg); }
+.reveal.visible .project-card:nth-child(1) { transform: rotate(-0.5deg); }
+.reveal.visible .project-card:nth-child(2) { transform: rotate(0.3deg); }
 
 /* ============================================
    RESPONSIVE DESIGN
