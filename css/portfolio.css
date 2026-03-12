@@ -1211,8 +1211,8 @@ body.unhinged .card-image {
 
 @media (min-width: 1024px) {
     .card-content {
-        grid-template-columns: 1fr 1.2fr 0.9fr;
-        align-items: center;
+        grid-template-columns: 1fr 1.2fr;
+        align-items: start;
     }
 }
 
@@ -1352,19 +1352,6 @@ body.unhinged .tag {
     font-size: var(--font-size-small);
     color: var(--text-secondary);
     transition: color var(--transition-speed) ease;
-}
-
-@media (max-width: 1023px) {
-    .project-outcome {
-        flex-direction: row;
-        align-items: baseline;
-        gap: 12px;
-    }
-    .card-metric {
-        flex-direction: row;
-        align-items: baseline;
-        gap: 10px;
-    }
 }
 
 /* ============================================
