@@ -585,8 +585,8 @@ body.unhinged .phone-frame {
     height: 640px;
     border: none;
     border-radius: 16px;
-    box-shadow: var(--shadow-md);
-    background: var(--bg-secondary);
+    box-shadow: none;
+    background: transparent;
 }
 
 /* Smaller screens: stack vertically and reduce iframe height */
