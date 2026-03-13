@@ -1637,6 +1637,68 @@ body.unhinged div.phone-meeting-banner.text-linkedin {
     transition: background var(--transition-speed) ease;
 }
 
+/* Contact Hero on standalone page */
+.contact-hero {
+    padding: calc(var(--nav-height) + 60px) 0 40px;
+    text-align: center;
+    background: var(--bg-primary);
+    transition: background var(--transition-speed) ease;
+}
+
+/* What I'm Open To section */
+.contact-open-to {
+    background: var(--bg-secondary);
+    transition: background var(--transition-speed) ease;
+}
+
+.open-to-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.open-to-card {
+    background: var(--bg-primary);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px 28px;
+    text-align: left;
+    transition: border-color var(--transition-speed) ease,
+                background var(--transition-speed) ease,
+                transform var(--transition-speed) ease,
+                box-shadow var(--transition-speed) ease;
+}
+
+.open-to-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.open-to-icon {
+    color: var(--accent);
+    margin-bottom: 16px;
+    transition: color var(--transition-speed) ease;
+}
+
+.open-to-card h3 {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-body);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    transition: color var(--transition-speed) ease;
+}
+
+.open-to-card p {
+    font-size: var(--font-size-small);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    transition: color var(--transition-speed) ease;
+}
+
 .about-learn-more {
     display: inline-block;
     margin-top: 24px;
@@ -1979,6 +2041,25 @@ body.unhinged div.phone-meeting-banner.text-linkedin {
 
     .inspiration-image {
         height: 160px;
+    }
+}
+
+/* Contact page responsive - 768px */
+@media (max-width: 768px) {
+    .open-to-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+}
+
+/* Contact page responsive - 480px */
+@media (max-width: 480px) {
+    .contact-hero {
+        padding: calc(var(--nav-height) + 40px) 0 24px;
+    }
+
+    .open-to-card {
+        padding: 24px 20px;
     }
 }
 
