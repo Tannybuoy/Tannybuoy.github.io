@@ -26,22 +26,41 @@
         Can't decide which version is real? Both are. Welcome to Product Management.
     </div>
 
-    <!-- Floating Toggle -->
-    <div class="contact-floating-toggle">
-        <a class="nav-brand" href="index.html">
-            <span class="brand-linkedin">TG</span>
-            <span class="brand-unhinged">TG</span>
-        </a>
-        <div class="mode-toggle-wrapper">
-            <span class="toggle-label toggle-label-linkedin">LinkedIn Version</span>
-            <button class="mode-toggle" id="modeToggle" role="switch" aria-checked="false" aria-label="Toggle between LinkedIn Mode and UNHINGED Mode">
-                <span class="toggle-track">
-                    <span class="toggle-thumb"></span>
-                </span>
+    <!-- Navigation -->
+    <nav class="navbar" id="mainNav" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a class="nav-brand" href="index.html">
+                <span class="brand-linkedin">TG</span>
+                <span class="brand-unhinged">TG</span>
+            </a>
+
+            <!-- Mobile hamburger -->
+            <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
-            <span class="toggle-label toggle-label-unhinged">Dare To Toggle</span>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#home" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="writings.html" class="nav-link">Writings</a></li>
+                <li><a href="contact.html" class="nav-link active">Contact</a></li>
+            </ul>
+
+            <!-- The Toggle -->
+            <div class="mode-toggle-wrapper">
+                <span class="toggle-label toggle-label-linkedin">LinkedIn Version</span>
+                <button class="mode-toggle" id="modeToggle" role="switch" aria-checked="false" aria-label="Toggle between LinkedIn Mode and UNHINGED Mode">
+                    <span class="toggle-track">
+                        <span class="toggle-thumb"></span>
+                    </span>
+                </button>
+                <span class="toggle-label toggle-label-unhinged">Dare To Toggle</span>
+            </div>
         </div>
-    </div>
+    </nav>
 
     <!-- Contact Hero -->
     <section class="contact-hero">
