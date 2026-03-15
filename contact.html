@@ -26,41 +26,22 @@
         Can't decide which version is real? Both are. Welcome to Product Management.
     </div>
 
-    <!-- Navigation -->
-    <nav class="navbar" id="mainNav" role="navigation" aria-label="Main navigation">
-        <div class="nav-container">
-            <a class="nav-brand" href="index.html">
-                <span class="brand-linkedin">TG</span>
-                <span class="brand-unhinged">TG</span>
-            </a>
-
-            <!-- Mobile hamburger -->
-            <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
+    <!-- Floating Toggle -->
+    <div class="contact-floating-toggle">
+        <a class="nav-brand" href="index.html">
+            <span class="brand-linkedin">TG</span>
+            <span class="brand-unhinged">TG</span>
+        </a>
+        <div class="mode-toggle-wrapper">
+            <span class="toggle-label toggle-label-linkedin">LinkedIn Version</span>
+            <button class="mode-toggle" id="modeToggle" role="switch" aria-checked="false" aria-label="Toggle between LinkedIn Mode and UNHINGED Mode">
+                <span class="toggle-track">
+                    <span class="toggle-thumb"></span>
+                </span>
             </button>
-
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html#home" class="nav-link">Home</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="index.html#projects" class="nav-link">Projects</a></li>
-                <li><a href="writings.html" class="nav-link">Writings</a></li>
-                <li><a href="contact.html" class="nav-link active">Contact</a></li>
-            </ul>
-
-            <!-- The Toggle -->
-            <div class="mode-toggle-wrapper">
-                <span class="toggle-label toggle-label-linkedin">LinkedIn Version</span>
-                <button class="mode-toggle" id="modeToggle" role="switch" aria-checked="false" aria-label="Toggle between LinkedIn Mode and UNHINGED Mode">
-                    <span class="toggle-track">
-                        <span class="toggle-thumb"></span>
-                    </span>
-                </button>
-                <span class="toggle-label toggle-label-unhinged">Dare To Toggle</span>
-            </div>
+            <span class="toggle-label toggle-label-unhinged">Dare To Toggle</span>
         </div>
-    </nav>
+    </div>
 
     <!-- Contact Hero -->
     <section class="contact-hero">
@@ -76,65 +57,69 @@
         </div>
     </section>
 
-    <!-- What I'm Open To -->
+    <!-- What I'm Open To - Gallery Style -->
     <section class="section contact-open-to">
         <div class="container">
             <h2 class="section-title">
                 <span class="text-linkedin">What I'm Open To</span>
                 <span class="text-unhinged">Ways You Can Put Me To Work</span>
             </h2>
-            <div class="open-to-grid">
-                <div class="open-to-card">
-                    <div class="open-to-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <div class="open-to-gallery" id="openToGallery">
+                <div class="open-to-gallery-item active" data-index="0">
+                    <img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Leadership Roles" loading="lazy">
+                    <div class="open-to-gallery-overlay"></div>
+                    <div class="open-to-gallery-caption">
+                        <h3>
+                            <span class="text-linkedin">Leadership Roles</span>
+                            <span class="text-unhinged">Boss-Level Positions</span>
+                        </h3>
+                        <p>
+                            <span class="text-linkedin">Leadership roles in product at growth-stage or enterprise companies</span>
+                            <span class="text-unhinged">Give me a team, a vision, and enough autonomy to actually ship things</span>
+                        </p>
                     </div>
-                    <h3>
-                        <span class="text-linkedin">Leadership Roles</span>
-                        <span class="text-unhinged">Boss-Level Positions</span>
-                    </h3>
-                    <p>
-                        <span class="text-linkedin">Leadership roles in product at growth-stage or enterprise companies</span>
-                        <span class="text-unhinged">Give me a team, a vision, and enough autonomy to actually ship things</span>
-                    </p>
                 </div>
-                <div class="open-to-card">
-                    <div class="open-to-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                <div class="open-to-gallery-item" data-index="1">
+                    <img src="https://images.pexels.com/photos/7176026/pexels-photo-7176026.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Advisory Engagements" loading="lazy">
+                    <div class="open-to-gallery-overlay"></div>
+                    <div class="open-to-gallery-caption">
+                        <h3>
+                            <span class="text-linkedin">Advisory Engagements</span>
+                            <span class="text-unhinged">Paid Opinions</span>
+                        </h3>
+                        <p>
+                            <span class="text-linkedin">Advisory engagements helping teams build AI product capabilities</span>
+                            <span class="text-unhinged">I'll tell you what's wrong with your AI strategy, and you'll pretend you already knew</span>
+                        </p>
                     </div>
-                    <h3>
-                        <span class="text-linkedin">Advisory Engagements</span>
-                        <span class="text-unhinged">Paid Opinions</span>
-                    </h3>
-                    <p>
-                        <span class="text-linkedin">Advisory engagements helping teams build AI product capabilities</span>
-                        <span class="text-unhinged">I'll tell you what's wrong with your AI strategy, and you'll pretend you already knew</span>
-                    </p>
                 </div>
-                <div class="open-to-card">
-                    <div class="open-to-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <div class="open-to-gallery-item" data-index="2">
+                    <img src="https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Speaking Opportunities" loading="lazy">
+                    <div class="open-to-gallery-overlay"></div>
+                    <div class="open-to-gallery-caption">
+                        <h3>
+                            <span class="text-linkedin">Speaking Opportunities</span>
+                            <span class="text-unhinged">Stage Time</span>
+                        </h3>
+                        <p>
+                            <span class="text-linkedin">Speaking opportunities at conferences and corporate events</span>
+                            <span class="text-unhinged">I have strong opinions and a slide deck. Your audience has been warned.</span>
+                        </p>
                     </div>
-                    <h3>
-                        <span class="text-linkedin">Speaking Opportunities</span>
-                        <span class="text-unhinged">Stage Time</span>
-                    </h3>
-                    <p>
-                        <span class="text-linkedin">Speaking opportunities at conferences and corporate events</span>
-                        <span class="text-unhinged">I have strong opinions and a slide deck. Your audience has been warned.</span>
-                    </p>
                 </div>
-                <div class="open-to-card">
-                    <div class="open-to-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                <div class="open-to-gallery-item" data-index="3">
+                    <img src="https://images.pexels.com/photos/1051071/pexels-photo-1051071.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Coffee Chats" loading="lazy">
+                    <div class="open-to-gallery-overlay"></div>
+                    <div class="open-to-gallery-caption">
+                        <h3>
+                            <span class="text-linkedin">Coffee Chats</span>
+                            <span class="text-unhinged">Caffeinated Rants</span>
+                        </h3>
+                        <p>
+                            <span class="text-linkedin">Coffee chats with fellow hardware product practitioners</span>
+                            <span class="text-unhinged">Let's bond over the trauma of hardware timelines and firmware updates</span>
+                        </p>
                     </div>
-                    <h3>
-                        <span class="text-linkedin">Coffee Chats</span>
-                        <span class="text-unhinged">Caffeinated Rants</span>
-                    </h3>
-                    <p>
-                        <span class="text-linkedin">Coffee chats with fellow hardware product practitioners</span>
-                        <span class="text-unhinged">Let's bond over the trauma of hardware timelines and firmware updates</span>
-                    </p>
                 </div>
             </div>
         </div>
@@ -200,6 +185,37 @@
 
     <!-- JavaScript -->
     <script src="js/portfolio.js"></script>
+
+    <!-- Gallery interaction for open-to section -->
+    <script>
+    (function() {
+        'use strict';
+        var gallery = document.getElementById('openToGallery');
+        if (!gallery) return;
+
+        var items = gallery.querySelectorAll('.open-to-gallery-item');
+        var activeIndex = 0;
+
+        function setActive(index) {
+            activeIndex = index;
+            for (var i = 0; i < items.length; i++) {
+                var isActive = i === index;
+                items[i].classList.toggle('active', isActive);
+            }
+        }
+
+        for (var i = 0; i < items.length; i++) {
+            (function(idx) {
+                items[idx].addEventListener('mouseenter', function() {
+                    setActive(idx);
+                });
+                items[idx].addEventListener('click', function() {
+                    setActive(idx);
+                });
+            })(i);
+        }
+    })();
+    </script>
 
 </body>
 </html>
