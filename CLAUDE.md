@@ -35,7 +35,7 @@ Personal portfolio website for Tanya Gupta, a Product Manager. The site features
 ├── projects/               # Project case study pages
 │   ├── danfoss.html
 │   ├── harley-davidson.html
-│   ├── vapotherm.html
+│   ├── danfoss-mp1.html
 │   └── teams-chat.html
 ├── notion/                 # Exported Notion content (markdown, images, PDFs)
 ├── lib/                    # Vendored third-party libraries (Bootstrap, jQuery, etc.)
@@ -55,7 +55,7 @@ Personal portfolio website for Tanya Gupta, a Product Manager. The site features
 | `css/portfolio.css` | Complete custom stylesheet with CSS variable theming |
 | `css/project.css` | Stylesheet for project case study pages |
 | `js/portfolio.js` | All interactivity: mode toggle, hamburger menu, scroll effects, easter eggs |
-| `projects/*.html` | Individual project case study pages (Danfoss, Harley-Davidson, Vapotherm, Teams Chat) |
+| `projects/*.html` | Individual project case study pages (Danfoss, Harley-Davidson, MP1T, Teams Chat) |
 | `blog.html` | Legacy template page — uses `style-red.css` + `main.js` |
 | `js/main.js` | Legacy jQuery-based script for blog page |
 
