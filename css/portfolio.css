@@ -1637,6 +1637,152 @@ body.unhinged div.phone-meeting-banner.text-linkedin {
     transition: background var(--transition-speed) ease;
 }
 
+/* Contact Hero on standalone page */
+.contact-hero {
+    padding: calc(var(--nav-height) + 60px) 0 40px;
+    text-align: center;
+    background: var(--bg-primary);
+    transition: background var(--transition-speed) ease;
+}
+
+/* What I'm Open To section */
+.contact-open-to {
+    background: var(--bg-secondary);
+    transition: background var(--transition-speed) ease;
+}
+
+/* Gallery-style open-to cards */
+.open-to-gallery {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: openToFadeInUp 0.4s 0.3s forwards;
+}
+
+@keyframes openToFadeInUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.open-to-gallery-item {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    height: min(24rem, 50vh);
+    transition: width 0.4s ease-in-out;
+    flex-shrink: 0;
+    width: 10rem;
+}
+
+.open-to-gallery-item.active {
+    width: 28rem;
+}
+
+.open-to-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.open-to-gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.15) 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.open-to-gallery-item.active .open-to-gallery-overlay {
+    opacity: 1;
+}
+
+.open-to-gallery-caption {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 1.25rem;
+    right: 1.25rem;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+}
+
+.open-to-gallery-item.active .open-to-gallery-caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.open-to-gallery-caption h3 {
+    font-family: var(--font-primary);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #fff;
+}
+
+.open-to-gallery-caption p {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+}
+
+/* Legacy grid styles kept for backwards compat */
+.open-to-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.open-to-card {
+    background: var(--bg-primary);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px 28px;
+    text-align: left;
+    transition: border-color var(--transition-speed) ease,
+                background var(--transition-speed) ease,
+                transform var(--transition-speed) ease,
+                box-shadow var(--transition-speed) ease;
+}
+
+.open-to-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.open-to-icon {
+    color: var(--accent);
+    margin-bottom: 16px;
+    transition: color var(--transition-speed) ease;
+}
+
+.open-to-card h3 {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-body);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    transition: color var(--transition-speed) ease;
+}
+
+.open-to-card p {
+    font-size: var(--font-size-small);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    transition: color var(--transition-speed) ease;
+}
+
 .about-learn-more {
     display: inline-block;
     margin-top: 24px;
@@ -1980,6 +2126,54 @@ body.unhinged div.phone-meeting-banner.text-linkedin {
     .inspiration-image {
         height: 160px;
     }
+}
+
+/* Contact page responsive - 1024px */
+@media (max-width: 1024px) {
+    .open-to-gallery-item {
+        height: min(20rem, 45vh);
+        width: 7rem;
+    }
+    .open-to-gallery-item.active {
+        width: 22rem;
+    }
+}
+
+/* Contact page responsive - 768px */
+@media (max-width: 768px) {
+    .open-to-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+
+    .open-to-gallery {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    .open-to-gallery-item {
+        width: 100% !important;
+        height: min(14rem, 30vh);
+        border-radius: 1rem;
+    }
+    .open-to-gallery-item .open-to-gallery-overlay {
+        opacity: 1;
+    }
+    .open-to-gallery-item .open-to-gallery-caption {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Contact page responsive - 480px */
+@media (max-width: 480px) {
+    .contact-hero {
+        padding: calc(var(--nav-height) + 40px) 0 24px;
+    }
+
+    .open-to-card {
+        padding: 24px 20px;
+    }
+
 }
 
 /* ============================================
