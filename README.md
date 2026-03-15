@@ -8,7 +8,7 @@ Personal portfolio website featuring a distinctive **LinkedIn Mode / UNHINGED Mo
 
 - **Dual-mode toggle** — switch between professional LinkedIn Mode and irreverent UNHINGED Mode with a single click; preference persists via localStorage
 - **Multi-page portfolio** — home, about, writings, and detailed project case studies
-- **Project case studies** — in-depth pages for Danfoss, Harley-Davidson, Vapotherm, and Teams Chat
+- **Project case studies** — in-depth pages for Danfoss, Harley-Davidson, MP1T, and Teams Chat
 - **LEVIOSA 2048** — a custom 2048 game (easter egg / side project)
 - **Easter eggs** — Konami code, toggle counter toast, random PM quotes
 - **Responsive design** — mobile-first layout with breakpoints at 480px, 768px, and 1024px
@@ -31,7 +31,7 @@ Personal portfolio website featuring a distinctive **LinkedIn Mode / UNHINGED Mo
 | LEVIOSA 2048 | `game.html` | Custom 2048 game |
 | Project: Danfoss | `projects/danfoss.html` | Danfoss case study |
 | Project: Harley-Davidson | `projects/harley-davidson.html` | Harley-Davidson case study |
-| Project: Vapotherm | `projects/vapotherm.html` | Vapotherm case study |
+| Project: MP1T | `projects/danfoss-mp1.html` | Danfoss MP1T case study |
 | Project: Teams Chat | `projects/teams-chat.html` | Microsoft Teams Chat case study |
 
 ## Local Development
