@@ -847,6 +847,50 @@
       return false;
     }
 
+    // ==================== STATE PERSISTENCE ====================
+    var STORAGE_KEY = 'leviosa-2048-state';
+
+    function saveState() {
+      try {
+        var data = {
+          tiles: state.tiles,
+          score: state.score,
+          moves: state.moves,
+          gameOver: state.gameOver,
+          won: state.won,
+          continueAfterWin: continueAfterWin,
+          nextTileId: nextTileId
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch (e) {
+        // localStorage unavailable or full — silently ignore
+      }
+    }
+
+    function loadState() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return false;
+        var data = JSON.parse(raw);
+        if (!data || !Array.isArray(data.tiles) || data.tiles.length === 0) return false;
+
+        state = {
+          board: buildBoard(data.tiles),
+          tiles: data.tiles,
+          score: data.score || 0,
+          moves: data.moves || 0,
+          gameOver: !!data.gameOver,
+          won: !!data.won
+        };
+        continueAfterWin = !!data.continueAfterWin;
+        nextTileId = data.nextTileId || (data.tiles.length + 1);
+        history = [];
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
     // ==================== GAME ACTIONS ====================
     function makeMove(direction) {
       if (isAnimating) return;
@@ -905,6 +949,7 @@
             won: won || state.won,
           };
           render();
+          saveState();
         }, 100);
       } else {
         // No merges — slide and add new tile immediately
@@ -922,6 +967,7 @@
           won: won || state.won,
         };
         render();
+        saveState();
       }
     }
 
@@ -933,6 +979,7 @@
       tileElements.forEach(el => el.remove());
       tileElements.clear();
       render();
+      saveState();
     }
 
     function resetGame() {
@@ -960,6 +1007,7 @@
         won: false,
       };
       render();
+      saveState();
     }
 
     // ==================== RENDERING ====================
@@ -1185,7 +1233,13 @@
     initGrid();
     initRulesContent();
     updateBoardSize();
-    resetGame();
+
+    // Restore saved game or start fresh
+    if (!loadState()) {
+      resetGame();
+    } else {
+      render();
+    }
   </script>
 </body>
 </html>
