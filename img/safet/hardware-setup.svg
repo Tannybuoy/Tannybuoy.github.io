@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#3E2F20" rx="8"/>
+
+  <!-- Desk surface -->
+  <rect x="0" y="50" width="800" height="450" fill="#5C4033" rx="0"/>
+
+  <!-- White paper/mat -->
+  <rect x="150" y="120" width="350" height="300" fill="#F5F5F0" rx="4" transform="rotate(-2, 325, 270)"/>
+
+  <!-- Breadboard 1 -->
+  <g transform="translate(180, 80)">
+    <rect x="0" y="0" width="140" height="60" rx="3" fill="#E8E8E0" stroke="#CCC" stroke-width="1"/>
+    <g fill="#333">
+      <circle cx="15" cy="15" r="2"/><circle cx="25" cy="15" r="2"/><circle cx="35" cy="15" r="2"/><circle cx="45" cy="15" r="2"/><circle cx="55" cy="15" r="2"/>
+      <circle cx="65" cy="15" r="2"/><circle cx="75" cy="15" r="2"/><circle cx="85" cy="15" r="2"/><circle cx="95" cy="15" r="2"/><circle cx="105" cy="15" r="2"/>
+      <circle cx="15" cy="30" r="2"/><circle cx="25" cy="30" r="2"/><circle cx="35" cy="30" r="2"/><circle cx="45" cy="30" r="2"/><circle cx="55" cy="30" r="2"/>
+      <circle cx="65" cy="30" r="2"/><circle cx="75" cy="30" r="2"/><circle cx="85" cy="30" r="2"/><circle cx="95" cy="30" r="2"/><circle cx="105" cy="30" r="2"/>
+      <circle cx="15" cy="45" r="2"/><circle cx="25" cy="45" r="2"/><circle cx="35" cy="45" r="2"/><circle cx="45" cy="45" r="2"/><circle cx="55" cy="45" r="2"/>
+    </g>
+    <!-- Particle Argon chip -->
+    <rect x="20" y="10" width="50" height="25" rx="2" fill="#1A1A2E"/>
+    <circle cx="30" cy="22" r="3" fill="#48CAE4" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Wires -->
+  <g stroke-width="2" fill="none">
+    <path d="M220,140 Q250,180 280,200 Q310,220 290,260" stroke="#E53E3E"/>
+    <path d="M250,140 Q280,170 320,190 Q350,210 340,250" stroke="#F6AD55"/>
+    <path d="M280,140 Q300,160 350,170 Q380,180 370,220" stroke="#48BB78"/>
+    <path d="M300,130 Q330,150 380,160 Q420,170 400,200" stroke="#4299E1"/>
+    <path d="M240,140 Q260,160 300,180 Q340,200 320,240" stroke="#FFF"/>
+    <path d="M260,140 Q290,170 330,190 Q370,210 360,260" stroke="#333"/>
+  </g>
+
+  <!-- Pendant device (gray) -->
+  <g transform="translate(200, 260)">
+    <rect x="0" y="0" width="80" height="80" rx="12" fill="#8B8B8B" stroke="#666" stroke-width="1"/>
+    <circle cx="25" cy="25" r="5" fill="#48BB78" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="55" cy="25" r="5" fill="#333"/>
+    <!-- String holes -->
+    <circle cx="20" cy="5" r="3" fill="#666"/>
+    <circle cx="60" cy="5" r="3" fill="#666"/>
+  </g>
+
+  <!-- Second device (black) -->
+  <g transform="translate(320, 220)">
+    <rect x="0" y="0" width="70" height="70" rx="10" fill="#1A1A1A" stroke="#333" stroke-width="1"/>
+    <circle cx="35" cy="20" r="4" fill="#E53E3E" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="35" cy="45" r="8" fill="#222" stroke="#444" stroke-width="1"/>
+  </g>
+
+  <!-- Labels on paper -->
+  <text x="220" y="390" fill="#333" font-family="'Caveat', cursive, sans-serif" font-size="14">temperature</text>
+  <text x="220" y="408" fill="#333" font-family="'Caveat', cursive, sans-serif" font-size="14">+ humidity</text>
+  <text x="220" y="426" fill="#333" font-family="'Caveat', cursive, sans-serif" font-size="14">sensor</text>
+
+  <text x="350" y="390" fill="#333" font-family="'Caveat', cursive, sans-serif" font-size="14">pulse rate</text>
+  <text x="350" y="408" fill="#333" font-family="'Caveat', cursive, sans-serif" font-size="14">monitor</text>
+
+  <!-- Sensor modules -->
+  <g transform="translate(310, 300)">
+    <rect x="0" y="0" width="35" height="25" rx="3" fill="#4299E1" stroke="#2B6CB0" stroke-width="1"/>
+    <rect x="5" y="5" width="10" height="10" rx="1" fill="#EBF8FF"/>
+  </g>
+
+  <g transform="translate(370, 305)">
+    <rect x="0" y="0" width="30" height="20" rx="3" fill="#9F7AEA" stroke="#6B46C1" stroke-width="1"/>
+    <circle cx="15" cy="10" r="4" fill="#FAF5FF"/>
+  </g>
+
+  <!-- Laptop (right side) -->
+  <g transform="translate(530, 100)">
+    <!-- Screen -->
+    <rect x="0" y="0" width="230" height="150" rx="6" fill="#E2E8F0" stroke="#A0AEC0" stroke-width="2"/>
+    <rect x="8" y="8" width="214" height="134" rx="2" fill="#1A202C"/>
+    <!-- Console text -->
+    <text x="18" y="30" fill="#48CAE4" font-family="monospace" font-size="8">particle-internet</text>
+    <text x="18" y="45" fill="#48BB78" font-family="monospace" font-size="8">hook-response/touch</text>
+    <text x="18" y="60" fill="#FFF" font-family="monospace" font-size="8">touch002        red</text>
+    <text x="18" y="75" fill="#48BB78" font-family="monospace" font-size="8">hook-sent/touch002</text>
+    <text x="18" y="90" fill="#FFF" font-family="monospace" font-size="8">touch001        green</text>
+    <text x="18" y="105" fill="#48BB78" font-family="monospace" font-size="8">hook-response/touch</text>
+    <text x="18" y="120" fill="#F6AD55" font-family="monospace" font-size="8">particle-detect xavier</text>
+    <text x="18" y="135" fill="#F6AD55" font-family="monospace" font-size="8">particle-detect tanya</text>
+    <!-- Keyboard -->
+    <rect x="0" y="155" width="230" height="90" rx="4" fill="#D4D4D4" stroke="#A0AEC0" stroke-width="1"/>
+    <g fill="#E8E8E8" stroke="#CCC" stroke-width="0.5">
+      <rect x="10" y="165" width="15" height="12" rx="2"/>
+      <rect x="28" y="165" width="15" height="12" rx="2"/>
+      <rect x="46" y="165" width="15" height="12" rx="2"/>
+      <rect x="64" y="165" width="15" height="12" rx="2"/>
+      <rect x="82" y="165" width="15" height="12" rx="2"/>
+      <rect x="100" y="165" width="15" height="12" rx="2"/>
+      <rect x="118" y="165" width="15" height="12" rx="2"/>
+      <rect x="136" y="165" width="15" height="12" rx="2"/>
+      <rect x="154" y="165" width="15" height="12" rx="2"/>
+      <rect x="172" y="165" width="15" height="12" rx="2"/>
+    </g>
+  </g>
+
+  <!-- Caption -->
+  <text x="400" y="480" text-anchor="middle" fill="#D4A76A" font-family="sans-serif" font-size="13" font-weight="500">Hardware prototype with Particle Argon, sensors, and Particle Cloud console</text>
+</svg>

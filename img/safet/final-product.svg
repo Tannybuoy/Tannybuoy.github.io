@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#E0F0FF;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background - outdoor setting -->
+  <rect width="800" height="500" fill="url(#sky)" rx="8"/>
+  <!-- Sun glow -->
+  <circle cx="650" cy="100" r="120" fill="#FFF9DB" opacity="0.3"/>
+
+  <!-- Person 1 (left) -->
+  <g transform="translate(200, 80)">
+    <!-- Body/sweater -->
+    <rect x="-60" y="120" width="180" height="260" rx="20" fill="#F5F5F0"/>
+    <!-- V-neck sweater vest -->
+    <path d="M-20,120 L30,170 L80,120" fill="none" stroke="#1A365D" stroke-width="3"/>
+    <rect x="-40" y="140" width="140" height="200" rx="10" fill="#F5F5F0"/>
+    <!-- Hair -->
+    <path d="M-30,0 Q-40,60 -30,120 Q30,130 90,120 Q100,60 90,0 Q30,-20 -30,0" fill="#5C3D2E"/>
+    <!-- Face -->
+    <ellipse cx="30" cy="50" rx="40" ry="45" fill="#FDBCB4"/>
+    <!-- Cap -->
+    <path d="M-20,15 Q30,-15 80,15 Q80,35 30,40 Q-20,35 -20,15" fill="#1A1A2E"/>
+    <text x="15" y="28" fill="#CCC" font-family="sans-serif" font-size="6" font-weight="600">TARTAN</text>
+    <!-- Necklace string -->
+    <path d="M10,110 Q10,130 15,180" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M50,110 Q50,130 45,180" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- Pendant (gray) -->
+    <rect x="10" y="180" width="40" height="40" rx="8" fill="#8B8B8B" stroke="#666" stroke-width="1"/>
+    <circle cx="22" cy="195" r="3" fill="#48BB78" opacity="0.7">
+      <animate attributeName="opacity" values="0.7;0.3;0.7" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="38" cy="195" r="3" fill="#333"/>
+  </g>
+
+  <!-- Person 2 (right) -->
+  <g transform="translate(470, 80)">
+    <!-- Body/sweater -->
+    <rect x="-60" y="120" width="180" height="260" rx="20" fill="#E8E8E8"/>
+    <rect x="-40" y="140" width="140" height="200" rx="10" fill="#E8E8E8"/>
+    <!-- Hair -->
+    <path d="M-20,30 Q-30,80 -20,120 Q30,130 80,120 Q90,80 80,30 Q30,10 -20,30" fill="#2D1B0E"/>
+    <!-- Face -->
+    <ellipse cx="30" cy="60" rx="38" ry="42" fill="#FDBCB4"/>
+    <!-- Necklace string -->
+    <path d="M10,110 Q10,130 15,185" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M50,110 Q50,130 45,185" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- Pendant (black) -->
+    <rect x="10" y="185" width="40" height="40" rx="8" fill="#1A1A1A" stroke="#333" stroke-width="1"/>
+    <circle cx="30" cy="198" r="3" fill="#E53E3E" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;0.3;0.8" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="30" cy="213" r="5" fill="#222" stroke="#444" stroke-width="0.5"/>
+  </g>
+
+  <!-- "SafeT" label -->
+  <rect x="280" y="420" width="240" height="50" rx="25" fill="rgba(26,26,46,0.8)"/>
+  <text x="400" y="450" text-anchor="middle" fill="#FFF" font-family="sans-serif" font-size="18" font-weight="700" letter-spacing="2">SafeT Pendants</text>
+
+  <!-- Decorative elements -->
+  <text x="400" y="488" text-anchor="middle" fill="#4A5568" font-family="sans-serif" font-size="12">3D-printed wearable safety devices with embedded IoT sensors and voice AI</text>
+</svg>
