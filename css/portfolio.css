@@ -2,22 +2,22 @@
    PM Portfolio - LinkedIn Mode / UNHINGED Mode
    ============================================ */
 
-/* --- CSS Custom Properties (LinkedIn Mode = Default) --- */
+/* --- CSS Custom Properties (using unhinged palette as default) --- */
 :root {
-    --bg-primary: #FFFFFF;
-    --bg-secondary: #F8F9FA;
-    --bg-card: #FFFFFF;
-    --text-primary: #1A1A2E;
-    --text-secondary: #555770;
-    --text-muted: #8E8EA0;
-    --accent: #0077B5;
-    --accent-hover: #005F8F;
-    --accent-light: rgba(0, 119, 181, 0.08);
-    --border: #E5E7EB;
+    --bg-primary: #FAF9F6;
+    --bg-secondary: #F5F0EB;
+    --bg-card: #FFFDF9;
+    --text-primary: #1A1A1A;
+    --text-secondary: #444444;
+    --text-muted: #777777;
+    --accent: #FF4500;
+    --accent-hover: #E03D00;
+    --accent-light: rgba(255, 69, 0, 0.08);
+    --border: #E0D6CC;
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
     --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.1);
-    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-card: 0 3px 12px rgba(0, 0, 0, 0.1);
     --radius-sm: 6px;
     --radius-md: 12px;
     --radius-lg: 20px;
