@@ -9,17 +9,20 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --page-bg: #F2F8FC;        /* very light blue background */
-      --board-bg: #D6EAF6;       /* board container */
-      --cell-bg: #B9D9ED;        /* empty cell color */
+      --page-bg: #FAF9F6;        /* warm cream background */
+      --board-bg: #F0E6D6;       /* board container */
+      --cell-bg: #E0D6CC;        /* empty cell color */
 
-      --accent-blue: #0077B5;    /* primary brand color */
-      --accent-blue-hover: #3399CC;
+      --accent-blue: #FF4500;    /* primary brand color (orange) */
+      --accent-blue-hover: #E03D00;
 
-      --accent-light: #66B7DF;   /* highlight / UI elements */
+      --accent-light: rgba(255, 69, 0, 0.08); /* highlight / UI elements */
+      --accent-gold: #FF4500;    /* used by buttons, headers */
+      --accent-gold-hover: #E03D00;
+      --accent-pink: #777777;    /* used by labels, instructions */
 
-      --text-dark: #0F2A3A;      /* primary text */
-      --text-muted: #5F7F91;     /* secondary text */
+      --text-dark: #1A1A1A;      /* primary text */
+      --text-muted: #777777;     /* secondary text */
       --tile-size: 80px;
       --gap: 12px;
       --tile-step: calc(var(--tile-size) + var(--gap));
@@ -281,7 +284,7 @@
     }
     .action-btn {
       background: var(--accent-gold);
-      color: #0077B5;
+      color: #FFFFFF;
       border: none;
       cursor: pointer;
       display: flex;
@@ -414,7 +417,7 @@
       background: var(--text-muted);
       color: white;
     }
-    .modal-btn-secondary:hover { background: #7A5A7A; }
+    .modal-btn-secondary:hover { background: #555555; }
 
     /* Rules modal */
     .rules-content {
@@ -453,7 +456,7 @@
       line-height: 1;
       transition: all 0.15s;
     }
-    .rules-close:hover { background: #7A5A7A; }
+    .rules-close:hover { background: #555555; }
     .rules-section {
       background: rgba(255,255,255,0.5);
       border-radius: 16px;
@@ -537,7 +540,7 @@
       font-weight: 600;
       transition: all 0.15s;
     }
-    .rules-done-btn:hover { background: #7A5A7A; }
+    .rules-done-btn:hover { background: #555555; }
   </style>
 </head>
 <body>
