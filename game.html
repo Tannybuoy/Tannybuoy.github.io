@@ -651,17 +651,17 @@
   <script>
     // ==================== TILE CONFIG ====================
     const TILE_CONFIG = {
-      2:    { bg: '#E6F3FA', text: '#053047', emoji: '🔍', label: 'Problem' },
-      4:    { bg: '#CCE7F5', text: '#053047', emoji: '🩵', label: 'Empathy' },
-      8:    { bg: '#99CFEA', text: '#053047', emoji: '👤', label: 'User' },
-      16:   { bg: '#66B7DF', text: '#053047', emoji: '💡', label: 'Insight' },
-      32:   { bg: '#339FD4', text: '#FFFFFF', emoji: '📊', label: 'Market' },
-      64:   { bg: '#0077B5', text: '#FFFFFF', emoji: '🧠', label: 'Brainstorm' },
-      128:  { bg: '#00659A', text: '#FFFFFF', emoji: '🔧', label: 'Prototype' },
-      256:  { bg: '#005480', text: '#FFFFFF', emoji: '🧪', label: 'Test' },
-      512:  { bg: '#004266', text: '#FFFFFF', emoji: '📈', label: 'Metric' },
-      1024: { bg: '#00314D', text: '#FFFFFF', emoji: '🌟', label: 'Product' },
-      2048: { bg: '#002033', text: '#FFFFFF', emoji: '🚀', label: 'Launch' },
+      2:    { bg: '#FFF5EB', text: '#4A2800', emoji: '🔍', label: 'Problem' },
+      4:    { bg: '#FFE8D4', text: '#4A2800', emoji: '🩵', label: 'Empathy' },
+      8:    { bg: '#FFD4B0', text: '#4A2800', emoji: '👤', label: 'User' },
+      16:   { bg: '#FFBB80', text: '#4A2800', emoji: '💡', label: 'Insight' },
+      32:   { bg: '#FF9A4D', text: '#FFFFFF', emoji: '📊', label: 'Market' },
+      64:   { bg: '#FF6A1A', text: '#FFFFFF', emoji: '🧠', label: 'Brainstorm' },
+      128:  { bg: '#E04500', text: '#FFFFFF', emoji: '🔧', label: 'Prototype' },
+      256:  { bg: '#C03A00', text: '#FFFFFF', emoji: '🧪', label: 'Test' },
+      512:  { bg: '#9A2E00', text: '#FFFFFF', emoji: '📈', label: 'Metric' },
+      1024: { bg: '#742200', text: '#FFFFFF', emoji: '🌟', label: 'Product' },
+      2048: { bg: '#4A1500', text: '#FFFFFF', emoji: '🚀', label: 'Launch' },
     };
 
     // ==================== CONSTANTS ====================
@@ -1115,17 +1115,17 @@
     function initRulesContent() {
       const grid = document.getElementById('rules-grid');
       const progression = [
-        { value: 2, emoji: '🔍', name: 'Problem', color: '#E6F3FA' },
-        { value: 4, emoji: '🩵', name: 'Empathy', color: '#CCE7F5' },
-        { value: 8, emoji: '👤', name: 'User', color: '#99CFEA' },
-        { value: 16, emoji: '💡', name: 'Insight', color: '#66B7DF' },
-        { value: 32, emoji: '📊', name: 'Market', color: '#339FD4' },
-        { value: 64, emoji: '🧠', name: 'Brainstorm', color: '#0077B5' },
-        { value: 128, emoji: '🔧', name: 'Prototype', color: '#00659A' },
-        { value: 256, emoji: '🧪', name: 'Test', color: '#005480' },
-        { value: 512, emoji: '📈', name: 'Metric', color: '#004266' },
-        { value: 1024, emoji: '🌟', name: 'Product', color: '#00314D' },
-        { value: 2048, emoji: '🚀', name: 'Launch', color: '#002033' },
+        { value: 2, emoji: '🔍', name: 'Problem', color: '#FFF5EB' },
+        { value: 4, emoji: '🩵', name: 'Empathy', color: '#FFE8D4' },
+        { value: 8, emoji: '👤', name: 'User', color: '#FFD4B0' },
+        { value: 16, emoji: '💡', name: 'Insight', color: '#FFBB80' },
+        { value: 32, emoji: '📊', name: 'Market', color: '#FF9A4D' },
+        { value: 64, emoji: '🧠', name: 'Brainstorm', color: '#FF6A1A' },
+        { value: 128, emoji: '🔧', name: 'Prototype', color: '#E04500' },
+        { value: 256, emoji: '🧪', name: 'Test', color: '#C03A00' },
+        { value: 512, emoji: '📈', name: 'Metric', color: '#9A2E00' },
+        { value: 1024, emoji: '🌟', name: 'Product', color: '#742200' },
+        { value: 2048, emoji: '🚀', name: 'Launch', color: '#4A1500' },
       ];
 
       grid.innerHTML = '';
@@ -1134,7 +1134,7 @@
         div.className = 'rules-tile';
         div.style.backgroundColor = tile.color;
         // For darker tiles, force white text for readability
-        if (tile.value >= 128) {
+        if (tile.value >= 32) {
           div.style.color = '#FFFFFF';
         }
         div.innerHTML =
@@ -1147,19 +1147,19 @@
       // Example section
       const example = document.getElementById('rules-example');
       example.innerHTML =
-        '<div class="rules-example-tile" style="background: #E6F3FA;">' +
+        '<div class="rules-example-tile" style="background: #FFF5EB;">' +
           '<div class="tile-emoji">🔍</div>' +
-          '<div class="tile-label" style="color: #053047;">Problem</div>' +
+          '<div class="tile-label" style="color: #4A2800;">Problem</div>' +
         '</div>' +
         '<div class="rules-example-op">+</div>' +
-        '<div class="rules-example-tile" style="background: #E6F3FA;">' +
+        '<div class="rules-example-tile" style="background: #FFF5EB;">' +
           '<div class="tile-emoji">🔍</div>' +
-          '<div class="tile-label" style="color: #053047;">Problem</div>' +
+          '<div class="tile-label" style="color: #4A2800;">Problem</div>' +
         '</div>' +
         '<div class="rules-example-op">=</div>' +
-        '<div class="rules-example-tile" style="background: #CCE7F5;">' +
+        '<div class="rules-example-tile" style="background: #FFE8D4;">' +
           '<div class="tile-emoji">🩵</div>' +
-          '<div class="tile-label" style="color: #053047;">Empathy</div>' +
+          '<div class="tile-label" style="color: #4A2800;">Empathy</div>' +
         '</div>';
     }
 
