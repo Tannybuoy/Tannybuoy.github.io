@@ -21,6 +21,11 @@
 
 <body id="page-top">
 
+    <!-- Toast notification for easter egg -->
+    <div id="toast" class="toast" role="alert" aria-live="polite">
+        Can't decide which version is real? Both are. Welcome to Product Management.
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar" id="mainNav" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
@@ -44,6 +49,16 @@
                 <li><a href="contact.html" class="nav-link active">Contact</a></li>
             </ul>
 
+            <!-- The Toggle -->
+            <div class="mode-toggle-wrapper">
+                <span class="toggle-label toggle-label-linkedin">LinkedIn Version</span>
+                <button class="mode-toggle" id="modeToggle" role="switch" aria-checked="false" aria-label="Toggle between LinkedIn Mode and UNHINGED Mode">
+                    <span class="toggle-track">
+                        <span class="toggle-thumb"></span>
+                    </span>
+                </button>
+                <span class="toggle-label toggle-label-unhinged">Dare To Toggle</span>
+            </div>
         </div>
     </nav>
 

@@ -246,7 +246,8 @@ body.unhinged .navbar {
    ============================================ */
 .mode-toggle-wrapper {
     flex-shrink: 0;
-    display: flex;
+    display: none; /* Toggle hidden for now */
+    /* display: flex; */
     align-items: center;
     gap: 10px;
 }
@@ -2214,6 +2215,7 @@ body.unhinged div.phone-meeting-banner.text-linkedin {
    TOAST NOTIFICATION
    ============================================ */
 .toast {
+    display: none; /* Toast hidden for now */
     position: fixed;
     bottom: 32px;
     left: 50%;
