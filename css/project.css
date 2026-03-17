@@ -174,7 +174,7 @@ a {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.1;
+    opacity: 0.4;
     transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform: scale(1.05);
     z-index: 0;
@@ -197,7 +197,7 @@ a {
 /* Ken Burns zoom on load */
 .project-hero.hero-revealed::before {
     transform: scale(1);
-    opacity: 0.15;
+    opacity: 1;
 }
 
 .project-hero .container {
