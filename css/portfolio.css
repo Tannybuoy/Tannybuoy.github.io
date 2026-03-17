@@ -1370,9 +1370,13 @@ body.unhinged div.phone-meeting-banner.text-linkedin {
     transition: all var(--transition-speed) ease;
 }
 
-.tech-icon svg {
+.tech-icon svg,
+.tech-icon img {
     flex-shrink: 0;
-    color: var(--accent);
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    border-radius: 4px;
 }
 
 .tech-icon:hover {
