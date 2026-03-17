@@ -39,7 +39,7 @@
     </nav>
 
     <!-- Hero -->
-    <header class="project-hero">
+    <header class="project-hero hero-entrance" style="--hero-bg: url('../notion/Untitled%203.png');">
         <div class="container">
             <div class="project-meta">
                 <span class="meta-tag">Product Design</span>
@@ -52,6 +52,7 @@
                 <span class="role-chip">UI Design</span>
                 <span class="role-chip">User Experience Design</span>
             </div>
+            <div class="hero-divider"></div>
         </div>
     </header>
 
@@ -264,6 +265,30 @@
             <p>&copy; 2026 Tanya Gupta. Built with purpose.</p>
         </div>
     </footer>
+
+    <!-- Entrance animation script -->
+    <script>
+    (function() {
+        'use strict';
+        var hero = document.querySelector('.project-hero.hero-entrance');
+        if (!hero) return;
+        var key = 'project-visited-' + location.pathname;
+        var visited = false;
+        try { visited = sessionStorage.getItem(key); } catch(e) {}
+        if (!visited) {
+            try { sessionStorage.setItem(key, '1'); } catch(e) {}
+            requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                    hero.classList.add('hero-animate');
+                    hero.classList.add('hero-revealed');
+                });
+            });
+        } else {
+            hero.classList.remove('hero-entrance');
+            hero.classList.add('hero-revealed');
+        }
+    })();
+    </script>
 
 </body>
 </html>
