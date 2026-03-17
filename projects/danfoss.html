@@ -38,7 +38,7 @@
     </nav>
 
     <!-- Hero -->
-    <header class="project-hero">
+    <header class="project-hero hero-entrance" style="--hero-bg: url('../img/danfoss-showcase.svg');">
         <div class="container">
             <div class="project-meta">
                 <span class="meta-tag">Manufacturing</span>
@@ -51,6 +51,7 @@
                 <span class="role-chip">Data Analysis</span>
                 <span class="role-chip">Product Management</span>
             </div>
+            <div class="hero-divider"></div>
         </div>
     </header>
 
@@ -180,10 +181,6 @@
     <nav class="project-footer-nav" aria-label="Browse other projects">
         <p class="footer-nav-label">Browse Projects</p>
         <div class="footer-nav-grid">
-            <a href="danfoss.html" class="footer-nav-card current">
-                <div class="nav-card-company">Danfoss</div>
-                <div class="nav-card-title">Portfolio Manager &mdash; Medium Power Pumps</div>
-            </a>
             <a href="danfoss-mp1.html" class="footer-nav-card">
                 <div class="nav-card-company">Danfoss</div>
                 <div class="nav-card-title">MP1T Tandem Pump Solution</div>
@@ -206,6 +203,32 @@
             <p>&copy; 2026 Tanya Gupta. Built with purpose.</p>
         </div>
     </footer>
+
+    <!-- Entrance animation script -->
+    <script>
+    (function() {
+        'use strict';
+        var hero = document.querySelector('.project-hero.hero-entrance');
+        if (!hero) return;
+        var key = 'project-visited-' + location.pathname;
+        var visited = false;
+        try { visited = sessionStorage.getItem(key); } catch(e) {}
+        if (!visited) {
+            try { sessionStorage.setItem(key, '1'); } catch(e) {}
+            // Small delay to ensure paint, then trigger animation
+            requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                    hero.classList.add('hero-animate');
+                    hero.classList.add('hero-revealed');
+                });
+            });
+        } else {
+            // Returning visit — show everything immediately
+            hero.classList.remove('hero-entrance');
+            hero.classList.add('hero-revealed');
+        }
+    })();
+    </script>
 
 </body>
 </html>

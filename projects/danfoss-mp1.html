@@ -38,7 +38,7 @@
     </nav>
 
     <!-- Hero -->
-    <header class="project-hero">
+    <header class="project-hero hero-entrance" style="--hero-bg: url('../img/mp1tssl.jpg');">
         <div class="container">
             <div class="project-meta">
                 <span class="meta-tag">Hardware</span>
@@ -52,6 +52,7 @@
                 <span class="role-chip">UI Design</span>
                 <span class="role-chip">Team of 6</span>
             </div>
+            <div class="hero-divider"></div>
         </div>
     </header>
 
@@ -244,10 +245,6 @@ These insights informed several design decisions, including opposite porting for
                 <div class="nav-card-company">Danfoss</div>
                 <div class="nav-card-title">Portfolio Manager &mdash; Medium Power Pumps</div>
             </a>
-            <a href="danfoss-mp1.html" class="footer-nav-card current">
-                <div class="nav-card-company">Danfoss</div>
-                <div class="nav-card-title">MP1T Tandem Pump Solution</div>
-            </a>
             <a href="harley-davidson.html" class="footer-nav-card">
                 <div class="nav-card-company">Harley-Davidson</div>
                 <div class="nav-card-title">Social Commerce Strategy</div>
@@ -266,6 +263,30 @@ These insights informed several design decisions, including opposite porting for
             <p>&copy; 2026 Tanya Gupta. Built with purpose.</p>
         </div>
     </footer>
+
+    <!-- Entrance animation script -->
+    <script>
+    (function() {
+        'use strict';
+        var hero = document.querySelector('.project-hero.hero-entrance');
+        if (!hero) return;
+        var key = 'project-visited-' + location.pathname;
+        var visited = false;
+        try { visited = sessionStorage.getItem(key); } catch(e) {}
+        if (!visited) {
+            try { sessionStorage.setItem(key, '1'); } catch(e) {}
+            requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                    hero.classList.add('hero-animate');
+                    hero.classList.add('hero-revealed');
+                });
+            });
+        } else {
+            hero.classList.remove('hero-entrance');
+            hero.classList.add('hero-revealed');
+        }
+    })();
+    </script>
 
 </body>
 </html>
