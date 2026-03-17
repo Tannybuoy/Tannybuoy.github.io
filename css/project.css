@@ -781,12 +781,6 @@ a {
     transform: translateY(-3px);
 }
 
-.footer-nav-card.current {
-    border-color: var(--accent);
-    background: var(--accent-light);
-    pointer-events: none;
-}
-
 .footer-nav-card .nav-card-company {
     font-size: 0.7rem;
     font-weight: 600;
@@ -801,10 +795,6 @@ a {
     font-weight: 600;
     color: var(--text-primary);
     line-height: 1.4;
-}
-
-.footer-nav-card.current .nav-card-title {
-    color: var(--accent);
 }
 
 /* Back to portfolio link */
