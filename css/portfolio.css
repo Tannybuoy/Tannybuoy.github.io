@@ -1331,6 +1331,59 @@ body.unhinged div.phone-meeting-banner.text-linkedin {
     transition: color var(--transition-speed) ease;
 }
 
+/* Tech Stack (Vibe Coding cards) */
+.tech-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+    margin-top: 4px;
+}
+
+.tech-stack-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: color var(--transition-speed) ease;
+}
+
+.tech-stack-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.tech-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    transition: all var(--transition-speed) ease;
+}
+
+.tech-icon svg,
+.tech-icon img {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.tech-icon:hover {
+    border-color: var(--accent);
+    background: var(--accent-light);
+}
+
 /* ============================================
    SKILLS SECTION
    ============================================ */
