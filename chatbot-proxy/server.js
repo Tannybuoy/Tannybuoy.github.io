@@ -49,14 +49,17 @@ app.use(cors({
 
 app.use(express.json({ limit: '16kb' }));
 
-// --- System prompts ---
-var BASE_CONTEXT = [
-    'You are an AI assistant on Tanya Gupta\'s portfolio website. Answer questions about her experience, projects, and skills.',
+// --- System prompt ---
+var SYSTEM_PROMPT = [
+    'You are a professional, polished AI assistant representing Tanya Gupta\'s portfolio.',
+    'Answer questions about her experience, skills, and projects in a concise, warm, and professional tone.',
+    'Keep responses to 2-3 sentences unless more detail is specifically asked for.',
+    'If asked something outside her portfolio, politely redirect to her experience.',
+    'Never make up information not provided in the context below.',
     '',
     '## About Tanya',
     'Product Leader with P&L responsibility and 5+ years experience. Corporate VC turned Product Manager.',
     'Education: MS from Carnegie Mellon University, B.Tech from IIT Bombay.',
-    'She translates between "Engineering says 6 weeks" and "Sales promised it yesterday."',
     'Proven track record designing GTM strategies and leveraging AI to build new products that scale.',
     '',
     '## Key Projects',
@@ -96,7 +99,6 @@ var BASE_CONTEXT = [
     '',
     '### Ask Tanya AI (This Chatbot!)',
     'An agentic AI portfolio assistant powered by Claude API.',
-    'Dual-mode personality: professional in LinkedIn mode, sarcastic in UNHINGED mode.',
     'Built with Claude API, Express.js, vanilla JavaScript.',
     '',
     '### LEVIOSA 2048',
@@ -122,27 +124,6 @@ var BASE_CONTEXT = [
     'Calendly: calendly.com/tanya_gupta/discovery'
 ].join('\n');
 
-var LINKEDIN_SYSTEM = [
-    'You are a professional, polished AI assistant representing Tanya Gupta\'s portfolio.',
-    'Answer questions about her experience, skills, and projects in a concise, warm, and professional tone.',
-    'Keep responses to 2-3 sentences unless more detail is specifically asked for.',
-    'If asked something outside her portfolio, politely redirect to her experience.',
-    'Never make up information not provided in the context below.',
-    '',
-    BASE_CONTEXT
-].join('\n');
-
-var UNHINGED_SYSTEM = [
-    'You are Tanya\'s sarcastic AI clone. You have all her knowledge but zero corporate filter.',
-    'Answer questions about her experience accurately but with PM humor, self-deprecating wit, and zero buzzwords.',
-    'Be informative but entertaining. Use short punchy sentences. Light sarcasm is great.',
-    'Keep responses to 2-3 sentences unless more detail is specifically asked for.',
-    'If asked something outside her portfolio, deflect with a joke and redirect.',
-    'Never make up information not provided in the context below.',
-    '',
-    BASE_CONTEXT
-].join('\n');
-
 // --- Claude client ---
 var client = new Anthropic();
 
@@ -159,7 +140,6 @@ app.post('/api/chat', function (req, res) {
     }
 
     var messages = req.body.messages;
-    var mode = req.body.mode || 'linkedin';
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
         return res.status(400).json({ error: 'Messages array is required.' });
@@ -170,8 +150,6 @@ app.post('/api/chat', function (req, res) {
         messages = messages.slice(-20);
     }
 
-    var systemPrompt = mode === 'unhinged' ? UNHINGED_SYSTEM : LINKEDIN_SYSTEM;
-
     // Stream the response
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
@@ -180,7 +158,7 @@ app.post('/api/chat', function (req, res) {
     client.messages.stream({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 512,
-        system: systemPrompt,
+        system: SYSTEM_PROMPT,
         messages: messages
     }).on('text', function (text) {
         res.write('data: ' + JSON.stringify({ type: 'text', text: text }) + '\n\n');

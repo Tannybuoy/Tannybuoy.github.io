@@ -1,6 +1,6 @@
 /* ============================================
    Ask Tanya AI — Chat Widget
-   Self-mounting, ES5-compatible, dual-mode
+   Self-mounting, ES5-compatible
    ============================================ */
 
 (function () {
@@ -26,20 +26,10 @@
     } catch (e) { /* ignore */ }
 
     // --- Helpers ---
-    function getMode() {
-        return document.body.classList.contains('unhinged') ? 'unhinged' : 'linkedin';
-    }
-
     function saveSession() {
         try {
             sessionStorage.setItem('chatbot-messages', JSON.stringify(messages));
         } catch (e) { /* ignore */ }
-    }
-
-    function escapeHtml(str) {
-        var div = document.createElement('div');
-        div.appendChild(document.createTextNode(str));
-        return div.innerHTML;
     }
 
     // --- Build DOM ---
@@ -67,7 +57,7 @@
             '  <span class="chatbot-header-dot"></span>',
             '  <div>',
             '    <div class="chatbot-header-title">Ask Tanya AI</div>',
-            '    <div class="chatbot-header-mode" id="chatbotModeLabel">LinkedIn Mode</div>',
+            '    <div class="chatbot-header-mode">Powered by Claude</div>',
             '  </div>',
             '</div>',
             '<div class="chatbot-messages" id="chatbotMessages">',
@@ -108,7 +98,6 @@
     var startersEl = document.getElementById('chatbotStarters');
     var inputEl = document.getElementById('chatbotInput');
     var sendBtn = document.getElementById('chatbotSend');
-    var modeLabelEl = document.getElementById('chatbotModeLabel');
 
     // --- Render Messages ---
     function renderMessages() {
@@ -126,11 +115,7 @@
         if (messages.length === 0) {
             var welcome = document.createElement('div');
             welcome.className = 'chatbot-msg chatbot-msg-bot';
-            if (getMode() === 'unhinged') {
-                welcome.textContent = 'Hey! I\'m Tanya\'s AI clone. Ask me anything about her — I have all her memories but none of her coffee addiction. \u2615';
-            } else {
-                welcome.textContent = 'Hi! I\'m an AI assistant for Tanya\'s portfolio. Ask me about her experience, projects, or PM philosophy.';
-            }
+            welcome.textContent = 'Hi! I\'m an AI assistant for Tanya\'s portfolio. Ask me about her experience, projects, or PM philosophy.';
             messagesEl.insertBefore(welcome, typingEl);
         }
 
@@ -148,16 +133,6 @@
 
     function scrollToBottom() {
         messagesEl.scrollTop = messagesEl.scrollHeight;
-    }
-
-    function appendBotText(text) {
-        // Find the last bot bubble (the one being streamed)
-        var bubbles = messagesEl.querySelectorAll('.chatbot-msg-bot');
-        var lastBubble = bubbles[bubbles.length - 1];
-        if (lastBubble && lastBubble._streaming) {
-            lastBubble.textContent += text;
-            scrollToBottom();
-        }
     }
 
     // --- Send Message ---
@@ -207,10 +182,7 @@
         fetch(CHATBOT_API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                messages: apiMessages,
-                mode: getMode()
-            })
+            body: JSON.stringify({ messages: apiMessages })
         }).then(function (response) {
             if (!response.ok) {
                 throw new Error('API returned ' + response.status);
@@ -271,18 +243,7 @@
             botBubble.style.display = 'none';
             isStreaming = false;
             sendBtn.disabled = false;
-
-            // Remove the failed user message from saved state
-            if (messages.length > 0 && messages[messages.length - 1].role === 'user') {
-                // Keep it visible but show error
-            }
-
-            var errorMode = getMode();
-            if (errorMode === 'unhinged') {
-                showError('Even my AI clone needs a break. The server is probably napping. Try again? \uD83D\uDE34');
-            } else {
-                showError('Sorry, I couldn\'t connect to the server. Please try again in a moment.');
-            }
+            showError('Sorry, I couldn\'t connect to the server. Please try again in a moment.');
         });
     }
 
@@ -306,13 +267,6 @@
             panel.className = 'chatbot-panel';
             btn.className = 'chatbot-btn';
             btn.setAttribute('aria-label', 'Open AI chat assistant');
-        }
-    }
-
-    // --- Update Mode Label ---
-    function updateModeLabel() {
-        if (modeLabelEl) {
-            modeLabelEl.textContent = getMode() === 'unhinged' ? 'UNHINGED Mode' : 'LinkedIn Mode';
         }
     }
 
@@ -350,24 +304,11 @@
         }
     });
 
-    // Watch for mode toggles (MutationObserver on body class)
-    if (typeof MutationObserver !== 'undefined') {
-        var observer = new MutationObserver(function (mutations) {
-            for (var m = 0; m < mutations.length; m++) {
-                if (mutations[m].attributeName === 'class') {
-                    updateModeLabel();
-                }
-            }
-        });
-        observer.observe(document.body, { attributes: true });
-    }
-
     // --- Initial render ---
     if (startersHidden) {
         startersEl.className = 'chatbot-starters is-hidden';
     }
     renderMessages();
-    updateModeLabel();
     sendBtn.disabled = true;
 
 })();

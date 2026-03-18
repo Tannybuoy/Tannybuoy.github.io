@@ -46,16 +46,6 @@
     display: none;
 }
 
-/* UNHINGED mode button pulse */
-body.unhinged .chatbot-btn {
-    animation: chatbot-pulse 2s ease-in-out infinite;
-}
-
-@keyframes chatbot-pulse {
-    0%, 100% { box-shadow: 0 4px 16px rgba(255,69,0,0.3); }
-    50% { box-shadow: 0 4px 24px rgba(255,69,0,0.6); }
-}
-
 /* --- Chat Panel --- */
 .chatbot-panel {
     position: fixed;
@@ -170,11 +160,6 @@ body.unhinged .chatbot-btn {
     background: var(--color-accent, #FF4500);
     color: #fff;
     border-bottom-right-radius: 4px;
-}
-
-/* UNHINGED bubble accent */
-body.unhinged .chatbot-msg-bot {
-    background: #FFF0E6;
 }
 
 /* --- Typing Indicator --- */
