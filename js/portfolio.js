@@ -104,17 +104,49 @@
             })(tileEls[j], j);
         }
 
-        // After all tiles appear, pause, then open curtains
-        var totalAppearTime = delay * tileEls.length + 1000;
-        setTimeout(function () {
-            introOverlay.classList.add('opening');
-        }, totalAppearTime);
+        // After all tiles appear, pause, then type tagline, then open curtains
+        var tilesFinishTime = delay * tileEls.length + 1000;
+        var taglineText = "Let's Build Together";
+        var typeSpeed = 60;
+        var taglineEl = document.getElementById('introTagline');
 
-        // Remove overlay after curtain animation finishes
         setTimeout(function () {
-            body.classList.remove('intro-active');
-            introOverlay.parentNode.removeChild(introOverlay);
-        }, totalAppearTime + 700);
+            if (!taglineEl) {
+                introOverlay.classList.add('opening');
+                setTimeout(function () {
+                    body.classList.remove('intro-active');
+                    introOverlay.parentNode.removeChild(introOverlay);
+                }, 700);
+                return;
+            }
+
+            // Add cursor
+            var cursor = document.createElement('span');
+            cursor.className = 'intro-cursor';
+            taglineEl.appendChild(cursor);
+
+            // Type characters one by one
+            var charIndex = 0;
+            var textNode = document.createTextNode('');
+            taglineEl.insertBefore(textNode, cursor);
+
+            var typeInterval = setInterval(function () {
+                if (charIndex < taglineText.length) {
+                    textNode.nodeValue += taglineText[charIndex];
+                    charIndex++;
+                } else {
+                    clearInterval(typeInterval);
+                    // Pause after typing finishes, then open
+                    setTimeout(function () {
+                        introOverlay.classList.add('opening');
+                    }, 800);
+                    setTimeout(function () {
+                        body.classList.remove('intro-active');
+                        introOverlay.parentNode.removeChild(introOverlay);
+                    }, 800 + 700);
+                }
+            }, typeSpeed);
+        }, tilesFinishTime);
 
         return true;
     }
