@@ -77,7 +77,60 @@
 
             <div class="projects-grid">
 
-                
+                <!-- Vibe Project: Ask Tanya AI Chatbot -->
+                <div class="project-card" style="color: inherit; cursor: pointer;" onclick="document.querySelector('.chatbot-btn') && document.querySelector('.chatbot-btn').click()">
+                    <div class="card-image" style="background: linear-gradient(135deg, #1A1A1A 0%, #FF4500 100%); display: flex; align-items: center; justify-content: center; min-height: 200px;">
+                        <div style="text-align: center; color: #fff; padding: 24px;">
+                            <div style="font-size: 3rem; margin-bottom: 8px;">&#x1F916;</div>
+                            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 600;">Ask Tanya AI</div>
+                            <div style="font-size: 0.8rem; opacity: 0.8; margin-top: 4px;">Click to try it live &darr;</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="project-snapshot">
+                            <div class="project-header">
+                                <span class="card-company">Agentic AI &bull; Portfolio</span>
+                                <h3 class="card-title">
+                                    <span class="text-linkedin">Ask Tanya AI &mdash; Agentic Portfolio Assistant</span>
+                                    <span class="text-unhinged">My AI Clone Answers So I Don't Have To</span>
+                                </h3>
+                            </div>
+                            <div class="project-outcome">
+                                <span class="outcome-label">Impact</span>
+                                <div class="card-metric">
+                                    <span class="metric-number">Real-time</span>
+                                    <span class="metric-label text-linkedin">Claude-powered conversations about my experience</span>
+                                    <span class="metric-label text-unhinged">An AI that knows my resume better than I do</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-summary">
+                            <p class="card-description text-linkedin">
+                                An agentic AI assistant embedded in my portfolio. Answers hiring managers' questions about my experience, projects, and PM philosophy in real-time using Claude&rsquo;s API with streaming responses. Features dual-mode personality that switches with the site&rsquo;s LinkedIn/UNHINGED toggle.
+                            </p>
+                            <p class="card-description text-unhinged">
+                                I trained an AI on my entire career so it can answer recruiter questions while I sleep. It has two personalities: "polished PM" and "unfiltered PM at 2am." The UNHINGED version is more honest. Click the chat bubble to interrogate it.
+                            </p>
+                            <div class="tech-stack">
+                                <span class="tech-stack-label">Built with</span>
+                                <div class="tech-stack-icons">
+                                    <span class="tech-icon" title="Claude API">
+                                        <img src="img/icons/claude.png" alt="Claude" width="20" height="20">
+                                        <span>Claude API</span>
+                                    </span>
+                                    <span class="tech-icon" title="Render">
+                                        <img src="img/icons/render icon.png" alt="Render" width="20" height="20">
+                                        <span>Render</span>
+                                    </span>
+                                    <span class="tech-icon" title="Vanilla JS">
+                                        <img src="img/icons/vs-code-icon.png" alt="VS Code" width="20" height="20">
+                                        <span>Vanilla JS</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Vibe Project 2: Portfolio Website -->
                 <a href="https://pminterview-1.onrender.com/" class="project-card" style="color: inherit;">
@@ -266,6 +319,10 @@
 
     <!-- JavaScript -->
     <script src="js/portfolio.js"></script>
+
+    <!-- Ask Tanya AI Chatbot -->
+    <link rel="stylesheet" href="css/chatbot.css">
+    <script src="js/chatbot.js"></script>
 
 </body>
 </html>
