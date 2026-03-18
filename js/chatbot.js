@@ -8,7 +8,7 @@
 
     // --- Configuration ---
     // IMPORTANT: Update this URL after deploying chatbot-proxy to Render
-    var CHATBOT_API_URL = 'https://ask-tanya-ai.onrender.com/api/chat';
+    var CHATBOT_API_URL = 'https://tannybuoy-github-io.onrender.com/';
 
     // --- State ---
     var isOpen = false;
