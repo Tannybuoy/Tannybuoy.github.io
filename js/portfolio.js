@@ -42,8 +42,86 @@
     ];
     var konamiIndex = 0;
 
+    // --- Intro Animation (once per session) ---
+    var introTileData = [
+        { emoji: '🔍', label: 'Problem',   bg: '#FFF5EB', color: '#4A2800' },
+        { emoji: '🩵', label: 'Empathy',   bg: '#FFE8D4', color: '#4A2800' },
+        { emoji: '👤', label: 'User',      bg: '#FFD4B0', color: '#4A2800' },
+        { emoji: '💡', label: 'Insight',   bg: '#FFBB80', color: '#4A2800' },
+        { emoji: '📊', label: 'Market',    bg: '#FF9A4D', color: '#FFFFFF' },
+        { emoji: '🧠', label: 'Brainstorm',bg: '#FF6A1A', color: '#FFFFFF' },
+        { emoji: '🔧', label: 'Prototype', bg: '#E04500', color: '#FFFFFF' },
+        { emoji: '🧪', label: 'Test',      bg: '#C03A00', color: '#FFFFFF' },
+        { emoji: '📈', label: 'Metric',    bg: '#9A2E00', color: '#FFFFFF' },
+        { emoji: '🌟', label: 'Product',   bg: '#742200', color: '#FFFFFF' },
+        { emoji: '🚀', label: 'Launch',    bg: '#4A1500', color: '#FFFFFF' }
+    ];
+
+    function runIntroAnimation() {
+        var introOverlay = document.getElementById('introOverlay');
+        var introTiles = document.getElementById('introTiles');
+        if (!introOverlay || !introTiles) return false;
+
+        var shouldShow = false;
+        try {
+            shouldShow = !sessionStorage.getItem('intro-shown');
+        } catch (e) {
+            return false;
+        }
+
+        if (!shouldShow) {
+            introOverlay.parentNode.removeChild(introOverlay);
+            return false;
+        }
+
+        // Mark as shown
+        try { sessionStorage.setItem('intro-shown', '1'); } catch (e) {}
+
+        // Lock scrolling
+        body.classList.add('intro-active');
+
+        // Create tile elements
+        var tileEls = [];
+        for (var i = 0; i < introTileData.length; i++) {
+            var data = introTileData[i];
+            var tile = document.createElement('div');
+            tile.className = 'intro-tile';
+            tile.style.backgroundColor = data.bg;
+            tile.style.color = data.color;
+            tile.innerHTML = '<div class="intro-tile-emoji">' + data.emoji + '</div>' +
+                             '<div class="intro-tile-label">' + data.label + '</div>';
+            introTiles.appendChild(tile);
+            tileEls.push(tile);
+        }
+
+        // Stagger tile appearances
+        var delay = 120;
+        for (var j = 0; j < tileEls.length; j++) {
+            (function (el, index) {
+                setTimeout(function () {
+                    el.classList.add('visible');
+                }, delay * index);
+            })(tileEls[j], j);
+        }
+
+        // After all tiles appear, pause, then open curtains
+        var totalAppearTime = delay * tileEls.length + 1000;
+        setTimeout(function () {
+            introOverlay.classList.add('opening');
+        }, totalAppearTime);
+
+        // Remove overlay after curtain animation finishes
+        setTimeout(function () {
+            body.classList.remove('intro-active');
+            introOverlay.parentNode.removeChild(introOverlay);
+        }, totalAppearTime + 700);
+
+        return true;
+    }
+
     // --- Initialize ---
     function init() {
+        runIntroAnimation();
         loadSavedMode();
         setupToggle();
         setupHamburger();
