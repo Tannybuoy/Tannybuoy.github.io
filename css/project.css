@@ -71,7 +71,7 @@ a {
 }
 
 .container {
-    max-width: 900px;
+    max-width: 1140px;
     margin: 0 auto;
     padding: 0 24px;
 }
@@ -830,8 +830,8 @@ a {
    ============================================ */
 @media (max-width: 768px) {
     :root {
-        --spacing-section: 56px;
-        --nav-height: 56px;
+        --spacing-section: 70px;
+        --nav-height: 64px;
     }
 
     .nav-projects {
@@ -885,6 +885,10 @@ a {
 }
 
 @media (max-width: 480px) {
+    :root {
+        --spacing-section: 56px;
+    }
+
     .container {
         padding: 0 16px;
     }
