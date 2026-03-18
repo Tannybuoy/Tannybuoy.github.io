@@ -1,0 +1,7 @@
+# Environment variables
+.env
+.env.*
+chatbot-proxy/.env
+
+# Node
+chatbot-proxy/node_modules/
