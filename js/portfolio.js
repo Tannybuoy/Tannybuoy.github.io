@@ -105,7 +105,7 @@
         }
 
         // After all tiles appear, pause, then open curtains
-        var totalAppearTime = delay * tileEls.length + 400;
+        var totalAppearTime = delay * tileEls.length + 1000;
         setTimeout(function () {
             introOverlay.classList.add('opening');
         }, totalAppearTime);
