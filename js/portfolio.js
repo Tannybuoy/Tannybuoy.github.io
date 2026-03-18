@@ -139,11 +139,11 @@
                     // Pause after typing finishes, then open
                     setTimeout(function () {
                         introOverlay.classList.add('opening');
-                    }, 800);
+                    }, 1000);
                     setTimeout(function () {
                         body.classList.remove('intro-active');
                         introOverlay.parentNode.removeChild(introOverlay);
-                    }, 800 + 700);
+                    }, 1000 + 700);
                 }
             }, typeSpeed);
         }, tilesFinishTime);
