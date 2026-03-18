@@ -2334,6 +2334,7 @@ body.unhinged div.phone-meeting-banner.text-linkedin {
 
 .reveal.visible .project-card:nth-child(1) { transform: rotate(-0.5deg); }
 .reveal.visible .project-card:nth-child(2) { transform: rotate(0.3deg); }
+.reveal.visible .project-card:hover { transform: rotate(0deg) translateY(-2px); }
 
 /* ============================================
    RESPONSIVE DESIGN
