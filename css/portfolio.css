@@ -2654,11 +2654,10 @@ body.intro-active .intro-overlay {
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
     gap: 8px;
-    max-width: 520px;
     z-index: 1;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
@@ -2723,36 +2722,51 @@ body.intro-active .intro-overlay {
     transform: translateY(100%);
 }
 
-/* Responsive: smaller tiles on mobile */
+/* Responsive: shrink tiles so all 11 fit in one row */
 @media (max-width: 480px) {
     .intro-tiles {
-        max-width: 300px;
-        gap: 6px;
+        gap: 4px;
     }
 
     .intro-tile {
-        width: 48px;
-        height: 48px;
-        border-radius: 8px;
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
     }
 
     .intro-tile-emoji {
-        font-size: 1.1rem;
+        font-size: 0.75rem;
     }
 
     .intro-tile-label {
-        font-size: 0.5rem;
+        display: none;
     }
 }
 
 @media (max-width: 768px) and (min-width: 481px) {
     .intro-tiles {
-        max-width: 400px;
+        gap: 6px;
     }
 
     .intro-tile {
-        width: 56px;
-        height: 56px;
+        width: 42px;
+        height: 42px;
+        border-radius: 8px;
+    }
+
+    .intro-tile-emoji {
+        font-size: 1rem;
+    }
+
+    .intro-tile-label {
+        font-size: 0.45rem;
+    }
+}
+
+@media (max-width: 900px) and (min-width: 769px) {
+    .intro-tile {
+        width: 52px;
+        height: 52px;
     }
 
     .intro-tile-emoji {
@@ -2760,7 +2774,7 @@ body.intro-active .intro-overlay {
     }
 
     .intro-tile-label {
-        font-size: 0.55rem;
+        font-size: 0.5rem;
     }
 }
 
