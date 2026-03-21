@@ -1745,7 +1745,7 @@ body.unhinged div.phone-meeting-banner.text-linkedin {
     transition: width 0.4s ease-in-out, border-color 0.3s ease;
     flex-shrink: 0;
     width: 10rem;
-    border: 3px solid transparent;
+    border: 1px solid var(--border);
 }
 
 .open-to-gallery-item:hover,
