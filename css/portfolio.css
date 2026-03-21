@@ -1408,9 +1408,9 @@ body.unhinged div.phone-meeting-banner.text-linkedin {
 
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
@@ -1464,6 +1464,13 @@ body.unhinged div.phone-meeting-banner.text-linkedin {
     color: var(--text-primary);
     line-height: 1.4;
     transition: color var(--transition-speed) ease;
+}
+
+.skill-subtext {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    line-height: 1.3;
 }
 
 /* ============================================
