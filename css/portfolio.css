@@ -1451,6 +1451,13 @@ body.unhinged div.phone-meeting-banner.text-linkedin {
     transition: all var(--transition-speed) ease;
 }
 
+.skill-icon img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
 .skill-name {
     font-size: var(--font-size-small);
     font-weight: 600;
