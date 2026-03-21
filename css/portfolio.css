@@ -1341,6 +1341,20 @@ body.unhinged div.phone-meeting-banner.text-linkedin {
     margin-top: 4px;
 }
 
+.demo-link {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: opacity var(--transition-speed) ease;
+}
+
+.demo-link:hover {
+    opacity: 0.75;
+}
+
 .tech-stack-label {
     font-size: 0.75rem;
     color: var(--text-muted);
