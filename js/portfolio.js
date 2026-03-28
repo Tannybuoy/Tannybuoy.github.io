@@ -49,7 +49,7 @@
         { emoji: '👤', label: 'User',      bg: '#FFD4B0', color: '#4A2800' },
         { emoji: '💡', label: 'Insight',   bg: '#FFBB80', color: '#4A2800' },
         { emoji: '📊', label: 'Market',    bg: '#FF9A4D', color: '#FFFFFF' },
-        { emoji: '🧠', label: 'Brainstorm',bg: '#FF6A1A', color: '#FFFFFF' },
+        { emoji: '🧠', label: 'Ideate',    bg: '#FF6A1A', color: '#FFFFFF' },
         { emoji: '🔧', label: 'Prototype', bg: '#E04500', color: '#FFFFFF' },
         { emoji: '🧪', label: 'Test',      bg: '#C03A00', color: '#FFFFFF' },
         { emoji: '📈', label: 'Metric',    bg: '#9A2E00', color: '#FFFFFF' },
