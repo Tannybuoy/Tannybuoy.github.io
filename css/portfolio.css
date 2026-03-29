@@ -254,21 +254,26 @@ body.unhinged .navbar {
 
 .toggle-label-linkedin,
 .toggle-label-unhinged {
-    font-family: var(--font-primary);
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-size: 13px;
     font-weight: 600;
-    transition: color var(--transition-speed) ease, opacity var(--transition-speed) ease;
+    transition: color var(--transition-speed) ease, opacity var(--transition-speed) ease, transform var(--transition-speed) ease;
     user-select: none;
+    display: inline-block;
 }
 
 .toggle-label-linkedin {
     color: #0077B5;
     opacity: 1;
+    transform: rotate(-2deg);
+    letter-spacing: 0.5px;
 }
 
 .toggle-label-unhinged {
     color: #FF4500;
     opacity: 0.4;
+    transform: rotate(2deg);
+    letter-spacing: 0.5px;
 }
 
 body.unhinged .toggle-label-linkedin {
